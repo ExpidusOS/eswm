@@ -393,8 +393,8 @@ msgstr "Rapid-taste"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Ne successat inicialisar xfconf. Cause: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Ne successat inicialisar esconf. Cause: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

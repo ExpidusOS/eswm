@@ -394,8 +394,8 @@ msgstr "Спалучэнне клавіш"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Не атрымалася ініцыялізаваць xfconf. Прычына: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Не атрымалася ініцыялізаваць esconf. Прычына: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

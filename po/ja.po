@@ -395,8 +395,8 @@ msgstr "ショートカットキー"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "xfconf の初期化に失敗しました。理由: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "esconf の初期化に失敗しました。理由: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

@@ -396,8 +396,8 @@ msgstr "Laster-tekla"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Huts xfconf abiaraztean. Arrazoia: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Huts esconf abiaraztean. Arrazoia: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

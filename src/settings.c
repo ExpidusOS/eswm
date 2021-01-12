@@ -32,7 +32,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
-#include <xfconf/xfconf.h>
+#include <esconf/esconf.h>
 #include <libxfce4kbd-private/xfce-shortcuts-provider.h>
 
 #include "screen.h"
@@ -224,7 +224,7 @@ loadXfconfData (ScreenInfo *screen_info, Settings *rc)
     for (i = XPM_COLOR_SYMBOL_SIZE; rc[i].option; ++i)
     {
         gchar *property_name = g_strconcat("/general/", rc[i].option, NULL);
-        if(xfconf_channel_has_property(screen_info->eswm1_channel, property_name))
+        if(esconf_channel_has_property(screen_info->eswm1_channel, property_name))
         {
             if(rc[i].value)
             {
@@ -233,7 +233,7 @@ loadXfconfData (ScreenInfo *screen_info, Settings *rc)
             }
             rc[i].value = g_new0 (GValue, 1);
 
-            if(!xfconf_channel_get_property(screen_info->eswm1_channel, property_name, rc[i].value))
+            if(!esconf_channel_get_property(screen_info->eswm1_channel, property_name, rc[i].value))
             {
                g_warning("get prop failed");
             }
@@ -241,7 +241,7 @@ loadXfconfData (ScreenInfo *screen_info, Settings *rc)
         else
         {
             if (rc[i].value)
-                xfconf_channel_set_property(screen_info->eswm1_channel, property_name, rc[i].value);
+                esconf_channel_set_property(screen_info->eswm1_channel, property_name, rc[i].value);
         }
         g_free(property_name);
     }
@@ -1054,7 +1054,7 @@ initSettings (ScreenInfo *screen_info)
 
     TRACE ("entering");
 
-    if (!xfconf_init (NULL))
+    if (!esconf_init (NULL))
     {
         g_critical ("Xfconf could not be initialized");
         return FALSE;
@@ -1065,7 +1065,7 @@ initSettings (ScreenInfo *screen_info)
     val = 0;
     i = 0;
 
-    screen_info->eswm1_channel = xfconf_channel_new(CHANNEL_ESWM);
+    screen_info->eswm1_channel = esconf_channel_new(CHANNEL_ESWM);
     g_signal_connect (screen_info->eswm1_channel, "property-changed",
                       G_CALLBACK (cb_eswm1_channel_property_changed), screen_info);
 
@@ -1156,7 +1156,7 @@ cb_eswm1_channel_property_changed(XfconfChannel *channel, const gchar *property_
                 else if ((!strcmp (name, "title_shadow_active"))
                       || (!strcmp (name, "title_shadow_inactive")))
                 {
-                    /* These properties are not configurable via xfconf */
+                    /* These properties are not configurable via esconf */
                 }
                 else if (!strcmp (name, "vblank_mode"))
                 {
@@ -1251,7 +1251,7 @@ cb_eswm1_channel_property_changed(XfconfChannel *channel, const gchar *property_
                       || (!strcmp (name, "title_vertical_offset_active"))
                       || (!strcmp (name, "title_vertical_offset_inactive")))
                 {
-                    /* These properties are not configurable via xfconf */
+                    /* These properties are not configurable via esconf */
                 }
                 else
                 {
@@ -1433,7 +1433,7 @@ cb_eswm1_channel_property_changed(XfconfChannel *channel, const gchar *property_
                 else if ((!strcmp (name, "full_width_title"))
                       || (!strcmp (name, "show_app_icon")))
                 {
-                    /* These properties are not configurable via xfconf */
+                    /* These properties are not configurable via esconf */
                 }
                 else
                 {
@@ -1443,7 +1443,7 @@ cb_eswm1_channel_property_changed(XfconfChannel *channel, const gchar *property_
             default:
                 if (!strcmp (name, "workspace_names"))
                 {
-                    /* These properties are not configurable via xfconf */
+                    /* These properties are not configurable via esconf */
                 }
                 else
                 {

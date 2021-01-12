@@ -395,7 +395,7 @@ msgstr "Kiirklahv"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
+msgid "Failed to initialize esconf. Reason: %s"
 msgstr "Xfconf'i initsialiseerimine ebaõnnestus. Põhjus: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911

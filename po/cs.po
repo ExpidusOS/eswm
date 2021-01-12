@@ -398,8 +398,8 @@ msgstr "Klávesová zkratka"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Inicializace aplikace xfconf se nezdařila. Důvod: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Inicializace aplikace esconf se nezdařila. Důvod: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

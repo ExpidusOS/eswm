@@ -403,8 +403,8 @@ msgstr "Skrót"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Nie udało się zainicjować programu xfconf. Przyczyna: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Nie udało się zainicjować programu esconf. Przyczyna: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

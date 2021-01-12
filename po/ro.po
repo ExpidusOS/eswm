@@ -389,8 +389,8 @@ msgstr "Combinație de taste"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Nu s-a putut inițializa xfconf. Motiv: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Nu s-a putut inițializa esconf. Motiv: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:914
 msgid "Could not create the settings dialog."

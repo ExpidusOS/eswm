@@ -216,7 +216,7 @@ cleanUp (void)
     myDisplayClose (display_info);
     g_free (display_info);
 
-    xfconf_shutdown();
+    esconf_shutdown();
 }
 
 static void
@@ -258,7 +258,7 @@ ensure_basedir_spec (void)
     {
         FILE *r, *w;
 
-        g_strlcpy (path, "xfce4/eswm1/eswm1rc", PATH_MAX);
+        g_strlcpy (path, "expidus-shell1/eswm1/eswm1rc", PATH_MAX);
         new = xfce_resource_save_location (XFCE_RESOURCE_CONFIG, path, FALSE);
 
         r = fopen (old, "r");

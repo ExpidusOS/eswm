@@ -389,7 +389,7 @@ msgstr "Жарлық"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
+msgid "Failed to initialize esconf. Reason: %s"
 msgstr "Xfconf іске қосу қатесі. Себебі: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:914

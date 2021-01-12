@@ -390,8 +390,8 @@ msgstr "მალსახმობი"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "xfconf-ის ინიციალიზაცია ვერ განხორციელდა. მიზეზი: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "esconf-ის ინიციალიზაცია ვერ განხორციელდა. მიზეზი: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:914
 msgid "Could not create the settings dialog."

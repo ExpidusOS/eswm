@@ -402,8 +402,8 @@ msgstr "Συντόμευση"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Αποτυχία αρχικοποίησης του xfconf. Αίτιο: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Αποτυχία αρχικοποίησης του esconf. Αίτιο: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

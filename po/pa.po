@@ -405,7 +405,7 @@ msgstr "ਕੋਈ ਸ਼ਾਰਟਕੱਟ ਨਹੀਂ"
 
 #: ../settings-dialogs/eswm1-settings.c:936
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
+msgid "Failed to initialize esconf. Reason: %s"
 msgstr ""
 
 #: ../settings-dialogs/eswm1-settings.c:947

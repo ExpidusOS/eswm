@@ -1,7 +1,7 @@
 appiconsdir = $(datadir)/icons/hicolor/scalable/apps
 appicons_DATA =								\
 	com.expidus.eswm1-tweaks.svg							\
-	org.xfce.workspaces.svg						\
+	com.expidus.workspaces.svg						\
 	com.expidus.eswm1.svg							\
 	eswm1-default.svg
 

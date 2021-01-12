@@ -409,8 +409,8 @@ msgstr "Комбинация"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Не удалось инициализировать xfconf. Причина: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Не удалось инициализировать esconf. Причина: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

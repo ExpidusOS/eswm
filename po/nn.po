@@ -389,8 +389,8 @@ msgstr "Snarveg"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Greidde ikkje starta xfconf. Grunngjeving: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Greidde ikkje starta esconf. Grunngjeving: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:914
 msgid "Could not create the settings dialog."

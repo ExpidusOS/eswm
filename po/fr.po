@@ -404,8 +404,8 @@ msgstr "Raccourci"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Impossible d’initialiser xfconf. Raison : %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Impossible d’initialiser esconf. Raison : %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

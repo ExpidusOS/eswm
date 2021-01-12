@@ -391,8 +391,8 @@ msgstr "바로 가기"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "xfconf 초기화에 실패했습니다. 원인: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "esconf 초기화에 실패했습니다. 원인: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:914
 msgid "Could not create the settings dialog."

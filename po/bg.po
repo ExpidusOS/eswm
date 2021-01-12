@@ -393,8 +393,8 @@ msgstr "Съчетание от клавиши"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Не може да бъде инициализирана xfconf. Причина: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Не може да бъде инициализирана esconf. Причина: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:914
 msgid "Could not create the settings dialog."

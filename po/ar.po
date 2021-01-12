@@ -399,8 +399,8 @@ msgstr "إختصار"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "فشل بدء xfconf. السبب: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "فشل بدء esconf. السبب: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:914
 msgid "Could not create the settings dialog."

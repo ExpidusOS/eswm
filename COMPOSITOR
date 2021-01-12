@@ -138,21 +138,21 @@ line options:
   $ eswm1 --replace --vblank=xpresent &
   $ eswm1 --replace --vblank=off &
 
-Or the "/general/vblank_mode" xfconf setting.
+Or the "/general/vblank_mode" esconf setting.
 
 Use "auto" to let eswm1 decide (default):
 
- $ xfconf-query -c eswm1 -p /general/vblank_mode -s auto
+ $ esconf-query -c eswm1 -p /general/vblank_mode -s auto
 
 Use "glx" to set GLX as vblank method (if enabled at build time):
 
-  $ xfconf-query -c eswm1 -p /general/vblank_mode -s glx
+  $ esconf-query -c eswm1 -p /general/vblank_mode -s glx
 
 Use "xpresent" to set GLX as vblank method (if enabled at build time):
 
-  $ xfconf-query -c eswm1 -p /general/vblank_mode -s xpresent
+  $ esconf-query -c eswm1 -p /general/vblank_mode -s xpresent
 
 Use "off" to disable vblank altogether:
 
-  $ xfconf-query -c eswm1 -p /general/vblank_mode -s off
+  $ esconf-query -c eswm1 -p /general/vblank_mode -s off
 

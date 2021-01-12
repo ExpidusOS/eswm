@@ -41,7 +41,7 @@
 #include <gtk/gtkx.h>
 
 #include <libxfce4ui/libxfce4ui.h>
-#include <xfconf/xfconf.h>
+#include <esconf/esconf.h>
 
 #include <common/eswm-common.h>
 
@@ -77,7 +77,7 @@ cb_easy_click_combo_box_changed (GtkComboBox *combo, XfconfChannel *channel)
     {
         if (gtk_combo_box_get_active (combo) == n)
         {
-            xfconf_channel_set_string (channel, "/general/easy_click", _(modifier_list[n]));
+            esconf_channel_set_string (channel, "/general/easy_click", _(modifier_list[n]));
         }
         n++;
     }
@@ -100,7 +100,7 @@ cb_activate_action_bring_radio_toggled (GtkToggleButton *toggle, XfconfChannel *
 {
     if (gtk_toggle_button_get_active (toggle))
     {
-        xfconf_channel_set_string (channel, "/general/activate_action", "bring");
+        esconf_channel_set_string (channel, "/general/activate_action", "bring");
     }
 }
 
@@ -109,7 +109,7 @@ cb_activate_action_switch_radio_toggled (GtkToggleButton *toggle, XfconfChannel 
 {
     if (gtk_toggle_button_get_active (toggle))
     {
-        xfconf_channel_set_string (channel, "/general/activate_action", "switch");
+        esconf_channel_set_string (channel, "/general/activate_action", "switch");
     }
 }
 
@@ -118,7 +118,7 @@ cb_activate_action_none_radio_toggled (GtkToggleButton *toggle, XfconfChannel *c
 {
     if (gtk_toggle_button_get_active (toggle))
     {
-        xfconf_channel_set_string (channel, "/general/activate_action", "none");
+        esconf_channel_set_string (channel, "/general/activate_action", "none");
     }
 }
 
@@ -127,7 +127,7 @@ cb_activate_placement_center_radio_toggled (GtkToggleButton *toggle, XfconfChann
 {
     if (gtk_toggle_button_get_active (toggle))
     {
-        xfconf_channel_set_string (channel, "/general/placement_mode", "center");
+        esconf_channel_set_string (channel, "/general/placement_mode", "center");
     }
 }
 
@@ -136,7 +136,7 @@ cb_activate_placement_mouse_radio_toggled (GtkToggleButton *toggle, XfconfChanne
 {
     if (gtk_toggle_button_get_active (toggle))
     {
-        xfconf_channel_set_string (channel, "/general/placement_mode", "mouse");
+        esconf_channel_set_string (channel, "/general/placement_mode", "mouse");
     }
 }
 
@@ -161,7 +161,7 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
     GtkTreeIter iter;
     GtkListStore *list_store;
     GtkCellRenderer *renderer;
-    XfconfChannel *eswm1_channel = xfconf_channel_new ("eswm1");
+    XfconfChannel *eswm1_channel = esconf_channel_new ("eswm1");
     gchar *easy_click = NULL;
     gchar *activate_action = NULL;
     gchar *default_placement = NULL;
@@ -229,7 +229,7 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
     /* Fill combo-box */
     list_store = gtk_list_store_new (1, G_TYPE_STRING);
 
-    easy_click = xfconf_channel_get_string (eswm1_channel, "/general/easy_click", "Alt");
+    easy_click = esconf_channel_get_string (eswm1_channel, "/general/easy_click", "Alt");
     gtk_cell_layout_clear (GTK_CELL_LAYOUT (easy_click_combo_box));
     renderer = gtk_cell_renderer_text_new ();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (easy_click_combo_box), renderer, TRUE);
@@ -249,7 +249,7 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
     if (!modifier_set)
         gtk_combo_box_set_active (GTK_COMBO_BOX (easy_click_combo_box), 0);
 
-    activate_action = xfconf_channel_get_string (eswm1_channel, "/general/activate_action", "bring");
+    activate_action = esconf_channel_get_string (eswm1_channel, "/general/activate_action", "bring");
     if (!strcmp (activate_action, "switch"))
     {
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (activate_action_bring_option), FALSE);
@@ -258,7 +258,7 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
     if (!strcmp (activate_action, "none"))
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (activate_action_none_option), TRUE);
 
-    default_placement = xfconf_channel_get_string (eswm1_channel, "/general/placement_mode", "center");
+    default_placement = esconf_channel_get_string (eswm1_channel, "/general/placement_mode", "center");
     if (!strcmp (default_placement, "mouse"))
     {
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (placement_center_option), FALSE);
@@ -305,75 +305,75 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
 
     /* Bind easy properties */
     /* Cycling tab */
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/cycle_minimum",
                             G_TYPE_BOOLEAN,
                             (GObject *)cycle_minimum_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/cycle_minimized",
                             G_TYPE_BOOLEAN,
                             (GObject *)cycle_minimized_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/cycle_hidden",
                             G_TYPE_BOOLEAN,
                             (GObject *)cycle_hidden_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/cycle_workspaces",
                             G_TYPE_BOOLEAN,
                             (GObject *)cycle_workspaces_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/cycle_draw_frame",
                             G_TYPE_BOOLEAN,
                             (GObject *)cycle_draw_frame, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/cycle_raise",
                             G_TYPE_BOOLEAN,
                             (GObject *)cycle_raise, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/cycle_tabwin_mode",
                             G_TYPE_INT,
                             (GObject *)cycle_tabwin_mode, "active");
 
     /* Focus tab */
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/prevent_focus_stealing",
                             G_TYPE_BOOLEAN,
                             (GObject *)prevent_focus_stealing_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/focus_hint",
                             G_TYPE_BOOLEAN,
                             (GObject *)focus_hint_check, "active");
 
     /* Accessibility tab */
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/raise_with_any_button",
                             G_TYPE_BOOLEAN,
                             (GObject *)raise_with_any_button_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/borderless_maximize",
                             G_TYPE_BOOLEAN,
                             (GObject *)borderless_maximize_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/titleless_maximize",
                             G_TYPE_BOOLEAN,
                             (GObject *)titleless_maximize_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/tile_on_move",
                             G_TYPE_BOOLEAN,
                             (GObject *)tile_on_move_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/snap_resist",
                             G_TYPE_BOOLEAN,
                             (GObject *)snap_resist_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/urgent_blink",
                             G_TYPE_BOOLEAN,
                             (GObject *)urgent_blink, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/repeat_urgent_blink",
                             G_TYPE_BOOLEAN,
                             (GObject *)repeat_urgent_blink, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/mousewheel_rollup",
                             G_TYPE_BOOLEAN,
                             (GObject *)mousewheel_rollup, "active");
@@ -383,79 +383,79 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
                               gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (borderless_maximize_check)));
 
     /* Workspaces tab */
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/toggle_workspaces",
                             G_TYPE_BOOLEAN,
                             (GObject *)toggle_workspaces_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/scroll_workspaces",
                             G_TYPE_BOOLEAN,
                             (GObject *)scroll_workspaces_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/wrap_layout",
                             G_TYPE_BOOLEAN,
                             (GObject *)wrap_layout_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/wrap_cycle",
                             G_TYPE_BOOLEAN,
                             (GObject *)wrap_cycle_check, "active");
 
     /* Placement tab */
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/placement_ratio",
                             G_TYPE_INT,
                             (GObject *) gtk_range_get_adjustment (GTK_RANGE (placement_ratio_scale)), "value");
 
     /* Compositing tab */
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/use_compositing",
                             G_TYPE_BOOLEAN,
                             (GObject *)use_compositing_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/unredirect_overlays",
                             G_TYPE_BOOLEAN,
                             (GObject *)unredirect_overlays_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/cycle_preview",
                             G_TYPE_BOOLEAN,
                             (GObject *)cycle_preview_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/show_frame_shadow",
                             G_TYPE_BOOLEAN,
                             (GObject *)show_frame_shadow_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/show_popup_shadow",
                             G_TYPE_BOOLEAN,
                             (GObject *)show_popup_shadow_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/show_dock_shadow",
                             G_TYPE_BOOLEAN,
                             (GObject *)show_dock_shadow_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/zoom_desktop",
                             G_TYPE_BOOLEAN,
                             (GObject *)zoom_desktop_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/zoom_pointer",
                             G_TYPE_BOOLEAN,
                             (GObject *)zoom_pointer_check, "active");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/frame_opacity",
                             G_TYPE_INT,
                             (GObject *) range_debouncer_bind (GTK_RANGE (frame_opacity_scale)), "value");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/resize_opacity",
                             G_TYPE_INT,
                             (GObject *) range_debouncer_bind (GTK_RANGE (resize_opacity_scale)), "value");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/move_opacity",
                             G_TYPE_INT,
                             (GObject *) range_debouncer_bind (GTK_RANGE (move_opacity_scale)), "value");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/inactive_opacity",
                             G_TYPE_INT,
                             (GObject *) range_debouncer_bind (GTK_RANGE (inactive_opacity_scale)), "value");
-    xfconf_g_property_bind (eswm1_channel,
+    esconf_g_property_bind (eswm1_channel,
                             "/general/popup_opacity",
                             G_TYPE_INT,
                             (GObject *) range_debouncer_bind (GTK_RANGE (popup_opacity_scale)), "value");
@@ -526,7 +526,7 @@ main (int argc, gchar **argv)
         return 0;
     }
 
-    xfconf_init (NULL);
+    esconf_init (NULL);
 
     builder = gtk_builder_new ();
 
@@ -577,7 +577,7 @@ main (int argc, gchar **argv)
         g_object_unref (builder);
     }
 
-    xfconf_shutdown ();
+    esconf_shutdown ();
 
     return 0;
 }

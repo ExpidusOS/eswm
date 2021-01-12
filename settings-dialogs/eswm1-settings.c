@@ -41,10 +41,10 @@
 
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4ui/libxfce4ui.h>
-#include <xfconf/xfconf.h>
+#include <esconf/esconf.h>
 #include <libxfce4kbd-private/xfce-shortcut-dialog.h>
 #include <libxfce4kbd-private/xfce-shortcuts-provider.h>
-#include <libxfce4kbd-private/xfce-shortcuts-eswm1.h>
+#include <libxfce4kbd-private/xfce-shortcuts-xfwm4.h>
 
 #include <common/eswm-common.h>
 
@@ -273,7 +273,7 @@ eswm_settings_init (EswmSettings *settings)
 
   settings->priv->builder = NULL;
   settings->priv->provider = xfce_shortcuts_provider_new ("eswm1");
-  settings->priv->wm_channel = xfconf_channel_new ("eswm1");
+  settings->priv->wm_channel = esconf_channel_new ("eswm1");
 }
 
 
@@ -352,7 +352,7 @@ eswm_settings_constructed (GObject *object)
   }
 
   /* Style tab: font */
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/title_font", G_TYPE_STRING,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/title_font", G_TYPE_STRING,
                           title_font_button, "font-name");
 
   /* Style tab: title alignment */
@@ -372,7 +372,7 @@ eswm_settings_constructed (GObject *object)
         gtk_list_store_set (list_store, &iter, 0, _(template->name), 1, template->value, -1);
       }
     g_object_unref (G_OBJECT (list_store));
-    xfconf_channel_get_property (settings->priv->wm_channel, "/general/title_alignment", &value);
+    esconf_channel_get_property (settings->priv->wm_channel, "/general/title_alignment", &value);
     eswm_settings_title_alignment_property_changed (settings->priv->wm_channel,
                                                     "/general/title_alignment", &value, settings);
     g_value_unset (&value);
@@ -465,7 +465,7 @@ eswm_settings_constructed (GObject *object)
       }
     g_list_free (children);
 
-    xfconf_channel_get_property (settings->priv->wm_channel, "/general/button_layout", &value);
+    esconf_channel_get_property (settings->priv->wm_channel, "/general/button_layout", &value);
     eswm_settings_button_layout_property_changed (settings->priv->wm_channel,
                                                   "/general/button_layout", &value, settings);
     g_value_unset (&value);
@@ -532,23 +532,23 @@ eswm_settings_constructed (GObject *object)
   click_to_focus_radio = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "click_to_focus_radio"));
 
   /* Focus tab */
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/focus_delay", G_TYPE_INT,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/focus_delay", G_TYPE_INT,
                           range_debouncer_bind (GTK_RANGE (focus_delay_scale)), "value");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/raise_delay", G_TYPE_INT,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/raise_delay", G_TYPE_INT,
                           range_debouncer_bind (GTK_RANGE (focus_raise_delay_scale)), "value");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/raise_on_click", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/raise_on_click", G_TYPE_BOOLEAN,
                           raise_on_click_check, "active");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/raise_on_focus", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/raise_on_focus", G_TYPE_BOOLEAN,
                           raise_on_focus_check, "active");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/focus_new", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/focus_new", G_TYPE_BOOLEAN,
                           focus_new_check, "active");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/click_to_focus", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/click_to_focus", G_TYPE_BOOLEAN,
                           click_to_focus_radio, "active");
 
   g_signal_connect (settings->priv->wm_channel, "property-changed::/general/click_to_focus",
                     G_CALLBACK (eswm_settings_click_to_focus_property_changed), settings);
 
-  xfconf_channel_get_property (settings->priv->wm_channel, "/general/click_to_focus", &value);
+  esconf_channel_get_property (settings->priv->wm_channel, "/general/click_to_focus", &value);
   eswm_settings_click_to_focus_property_changed (settings->priv->wm_channel,
                                                  "/general/click_to_focus", &value, settings);
   g_value_unset (&value);
@@ -586,7 +586,7 @@ eswm_settings_constructed (GObject *object)
         gtk_list_store_set (list_store, &iter, 0, _(template->name), 1, template->value, -1);
       }
     g_object_unref (G_OBJECT (list_store));
-    xfconf_channel_get_property (settings->priv->wm_channel, "/general/double_click_action",
+    esconf_channel_get_property (settings->priv->wm_channel, "/general/double_click_action",
                                  &value);
     eswm_settings_double_click_action_property_changed (settings->priv->wm_channel,
                                                         "/general/double_click_action",
@@ -601,21 +601,21 @@ eswm_settings_constructed (GObject *object)
   }
 
   /* Advanced tab */
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/snap_width", G_TYPE_INT,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/snap_width", G_TYPE_INT,
                           range_debouncer_bind (GTK_RANGE (snap_width_scale)), "value");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/wrap_resistance", G_TYPE_INT,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/wrap_resistance", G_TYPE_INT,
                           range_debouncer_bind (GTK_RANGE (wrap_resistance_scale)), "value");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/box_move", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/box_move", G_TYPE_BOOLEAN,
                           box_move_check, "active");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/box_resize", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/box_resize", G_TYPE_BOOLEAN,
                           box_resize_check, "active");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/wrap_workspaces", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/wrap_workspaces", G_TYPE_BOOLEAN,
                           wrap_workspaces_check, "active");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/wrap_windows", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/wrap_windows", G_TYPE_BOOLEAN,
                           wrap_windows_check, "active");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/snap_to_border", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/snap_to_border", G_TYPE_BOOLEAN,
                           snap_to_border_check, "active");
-  xfconf_g_property_bind (settings->priv->wm_channel, "/general/snap_to_windows", G_TYPE_BOOLEAN,
+  esconf_g_property_bind (settings->priv->wm_channel, "/general/snap_to_windows", G_TYPE_BOOLEAN,
                           snap_to_window_check, "active");
 
   /* Load shortcuts */
@@ -756,7 +756,7 @@ eswm_settings_load_themes (EswmSettings *settings)
   theme_dirs = xfce_resource_dirs (XFCE_RESOURCE_THEMES);
   xfce_resource_pop_path (XFCE_RESOURCE_THEMES);
 
-  active_theme_name = xfconf_channel_get_string (settings->priv->wm_channel, "/general/theme", DEFAULT_THEME);
+  active_theme_name = esconf_channel_get_string (settings->priv->wm_channel, "/general/theme", DEFAULT_THEME);
 
   for (i = 0; theme_dirs[i] != NULL; ++i)
     {
@@ -893,11 +893,11 @@ main (int    argc,
       return EXIT_SUCCESS;
     }
 
-  if (G_UNLIKELY (!xfconf_init (&error)))
+  if (G_UNLIKELY (!esconf_init (&error)))
     {
       if (G_LIKELY (error != NULL))
         {
-          g_error (_("Failed to initialize xfconf. Reason: %s"), error->message);
+          g_error (_("Failed to initialize esconf. Reason: %s"), error->message);
           g_error_free (error);
         }
 
@@ -909,7 +909,7 @@ main (int    argc,
   if (G_UNLIKELY (settings == NULL))
     {
       g_error (_("Could not create the settings dialog."));
-      xfconf_shutdown ();
+      esconf_shutdown ();
       return EXIT_FAILURE;
     }
 
@@ -942,7 +942,7 @@ main (int    argc,
 
   g_object_unref (settings);
 
-  xfconf_shutdown ();
+  esconf_shutdown ();
 
   return EXIT_SUCCESS;
 }
@@ -968,7 +968,7 @@ eswm_settings_theme_selection_changed (GtkTreeSelection *selection,
                           COL_THEME_RC, &filename, -1);
 
       /* set the theme name */
-      xfconf_channel_set_string (settings->priv->wm_channel, "/general/theme", theme);
+      esconf_channel_set_string (settings->priv->wm_channel, "/general/theme", theme);
       g_free (theme);
 
       /* check in the rc if the theme supports a custom button layout and/or
@@ -1008,7 +1008,7 @@ eswm_settings_title_alignment_changed (GtkComboBox  *combo,
   gtk_combo_box_get_active_iter (combo, &iter);
   gtk_tree_model_get (model, &iter, 1, &alignment, -1);
 
-  xfconf_channel_set_string (settings->priv->wm_channel, "/general/title_alignment", alignment);
+  esconf_channel_set_string (settings->priv->wm_channel, "/general/title_alignment", alignment);
 
   g_free (alignment);
 }
@@ -1465,7 +1465,7 @@ eswm_settings_save_button_layout (EswmSettings *settings,
 
   value = g_strjoinv ("", (gchar **) key_chars);
 
-  xfconf_channel_set_string (settings->priv->wm_channel, "/general/button_layout", value);
+  esconf_channel_set_string (settings->priv->wm_channel, "/general/button_layout", value);
 
   g_list_free (children);
   g_free (key_chars);
@@ -1488,7 +1488,7 @@ eswm_settings_double_click_action_changed (GtkComboBox  *combo,
   gtk_combo_box_get_active_iter (combo, &iter);
   gtk_tree_model_get (model, &iter, 1, &value, -1);
 
-  xfconf_channel_set_string (settings->priv->wm_channel, "/general/double_click_action", value);
+  esconf_channel_set_string (settings->priv->wm_channel, "/general/double_click_action", value);
 
   g_free (value);
 }
@@ -1629,7 +1629,7 @@ eswm_settings_initialize_shortcuts (EswmSettings *settings)
 
   gtk_list_store_clear (GTK_LIST_STORE (model));
 
-  if ((feature_list = xfce_shortcuts_eswm1_get_feature_list ()) != NULL)
+  if ((feature_list = xfce_shortcuts_xfwm4_get_feature_list ()) != NULL)
     {
       GList *l;
 
@@ -1638,7 +1638,7 @@ eswm_settings_initialize_shortcuts (EswmSettings *settings)
           gtk_list_store_append (GTK_LIST_STORE (model), &iter);
           gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                               SHORTCUTS_NAME_COLUMN,
-                              xfce_shortcuts_eswm1_get_feature_name (l->data),
+                              xfce_shortcuts_xfwm4_get_feature_name (l->data),
                               SHORTCUTS_FEATURE_COLUMN, l->data,
                               -1);
         }
@@ -1873,7 +1873,7 @@ eswm_settings_shortcut_clear_clicked (GtkButton    *button,
             {
               DBG ("clear shortcut %s", shortcut);
 
-              /* Remove keyboard shortcut via xfconf */
+              /* Remove keyboard shortcut via esconf */
               xfce_shortcuts_provider_reset_shortcut (settings->priv->provider, shortcut);
 
               gtk_list_store_set (GTK_LIST_STORE (model), &tree_iter,

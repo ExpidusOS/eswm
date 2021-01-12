@@ -29,7 +29,7 @@
 #include <X11/cursorfont.h>
 #include <gtk/gtk.h>
 #include <glib.h>
-#include <xfconf/xfconf.h>
+#include <esconf/esconf.h>
 #include <libxfce4kbd-private/xfce-shortcuts-provider.h>
 
 #ifdef HAVE_LIBSTARTUP_NOTIFICATION
@@ -153,7 +153,7 @@ struct _ScreenInfo
     /* Button handler for GTK */
     gulong button_handler_id;
 
-    /* xfconf */
+    /* esconf */
     XfconfChannel *eswm1_channel;
 
     /* Shortcuts */

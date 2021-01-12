@@ -180,7 +180,7 @@
  - Fix XI2 mask (bug #14695, Timo Teras)
  - Fix preview with shaded windows (bug #14899)
  - Fix tabwin placement with scaled UI (bug #14931, Jonas Zetterberg)
- - Add xfconf setting for selecting permanent vblank method
+ - Add esconf setting for selecting permanent vblank method
  - Fix maximization with GTK clients using size increments (bug #13954)
  - Add style class to tabwin modes (Andre Miranda)
  - Fix crash/stack smash in startup-notification on some architectures
@@ -273,7 +273,7 @@
 
 4.11.3
 ======
- - Add a zoom_desktop xfconf setting
+ - Add a zoom_desktop esconf setting
  - Add corner tiling
  - Add support for extended XSync counter
  - Add support for GTK frame extents
@@ -582,7 +582,7 @@
 - Check for invalid type for GValue to avoid a crash (bug #6195).
 - Don't save the settings dialogs when saving the session.
 - Watch workspace changes in wnck and update treeview accordingly.
-- Move helper-dialog to $libdir/xfce4/eswm1.
+- Move helper-dialog to $libdir/expidus-shell1/eswm1.
 - Build documentation in make dist.
 - Various theme updates.
 - Translation updates (ja, es, pl, uk, da, ro, ast, lv, sq, gl, ru, sk, pt,
@@ -704,7 +704,7 @@
 - Add new option do disable blinking of urgent windows.
 - Fix possible crash when the dbl_click_action setting gets unset.
 - Fix workspaces names not being set in the workspace settings GUI.
-- Do not display warnings for values that are not configurable via xfconf
+- Do not display warnings for values that are not configurable via esconf
   (typically theme settings).
 - Draw focus in tabwin to make sure the selection is visible even with themes
   that do not show selected items.

@@ -6,7 +6,7 @@ AM_CPPFLAGS =								\
 	$(LIBX11_CFLAGS)						\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
 
-helper_dialogdir = $(HELPER_PATH_PREFIX)/xfce4/eswm1
+helper_dialogdir = $(HELPER_PATH_PREFIX)/expidus-shell1/eswm1
 
 helper_dialog_PROGRAMS =						\
 	helper-dialog

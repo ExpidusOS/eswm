@@ -37,7 +37,7 @@
 
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4ui/libxfce4ui.h>
-#include <xfconf/xfconf.h>
+#include <esconf/esconf.h>
 
 #include <common/eswm-common.h>
 
@@ -60,16 +60,16 @@ enum
 };
 
 static void
-workspace_names_update_xfconf(gint workspace,
+workspace_names_update_esconf(gint workspace,
                               const gchar *new_name)
 {
     WnckScreen *screen = wnck_screen_get_default();
     XfconfChannel *channel;
     gchar **names;
-    gboolean do_update_xfconf = TRUE;
+    gboolean do_update_esconf = TRUE;
 
-    channel = xfconf_channel_get(WORKSPACES_CHANNEL);
-    names = xfconf_channel_get_string_list(channel, WORKSPACE_NAMES_PROP);
+    channel = esconf_channel_get(WORKSPACES_CHANNEL);
+    names = esconf_channel_get_string_list(channel, WORKSPACE_NAMES_PROP);
 
     if(!names) {
         /* the property doesn't exist; let's build one from scratch */
@@ -107,15 +107,15 @@ workspace_names_update_xfconf(gint workspace,
                 g_free(names[workspace]);
                 names[workspace] = g_strdup(new_name);
             } else {
-                /* nothing's actually changed, so don't update the xfconf
+                /* nothing's actually changed, so don't update the esconf
                  * property.  this saves us some trouble later. */
-                do_update_xfconf = FALSE;
+                do_update_esconf = FALSE;
             }
         }
     }
 
-    if(do_update_xfconf)
-        xfconf_channel_set_string_list(channel, WORKSPACE_NAMES_PROP, (const gchar **)names);
+    if(do_update_esconf)
+        esconf_channel_set_string_list(channel, WORKSPACE_NAMES_PROP, (const gchar **)names);
 
     g_strfreev(names);
 }
@@ -141,7 +141,7 @@ treeview_ws_names_cell_edited (GtkCellRendererText *cell,
     gtk_tree_model_get(model, &iter, COL_NUMBER, &ws_num, COL_NAME, &old_name, -1);
     if(strcmp(old_name, new_name)) {
         gtk_list_store_set(GTK_LIST_STORE(model), &iter, COL_NAME, new_name, -1);
-        workspace_names_update_xfconf(ws_num - 1, new_name);
+        workspace_names_update_esconf(ws_num - 1, new_name);
     }
 
     g_free(old_name);
@@ -151,7 +151,7 @@ treeview_ws_names_cell_edited (GtkCellRendererText *cell,
 
 
 static void
-xfconf_workspace_names_update(GPtrArray *names,
+esconf_workspace_names_update(GPtrArray *names,
                               GtkTreeView *treeview)
 {
     GtkTreeModel *model = gtk_tree_view_get_model(treeview);
@@ -211,7 +211,7 @@ xfconf_workspace_names_update(GPtrArray *names,
 
 
 static void
-xfconf_workspace_names_changed(XfconfChannel *channel,
+esconf_workspace_names_changed(XfconfChannel *channel,
                                const gchar *property,
                                const GValue *value,
                                gpointer user_data)
@@ -234,7 +234,7 @@ xfconf_workspace_names_changed(XfconfChannel *channel,
     if(!names)
         return;
 
-    xfconf_workspace_names_update(names, user_data);
+    esconf_workspace_names_update(names, user_data);
 }
 
 
@@ -245,13 +245,13 @@ workspace_dialog_count_changed(GtkTreeView *treeview)
     GPtrArray *names;
     XfconfChannel *channel;
 
-    channel = xfconf_channel_get(WORKSPACES_CHANNEL);
+    channel = esconf_channel_get(WORKSPACES_CHANNEL);
 
-    names = xfconf_channel_get_arrayv (channel, WORKSPACE_NAMES_PROP);
+    names = esconf_channel_get_arrayv (channel, WORKSPACE_NAMES_PROP);
     if(names != NULL)
     {
-        xfconf_workspace_names_update(names, treeview);
-        xfconf_array_free(names);
+        esconf_workspace_names_update(names, treeview);
+        esconf_array_free(names);
     }
 }
 
@@ -304,7 +304,7 @@ workspace_dialog_setup_names_treeview(GtkBuilder *builder,
 
     g_signal_connect(G_OBJECT(channel),
                      "property-changed::" WORKSPACE_NAMES_PROP,
-                     G_CALLBACK(xfconf_workspace_names_changed), treeview);
+                     G_CALLBACK(esconf_workspace_names_changed), treeview);
 }
 
 
@@ -328,7 +328,7 @@ workspace_dialog_configure_widgets (GtkBuilder *builder,
     GtkWidget *margin_left_spinbutton = GTK_WIDGET (gtk_builder_get_object (builder, "margin_left_spinbutton"));
 
     /* Set monitor icon */
-    monitor = gdk_pixbuf_new_from_resource ("/org/xfce/eswm1/monitor-icon.pixdata", NULL);
+    monitor = gdk_pixbuf_new_from_resource ("/com/expidus/eswm1/monitor-icon.pixdata", NULL);
     if(G_LIKELY (monitor != NULL))
     {
         image = GTK_WIDGET (gtk_builder_get_object (builder, "monitor_icon"));
@@ -347,24 +347,24 @@ workspace_dialog_configure_widgets (GtkBuilder *builder,
     gtk_spin_button_set_range (GTK_SPIN_BUTTON (margin_left_spinbutton), 0, wmax);
 
     /* Bind easy properties */
-    xfconf_g_property_bind (channel,
+    esconf_g_property_bind (channel,
                             "/general/workspace_count",
                             G_TYPE_INT,
                             (GObject *)workspace_count_spinbutton, "value");
 
-    xfconf_g_property_bind (channel,
+    esconf_g_property_bind (channel,
                             "/general/margin_top",
                             G_TYPE_INT,
                             (GObject *)margin_top_spinbutton, "value");
-    xfconf_g_property_bind (channel,
+    esconf_g_property_bind (channel,
                             "/general/margin_right",
                             G_TYPE_INT,
                             (GObject *)margin_right_spinbutton, "value");
-    xfconf_g_property_bind (channel,
+    esconf_g_property_bind (channel,
                             "/general/margin_bottom",
                             G_TYPE_INT,
                             (GObject *)margin_bottom_spinbutton, "value");
-    xfconf_g_property_bind (channel,
+    esconf_g_property_bind (channel,
                             "/general/margin_left",
                             G_TYPE_INT,
                             (GObject *)margin_left_spinbutton, "value");
@@ -429,13 +429,13 @@ main(int argc, gchar **argv)
         return 0;
     }
 
-    if(!xfconf_init (&cli_error)) {
-        g_critical ("Failed to contact xfconfd: %s", cli_error->message);
+    if(!esconf_init (&cli_error)) {
+        g_critical ("Failed to contact esconfd: %s", cli_error->message);
         g_error_free (cli_error);
         return 1;
     }
 
-    channel = xfconf_channel_get(WORKSPACES_CHANNEL);
+    channel = esconf_channel_get(WORKSPACES_CHANNEL);
 
     if (xfce_titled_dialog_get_type () == 0)
       return 1;
@@ -479,7 +479,7 @@ main(int argc, gchar **argv)
         }
     }
 
-    xfconf_shutdown();
+    esconf_shutdown();
 
     return 0;
 }

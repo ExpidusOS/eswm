@@ -394,8 +394,8 @@ msgstr "捷徑"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "未能初始化 xfconf。原因：%s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "未能初始化 esconf。原因：%s"
 
 #: ../settings-dialogs/eswm1-settings.c:914
 msgid "Could not create the settings dialog."

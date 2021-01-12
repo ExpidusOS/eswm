@@ -82,7 +82,7 @@ eswm1_CFLAGS =								\
 	$(LIBXFCE4KBD_PRIVATE_CFLAGS)					\
 	$(LIBXFCE4UI_CFLAGS)						\
 	$(LIBXFCE4UTIL_CFLAGS)						\
-	$(LIBXFCONF_CFLAGS)						\
+	$(LIBESCONF_CFLAGS)						\
 	$(PRESENT_EXTENSION_CFLAGS)					\
 	$(RANDR_CFLAGS)							\
 	$(RENDER_CFLAGS)						\
@@ -105,7 +105,7 @@ eswm1_LDADD =								\
 	$(LIBXFCE4KBD_PRIVATE_LIBS)					\
 	$(LIBXFCE4UI_LIBS)						\
 	$(LIBXFCE4UTIL_LIBS)						\
-	$(LIBXFCONF_LIBS)						\
+	$(LIBESCONF_LIBS)						\
 	$(PRESENT_EXTENSION_LIBS)					\
 	$(RANDR_LIBS) 							\
 	$(RENDER_LIBS)							\

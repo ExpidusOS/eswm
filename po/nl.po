@@ -391,7 +391,7 @@ msgstr "Sneltoets"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
+msgid "Failed to initialize esconf. Reason: %s"
 msgstr "Kon xconf niet initialiseren. Reden: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:914

@@ -15,7 +15,7 @@ eswm1_workspace_settings_CFLAGS = \
 	$(DBUS_GLIB_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
 	$(LIBXFCE4UI_CFLAGS) \
-	$(LIBXFCONF_CFLAGS) \
+	$(LIBESCONF_CFLAGS) \
 	$(LIBWNCK_CFLAGS) \
 	-DDATADIR=\"$(datadir)\" \
 	-DSRCDIR=\"$(top_srcdir)\" \
@@ -29,7 +29,7 @@ eswm1_workspace_settings_LDADD = \
 	$(DBUS_GLIB_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
 	$(LIBXFCE4UI_LIBS) \
-	$(LIBXFCONF_LIBS) \
+	$(LIBESCONF_LIBS) \
 	$(LIBWNCK_LIBS)
 
 eswm1_settings_SOURCES = \
@@ -45,7 +45,7 @@ eswm1_settings_CFLAGS = \
 	$(DBUS_GLIB_CFLAGS) \
 	$(LIBXFCE4UI_CFLAGS) \
 	$(LIBXFCE4KBD_PRIVATE_CFLAGS) \
-	$(LIBXFCONF_CFLAGS) \
+	$(LIBESCONF_CFLAGS) \
 	-DDATADIR=\"$(datadir)\" \
 	-DSRCDIR=\"$(top_srcdir)\" \
 	-DLOCALEDIR=\"$(localedir)\"
@@ -57,7 +57,7 @@ eswm1_settings_LDADD = \
 	$(DBUS_GLIB_LIBS) \
 	$(LIBXFCE4UI_LIBS) \
 	$(LIBXFCE4KBD_PRIVATE_LIBS) \
-	$(LIBXFCONF_LIBS)
+	$(LIBESCONF_LIBS)
 
 eswm1_tweaks_settings_SOURCES = \
 	tweaks-settings.c \
@@ -70,7 +70,7 @@ eswm1_tweaks_settings_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
 	$(LIBXFCE4UI_CFLAGS) \
-	$(LIBXFCONF_CFLAGS) \
+	$(LIBESCONF_CFLAGS) \
 	-DDATADIR=\"$(datadir)\" \
 	-DSRCDIR=\"$(top_srcdir)\" \
 	-DLOCALEDIR=\"$(localedir)\"
@@ -81,7 +81,7 @@ eswm1_tweaks_settings_LDADD = \
 	$(GLIB_LIBS) \
 	$(DBUS_GLIB_LIBS) \
 	$(LIBXFCE4UI_LIBS) \
-	$(LIBXFCONF_LIBS)
+	$(LIBESCONF_LIBS)
 
 AM_CPPFLAGS = \
 	-I${top_srcdir} \

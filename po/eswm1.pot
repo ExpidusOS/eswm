@@ -1,777 +1,784 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
-# Dušan Kazik <prescott66@gmail.com>, 2015-2017,2020
-# Jose Riha <jose1711@gmail.com>, 2019
-# Juraj Brosz <juro@jurajbrosz.info>, 2004
-# Robert Hartl <hartl.robert@gmail.com>, 2009-2010
-# Slavko <linux@slavino.sk>, 2015
-# Stefan Miklosovic <miklosovic@gmail.com>, 2008
-# 7dcd6f74323fe8d9c477949ff8fcbb1c_c427b63 <3fcd202e3dfab15fda15b8e88e54d449_7173>, 2011-2012
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Eswm4\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-01 00:49+0100\n"
-"PO-Revision-Date: 2020-10-31 23:49+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
-"Language-Team: Slovak (http://www.transifex.com/xfce/eswm1/language/sk/)\n"
+"POT-Creation-Date: 2021-01-11 22:18-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
-#: ../helper-dialog/helper-dialog.c:94
+#: ../helper-dialog/helper-dialog.c:86
 msgid ""
 "This window might be busy and is not responding.\n"
 "Do you want to terminate the application?"
-msgstr "Toto okno je zaneprázdnené a neodpovedá.\nŽeláte si ukončiť aplikáciu?"
+msgstr ""
 
-#: ../helper-dialog/helper-dialog.c:99
+#: ../helper-dialog/helper-dialog.c:91
 msgid "Warning"
-msgstr "Varovanie"
+msgstr ""
 
 #: ../settings-dialogs/tweaks-settings.c:55
 msgid "None"
-msgstr "Nič"
+msgstr ""
 
-#: ../settings-dialogs/tweaks-settings.c:477
+#: ../settings-dialogs/tweaks-settings.c:487
 msgid "Session manager socket"
-msgstr "Soket správcu sedenia"
+msgstr ""
 
-#: ../settings-dialogs/tweaks-settings.c:477
+#: ../settings-dialogs/tweaks-settings.c:487
 #: ../settings-dialogs/workspace-settings.c:398
-#: ../settings-dialogs/eswm1-settings.c:240
+#: ../settings-dialogs/eswm1-settings.c:238
 msgid "SOCKET ID"
-msgstr "SOCKET ID"
+msgstr ""
 
-#: ../settings-dialogs/tweaks-settings.c:478
+#: ../settings-dialogs/tweaks-settings.c:488
 #: ../settings-dialogs/workspace-settings.c:399
-#: ../settings-dialogs/eswm1-settings.c:242
+#: ../settings-dialogs/eswm1-settings.c:240
 msgid "Version information"
-msgstr "Informácia o verzií"
+msgstr ""
 
-#: ../settings-dialogs/tweaks-settings.c:496
+#: ../settings-dialogs/tweaks-settings.c:506
 #: ../settings-dialogs/workspace-settings.c:416
-#: ../settings-dialogs/eswm1-settings.c:874
+#: ../settings-dialogs/eswm1-settings.c:871
 msgid "."
-msgstr "."
+msgstr ""
 
-#: ../settings-dialogs/tweaks-settings.c:500
+#: ../settings-dialogs/tweaks-settings.c:510
 #: ../settings-dialogs/workspace-settings.c:420
-#: ../settings-dialogs/eswm1-settings.c:878
+#: ../settings-dialogs/eswm1-settings.c:875
 #, c-format
 msgid ""
 "%s: %s\n"
 "Try %s --help to see a full list of available command line options.\n"
-msgstr "%s: %s\nÚplný zoznam možností príkazového riadka získate príkazom %s --help\n"
+msgstr ""
 
 #: ../settings-dialogs/workspace-settings.c:81
 #: ../settings-dialogs/workspace-settings.c:96
 #, c-format
 msgid "Workspace %d"
-msgstr "Pracovná plocha %d"
+msgstr ""
 
 #: ../settings-dialogs/workspace-settings.c:286
 msgid "Workspace Name"
-msgstr "Názov pracovnej plochy"
+msgstr ""
 
 #: ../settings-dialogs/workspace-settings.c:398
-#: ../settings-dialogs/eswm1-settings.c:240
+#: ../settings-dialogs/eswm1-settings.c:238
 msgid "Settings manager socket"
-msgstr "Nastavenia správcu soketu"
+msgstr ""
 
 #: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
-msgstr "Správca okien"
+msgstr ""
 
 #: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 msgid "Configure window behavior and shortcuts"
-msgstr "Konfigurácia správania okna a klávesových skratiek"
+msgstr ""
 
 #: ../settings-dialogs/xfce-wm-settings.desktop.in.h:3
 msgid ""
-"windows;management;settings;preferences;themes;styles;decorations;title "
-"bar;font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard "
-"shortcuts;focus;snapping;screen;workspaces;edges;corner;hide "
-"content;move;resize;moving;resizing;double click;"
+"windows;management;settings;preferences;themes;styles;decorations;title bar;"
+"font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard shortcuts;"
+"focus;snapping;screen;workspaces;edges;corner;hide content;move;resize;"
+"moving;resizing;double click;"
 msgstr ""
 
 #: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
-msgstr "Pokročilé nastavenie správcu okien"
+msgstr ""
 
 #: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 msgid "Fine-tune window behaviour and effects"
-msgstr "Doladenie správania okna a efektov"
+msgstr ""
 
 #: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:3
 msgid ""
-"windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;accessibility;key;dragging;move;moving;hide;frame;title"
-" bar;maximized;tile;screen;edge;hot corner;snapping;mouse wheel;roll "
-"up;workspaces;placement;compositor;compositing;enable;disable;shadows;decorations;opacity;resize;inactive;preview;compiz;transitions;"
+"windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;"
+"accessibility;key;dragging;move;moving;hide;frame;title bar;maximized;tile;"
+"screen;edge;hot corner;snapping;mouse wheel;roll up;workspaces;placement;"
+"compositor;compositing;enable;disable;shadows;decorations;opacity;resize;"
+"inactive;preview;compiz;transitions;"
 msgstr ""
 
 #: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
-msgstr "Pracovné plochy"
+msgstr ""
 
 #: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
-msgstr "Nastavenie rozloženia, názvov a okrajov"
+msgstr ""
 
 #: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:3
 msgid ""
-"workspaces;settings;preferences;virtual "
-"desktops;number;windows;screen;margins;"
-msgstr "pracovné;priestory;nastavenia;predvoľby;virtuálne;plochy;počet;číslo;okná;obrazovka;okraje;"
+"workspaces;settings;preferences;virtual desktops;number;windows;screen;"
+"margins;"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:3
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:3
 msgid "_Help"
-msgstr "_Pomocník"
+msgstr ""
 
 #. --------------------------------------------------------
 #: ../settings-dialogs/eswm1-dialog.glade.h:4
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:4 ../src/menu.c:72
 msgid "_Close"
-msgstr "_Zatvoriť"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:5
 msgid "<b>The_me</b>"
-msgstr "<b>Té_ma</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:6
 msgid "<b>Title fon_t</b>"
-msgstr "<b>Písmo _titulku</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:7
 msgid "<b>Title _alignment</b>"
-msgstr "<b>_Zarovnanie titulku</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:8
 msgid "Click and drag the buttons to change the layout"
-msgstr "Kliknite a ťahajte tlačidlá pre zmenu rozloženia"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:9
 msgid "Title"
-msgstr "Titulok"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:10
 msgid "The window title cannot be removed"
-msgstr "Titulok okna nemôže byť odstránený"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:11
 msgid "Active"
-msgstr "Aktívny"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:12
 msgid "Menu"
-msgstr "Ponuka"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:13
 msgid "Stick"
-msgstr "Prilepiť"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:14
 msgid "Shade"
-msgstr "Zabaliť"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:15
 msgid "Minimize"
-msgstr "Minimalizovať"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:16
 msgid "Maximize"
-msgstr "Maximalizovať"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:17
 msgid "Close"
-msgstr "Zatvoriť"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:18
 msgid "Hidden"
-msgstr "Skryté"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:19
 msgid "<b>Button layout</b>"
-msgstr "<b>Rozloženie tlačidiel</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:20
 msgid "_Style"
-msgstr "Š_týl"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:21
 msgid "Define shortcuts to perform _window manager actions:"
-msgstr "Definuje skratky na vykonávanie akcií správcu _okien:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:22
 msgid "_Reset to Defaults"
-msgstr "_Obnoviť predvolené"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:23
 msgid "_Keyboard"
-msgstr "_Klávesnica"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:24
 msgid "Click to foc_us"
-msgstr "Kliknúť na zame_ranie"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:25
 msgid "Focus follows _mouse"
-msgstr "Zamerať _umiestnenením kurzoru myši nad okno"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:26
 msgid "_Delay before window receives focus:"
-msgstr "_Oneskorenie pred presunutím okna do popredia:"
+msgstr ""
 
 #. Raise focus delay
 #: ../settings-dialogs/eswm1-dialog.glade.h:28
 msgid "<i>Short</i>"
-msgstr "<i>Krátke</i>"
+msgstr ""
 
 #. Raise focus delay
 #: ../settings-dialogs/eswm1-dialog.glade.h:30
 msgid "<i>Long</i>"
-msgstr "<i>Dlhé</i>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:31
 msgid "<b>Focus model</b>"
-msgstr "<b>Spôsob aktivácie okna</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:32
 msgid "Automatically give focus to _newly created windows"
-msgstr "Automaticky zameriavať _novovytvorené okná"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:33
 msgid "<b>New window focus</b>"
-msgstr "<b>Nové okno je aktívne</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:34
 msgid "Automatically _raise windows when they receive focus"
-msgstr "Po zameraní automaticky _zdvihnúť okná"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:35
 msgid "Delay _before raising focused window:"
-msgstr "Oneskorenie _pred zdvihnutím zameraného okna:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:36
 msgid "<b>Raise on focus</b>"
-msgstr "<b>Zdvihnúť pri aktivácii</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:37
 msgid "Raise window when clicking _inside application window"
-msgstr "Zdvihnúť okno, keď je kliknuté vo vnútri okna aplikácie"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:38
 msgid "<b>Raise on click</b>"
-msgstr "<b>Kliknutím zdvihnúť</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:39
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:19
 msgid "_Focus"
-msgstr "_Zameranie"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:40
 msgid "To screen _borders"
-msgstr "K okrajom _obrazovky"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:41
 msgid "To other _windows"
-msgstr "K iným o_knám"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:42
 msgid "Dis_tance:"
-msgstr "_Vzdialenosť:"
+msgstr ""
 
 #. Edge resistance
 #. Smart placement size
 #: ../settings-dialogs/eswm1-dialog.glade.h:44
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:38
 msgid "<i>Small</i>"
-msgstr "<i>Malá</i>"
+msgstr ""
 
 #. Edge resistance
 #: ../settings-dialogs/eswm1-dialog.glade.h:46
 msgid "<i>Wide</i>"
-msgstr "<i>Veľká</i>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:47
 msgid "<b>Windows snapping</b>"
-msgstr "<b>Prichytávanie okien</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:48
 msgid "With the mouse _pointer"
-msgstr "Ukazovateľom _myši"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:49
 msgid "With a _dragged window"
-msgstr "Po_súvaným oknom"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:50
 msgid "_Edge resistance:"
-msgstr "_Odolnosť okrajov:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:51
 msgid "<b>Wrap workspaces when reaching the screen edge</b>"
-msgstr "<b>Prepnúť pracovnú plochu pri dosiahnutí hranice obrazovky</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:52
 msgid "When _moving"
-msgstr "Pri pr_esúvaní"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:53
 msgid "When _resizing"
-msgstr "Pri _zmene veľkosti"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:54
 msgid "<b>Hide content of windows</b>"
-msgstr "<b>Skryť obsah okna</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:55
 msgid "The action to perform when the title-bar is double-clicked"
-msgstr "Akcia pri dvojkliku na titulku okna"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:56
 msgid "<b>Double click _action</b>"
-msgstr "<b>_Akcia pri dvojkliku</b>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:57
 msgid "Ad_vanced"
-msgstr "P_okročilé"
+msgstr ""
+
+#: ../settings-dialogs/eswm1-settings.c:216
+msgid "Shade window"
+msgstr ""
+
+#: ../settings-dialogs/eswm1-settings.c:217
+msgid "Hide window"
+msgstr ""
+
+#: ../settings-dialogs/eswm1-settings.c:218
+msgid "Maximize window"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-settings.c:219
-msgid "Shade window"
-msgstr "Zabaliť okno"
+msgid "Fill window"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-settings.c:220
-msgid "Hide window"
-msgstr "Skryť okno"
+msgid "Always on top"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-settings.c:221
-msgid "Maximize window"
-msgstr "Maximalizovať okno"
-
-#: ../settings-dialogs/eswm1-settings.c:222
-msgid "Fill window"
-msgstr "Vyplniť okno"
-
-#: ../settings-dialogs/eswm1-settings.c:223
 msgid "Nothing"
-msgstr "Nič"
+msgstr ""
+
+#: ../settings-dialogs/eswm1-settings.c:226
+msgid "Left"
+msgstr ""
+
+#: ../settings-dialogs/eswm1-settings.c:227
+msgid "Center"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-settings.c:228
-msgid "Left"
-msgstr "Vľavo"
-
-#: ../settings-dialogs/eswm1-settings.c:229
-msgid "Center"
-msgstr "V strede"
-
-#: ../settings-dialogs/eswm1-settings.c:230
 msgid "Right"
-msgstr "Vpravo"
+msgstr ""
 
-#: ../settings-dialogs/eswm1-settings.c:346
+#: ../settings-dialogs/eswm1-settings.c:344
 msgid "Theme"
-msgstr "Motív"
+msgstr ""
 
-#: ../settings-dialogs/eswm1-settings.c:501
+#: ../settings-dialogs/eswm1-settings.c:499
 msgid "Action"
-msgstr "Akcia"
+msgstr ""
 
-#: ../settings-dialogs/eswm1-settings.c:508
+#: ../settings-dialogs/eswm1-settings.c:506
 msgid "Shortcut"
-msgstr "Klávesová skratka"
+msgstr ""
 
-#: ../settings-dialogs/eswm1-settings.c:903
+#: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
 msgid "Failed to initialize esconf. Reason: %s"
-msgstr "Nepodarilo sa inicializovať esconf. Dôvod: %s"
+msgstr ""
 
-#: ../settings-dialogs/eswm1-settings.c:914
+#: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."
-msgstr "Nedá sa vytvoriť dialógové okno nastavení."
+msgstr ""
 
-#: ../settings-dialogs/eswm1-settings.c:1915
+#: ../settings-dialogs/eswm1-settings.c:1912
 msgid ""
-"This will reset all shortcuts to their default values. Do you really want to"
-" do this?"
-msgstr "Toto nastaví všetky klávesové skratky na predvolené hodnoty. Naozaj chcete pokračovať?"
+"This will reset all shortcuts to their default values. Do you really want to "
+"do this?"
+msgstr ""
 
-#: ../settings-dialogs/eswm1-settings.c:1917
+#: ../settings-dialogs/eswm1-settings.c:1914
 msgid "Reset to Defaults"
-msgstr "Obnoviť predvolené"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:5
 msgid ""
 "S_kip windows that have \"skip pager\"\n"
 "or \"skip taskbar\" properties set"
-msgstr "Pres_kočiť okná, ktoré majú nastavené vlastnosti\n„skip pager” alebo „skip taskbar”"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:7
 msgid "_Include hidden (i.e. iconified) windows"
-msgstr "Zahrnúť _skryté (minimalizované) okná"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:8
 msgid "Cycle _through windows on all workspaces"
-msgstr "_Prechádzať oknami zo všetkých pracovných plôch"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:9
 msgid "_Draw frame around selected window while cycling"
-msgstr "_Vykresľovať rám okolo okien pri prechádzaní"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:10
 msgid "_Raise windows while cycling"
-msgstr "_Aktivovať okno pri prechádzaní"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:11
 msgid "Cycle through windows in a _list"
-msgstr "Prechádzať zoznam okien dooko_la"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:12
 msgid "C_ycling"
-msgstr "Pr_echádzanie"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:13
 msgid "Activate foc_us stealing prevention"
-msgstr "Predchádzať _strate zamerania"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:14
 msgid "Honor _standard ICCCM focus hint"
-msgstr "Dodržiavať š_tandardný ICCCM focus hint"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:15
 msgid "When a window raises itself:"
-msgstr "Po samovoľnom premiestnení okna do popredia:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:16
 msgid "_Bring window on current workspace"
-msgstr "Presunúť okno na a_ktuálnu pracovnú plochu"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:17
 msgid "Switch to win_dow's workspace"
-msgstr "Prepnúť sa na _pracovnú plochu okna"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:18
 msgid "Do _nothing"
-msgstr "Nerobiť _nič"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:20
 msgid "Key used to _grab and move windows:"
-msgstr "Klávesa pre _uchopenie a presun okien:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:21
 msgid "_Raise windows when any mouse button is pressed"
-msgstr "P_reniesť okno do popredia po stlačení ľubovoľného tlačidla myši"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:22
 msgid "Hide frame of windows when ma_ximized"
-msgstr "Skryť rám okna pri _maximalizácii"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:23
 msgid "Hide title of windows when maximized"
-msgstr "Skryť názov okna pri _maximalizácii"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:24
 msgid "Automatically _tile windows when moving toward the screen edge"
-msgstr "Automaticky _dláždiť okná ak sa priblížia k okraju obrazovky"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:25
 msgid "Use _edge resistance instead of window snapping"
-msgstr "Použiť odolnosť okrajov nami_esto prichytávania okien"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:26
 msgid "Use mouse wheel on title bar to ro_ll up the window"
-msgstr "Použiť koliesko myši v titulkovom pruhu na zbalenie okna"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:27
 msgid "Notify of _urgency by making window's decoration blink"
-msgstr "_Upozorniť na príznak urgent blikaním dekorácie okna"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:28
 msgid "Keep urgent windows _blinking repeatedly"
-msgstr "Zachovať _blikanie u okna s príznakom urgent"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:29
 msgid "_Accessibility"
-msgstr "Prí_stupnosť"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:30
 msgid "Use the _mouse wheel on the desktop to switch workspaces"
-msgstr "Použiť koliesko myši na pracovnej ploche na prepínanie plôch"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:31
 msgid ""
 "_Remember and recall previous workspace\n"
 "when switching via keyboard shortcuts"
-msgstr "Zapamätať si a znovu vyvolať p_redchádzajúcu plochu\npri prepínaní klávesovými skratkami"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:33
 msgid "Wrap workspaces depending on the actual desktop _layout"
-msgstr "Prechádzať na plochy podľa ich aktuá_lneho rozloženia"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:34
 msgid "Wrap workspaces when _the first or the last workspace is reached"
-msgstr "Prepnúť pracovné plochy, keď je dosiahnutý prvá alebo posledná plocha"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:35
 msgid "_Workspaces"
-msgstr "P_racovné plochy"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:36
 msgid "_Minimum size of windows to trigger smart placement:"
-msgstr "_Najmenšia veľkosť okien pre použitie šikovného umiestnenia:"
+msgstr ""
 
 #. Smart placement size
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:40
 msgid "<i>Large</i>"
-msgstr "<i>Veľká</i>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:41
 msgid "By default, place windows:"
-msgstr "Predvolené umiestňovanie okien:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:42
 msgid "At the c_enter of the screen"
-msgstr "Uprostr_ed obrazovky"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:43
 msgid "U_nder the mouse pointer"
-msgstr "Pod ukazovateľom _myši"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:44
 msgid "_Placement"
-msgstr "_Umiestnenie"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:45
 msgid "_Enable display compositing"
-msgstr "Povoliť zobrazenie kompozícií"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:46
 msgid "Display _fullscreen overlay windows directly"
-msgstr "Použiť priame zobrazovanie pre okná v režime _celej obrazovky"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:47
 msgid "Show windows preview in place of icons when cycling"
-msgstr "Zobraziť ukážku okna namiesto ikony pri prechádzaní"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:48
 msgid "Show shadows under pop_up windows"
-msgstr "Zobrazovať tiene pod _vyskakovacími oknami"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:49
 msgid "Show shadows under _dock windows"
-msgstr "Zobraziť tiene pod _dokovacími oknami"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:50
 msgid "Show shadows under _regular windows"
-msgstr "Zobraziť tiene pod _bežnými oknami"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:51
-msgid "Zoom pointer along with the desktop"
+msgid "Zoom desktop with mouse wheel"
 msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:52
-msgid "Opaci_ty of window decorations:"
-msgstr "Priehľadnosť _dekorácii okien:"
+msgid "Zoom pointer along with the desktop"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:53
-msgid "<i>Transparent</i>"
-msgstr "<i>Priehľadné</i>"
+msgid "Opaci_ty of window decorations:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:54
-msgid "<i>Opaque</i>"
-msgstr "<i>Nepriehľadné</i>"
+msgid "<i>Transparent</i>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:55
-msgid "Opacity of _inactive windows:"
-msgstr "Priehľadnosť _neaktívnych okien:"
+msgid "<i>Opaque</i>"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:56
-msgid "Opacity of windows during _move:"
-msgstr "Priehľadnosť okien pri _presúvaní:"
+msgid "Opacity of _inactive windows:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:57
-msgid "Opacity of windows during resi_ze:"
-msgstr "Priehľadnosť okien pri zmene _veľkosti:"
+msgid "Opacity of windows during _move:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:58
-msgid "Opacity of popup wi_ndows:"
-msgstr "Priehľad_nosť vyskavacích okien:"
+msgid "Opacity of windows during resi_ze:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:59
+msgid "Opacity of popup wi_ndows:"
+msgstr ""
+
+#: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:60
 msgid "C_ompositor"
-msgstr "_Kompozitor"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:3
 msgid "_Number of workspaces:"
-msgstr "_Počet pracovných plôch:"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:4
 msgid "Layout"
-msgstr "Rozloženie"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:5
 msgid "Names"
-msgstr "Mená"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:6
 msgid "_General"
-msgstr "_Všeobecné"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:7
 msgid ""
 "Margins are areas on the edges of the screen where no window will be placed"
-msgstr "Okraje plôch sú miesta po stranách obrazovky, kam nemôžu byť umiestnené žiadne okná"
+msgstr ""
 
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:8
 msgid "_Margins"
-msgstr "_Okraje"
+msgstr ""
 
 #. TRANSLATORS: "(on %s)" is like "running on" the name of the other host
 #: ../src/client.c:207
 #, c-format
 msgid "%s (on %s)"
-msgstr "%s (na %s)"
+msgstr ""
 
 #: ../src/keyboard.c:144 ../src/settings.c:160
 #, c-format
 msgid "Unsupported keyboard modifier '%s'"
-msgstr "Nepodporovaný klávesový modifikátor \"%s\""
+msgstr ""
 
-#: ../src/main.c:722
+#: ../src/main.c:666
 msgid "Set the compositor mode"
-msgstr "Nastaviť režim kompozitora"
+msgstr ""
 
-#: ../src/main.c:724
+#: ../src/main.c:668
 msgid "Set the vblank mode"
-msgstr "Nastaviť režim vblank"
+msgstr ""
 
-#: ../src/main.c:734
+#: ../src/main.c:678
 msgid "Replace the existing window manager"
-msgstr "Nahradiť existujúceho správcu okien"
+msgstr ""
 
-#: ../src/main.c:736
+#: ../src/main.c:680
 msgid "Print version information and exit"
-msgstr "Zobrazí informácie o verzii a ukončí sa"
+msgstr ""
 
-#: ../src/main.c:780
+#: ../src/main.c:683
+msgid "Enable debug logging"
+msgstr ""
+
+#: ../src/main.c:723
 msgid "[ARGUMENTS...]"
-msgstr "[PARAMETRE...]"
+msgstr ""
 
-#: ../src/main.c:787
+#: ../src/main.c:730
 #, c-format
 msgid "Type \"%s --help\" for usage."
-msgstr "Informácie o použití získate príkazom \"%s --help\" ."
+msgstr ""
 
 #: ../src/menu.c:51
 msgid "Ma_ximize"
-msgstr "Ma_ximalizovať"
+msgstr ""
 
 #: ../src/menu.c:52
 msgid "Unma_ximize"
-msgstr "Zrušiť ma_ximalizáciu"
+msgstr ""
 
 #: ../src/menu.c:53
 msgid "Mi_nimize"
-msgstr "Mi_nimalizovať"
+msgstr ""
 
 #: ../src/menu.c:54
 msgid "Minimize _Other Windows"
-msgstr "Minimalizovať _všetky ostatné okná"
+msgstr ""
 
 #: ../src/menu.c:55
 msgid "S_how"
-msgstr "_Zobraziť"
+msgstr ""
 
 #: ../src/menu.c:56
 msgid "_Move"
-msgstr "_Presunúť"
+msgstr ""
 
 #: ../src/menu.c:57
 msgid "_Resize"
-msgstr "Zmeniť _veľkosť"
+msgstr ""
 
 #. --------------------------------------------------------
 #: ../src/menu.c:59
 msgid "Always on _Top"
-msgstr "Vždy _navrchu"
+msgstr ""
 
 #: ../src/menu.c:60
 msgid "_Same as Other Windows"
-msgstr "_Rovnako ako ostatné okná"
+msgstr ""
 
 #: ../src/menu.c:61
 msgid "Always _Below Other Windows"
-msgstr "Vždy _pod ostatnými oknami"
+msgstr ""
 
 #: ../src/menu.c:62
 msgid "Roll Window Up"
-msgstr "Zrolovať okno"
+msgstr ""
 
 #: ../src/menu.c:63
 msgid "Roll Window Down"
-msgstr "Odrolovať okno"
+msgstr ""
 
 #: ../src/menu.c:64
 msgid "_Fullscreen"
-msgstr "_Celá obrazovka"
+msgstr ""
 
 #: ../src/menu.c:65
 msgid "Leave _Fullscreen"
-msgstr "Opustiť režim _celej obrazovky"
+msgstr ""
 
 #: ../src/menu.c:66
 msgid "Context _Help"
-msgstr "Kontextový _pomocník"
+msgstr ""
 
 #. --------------------------------------------------------
 #: ../src/menu.c:68
 msgid "Always on _Visible Workspace"
-msgstr "Vždy na v_iditeľnej pracovnej ploche"
+msgstr ""
 
 #: ../src/menu.c:69
 msgid "Only _Visible on This Workspace"
-msgstr "Viditeľné i_ba na tejto pracovnej ploche"
+msgstr ""
 
 #: ../src/menu.c:70
 msgid "Move to Another _Workspace"
-msgstr "Presunúť na inú pracovnú plochu"
+msgstr ""
 
 #. --------------------------------------------------------
 #: ../src/menu.c:75
 msgid "Destroy"
-msgstr "Zničiť"
+msgstr ""
 
 #: ../src/menu.c:78
 msgid "_Quit"
-msgstr "_Ukončiť"
+msgstr ""
 
 #: ../src/menu.c:79
 msgid "Restart"
-msgstr "Reštartovať"
+msgstr ""
 
-#: ../src/menu.c:536
+#: ../src/menu.c:481
 #, c-format
 msgid "%s: GtkMenu failed to grab the pointer\n"
-msgstr "%s: komponente GtkMenu sa nepodarilo uchopiť ukazovateľ\n"
+msgstr ""
 
 #: ../src/terminate.c:77
 #, c-format
 msgid "Error reading data from child process: %s\n"
-msgstr "Chyba pri čítaní dát z procesu potomka: %s\n"
+msgstr ""
 
 #: ../src/terminate.c:135
 #, c-format
 msgid "Cannot spawn helper-dialog: %s\n"
-msgstr "Nedá sa vytvoriť helper-dialog: %s\n"
+msgstr ""

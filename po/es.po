@@ -403,7 +403,7 @@ msgstr "Atajo"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
+msgid "Failed to initialize esconf. Reason: %s"
 msgstr "No se pudo inicializar el servicio de configuración de Xfce. Motivo: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911

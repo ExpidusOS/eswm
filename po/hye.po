@@ -390,8 +390,8 @@ msgstr "Դիւրանցում"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Չյաջողուեց սկզբնաւորել xfconf֊ը։ %s֊ի պատճառով"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Չյաջողուեց սկզբնաւորել esconf֊ը։ %s֊ի պատճառով"
 
 #: ../settings-dialogs/eswm1-settings.c:914
 msgid "Could not create the settings dialog."

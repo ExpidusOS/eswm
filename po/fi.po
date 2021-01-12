@@ -398,8 +398,8 @@ msgstr "Pikanäppäin"
 
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr "Virhe alustaessa xfconfia: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr "Virhe alustaessa esconfia: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

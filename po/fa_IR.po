@@ -391,8 +391,8 @@ msgstr "میانبر"
 
 #: ../settings-dialogs/eswm1-settings.c:903
 #, c-format
-msgid "Failed to initialize xfconf. Reason: %s"
-msgstr " تنظیم اولیه xfconf انجام نشد. دلیل: %s"
+msgid "Failed to initialize esconf. Reason: %s"
+msgstr " تنظیم اولیه esconf انجام نشد. دلیل: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:914
 msgid "Could not create the settings dialog."
