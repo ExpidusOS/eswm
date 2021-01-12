@@ -602,7 +602,7 @@ initialize (gboolean replace_wm)
         sn_init_display (screen_info);
         myDisplayAddScreen (display_info, screen_info);
         screen_info->current_ws = getNetCurrentDesktop (display_info, screen_info->xroot);
-        setUTF8StringHint (display_info, screen_info->eswm1_win, NET_WM_NAME, "Eswm4");
+        setUTF8StringHint (display_info, screen_info->eswm1_win, NET_WM_NAME, "ExpidusOS Shell WM 1.0");
         setNetSupportedHint (display_info, screen_info->xroot, screen_info->eswm1_win);
         setNetDesktopInfo (display_info, screen_info->xroot, screen_info->current_ws,
                                    screen_info->width,
