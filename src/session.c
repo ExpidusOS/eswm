@@ -16,10 +16,10 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
  */
 
-/* Initially inspired by xfwm, fvwm2, enlightment and twm implementations */
+/* Initially inspired by eswm, fvwm2, enlightment and twm implementations */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -712,7 +712,7 @@ sessionMatchWinToSM (Client * c)
                 flags & (CLIENT_FLAG_STICKY | CLIENT_FLAG_SHADED |
                     CLIENT_FLAG_MAXIMIZED | CLIENT_FLAG_ICONIFIED |
                     CLIENT_FLAG_RESTORE_SIZE_POS));
-            FLAG_SET (c->xfwm_flags, XFWM_FLAG_WORKSPACE_SET);
+            FLAG_SET (c->eswm_flags, ESWM_FLAG_WORKSPACE_SET);
             return TRUE;
         }
     }
@@ -758,7 +758,7 @@ sessionDie (XfceSMClient *session,
 
     /*
      * Do not change the session restart style to NORMAL here, else
-     * xfwm4 will never be restarted the next time we login. just
+     * eswm1 will never be restarted the next time we login. just
      * gracefully quit the application.
      */
     DBG ("Session clients asked to quit");

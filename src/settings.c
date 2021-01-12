@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2015 Olivier Fourdan,
+        eswm1    - (c) 2002-2015 Olivier Fourdan,
                        2008 Jannis Pohlmann
 
  */
@@ -44,7 +44,7 @@
 #include "compositor.h"
 #include "ui_style.h"
 
-#define CHANNEL_XFWM            "xfwm4"
+#define CHANNEL_ESWM            "eswm1"
 #define THEMERC                 "themerc"
 #define XPM_COLOR_SYMBOL_SIZE   24
 
@@ -73,7 +73,7 @@ static void              parseShortcut        (ScreenInfo *,
                                                GList *);
 static const gchar      *getShortcut          (const gchar *,
                                                GList *);
-static void              cb_xfwm4_channel_property_changed (XfconfChannel *,
+static void              cb_eswm1_channel_property_changed (XfconfChannel *,
                                                            const gchar *,
                                                            const GValue *,
                                                            ScreenInfo *);
@@ -117,7 +117,7 @@ set_settings_margin (ScreenInfo *screen_info, int idx, int value)
             {
                 val = value;
             }
-            screen_info->params->xfwm_margins[idx] = val;
+            screen_info->params->eswm_margins[idx] = val;
             break;
         case STRUTS_TOP:
         case STRUTS_BOTTOM:
@@ -133,7 +133,7 @@ set_settings_margin (ScreenInfo *screen_info, int idx, int value)
             {
                 val = value;
             }
-            screen_info->params->xfwm_margins[idx] = val;
+            screen_info->params->eswm_margins[idx] = val;
             break;
         default:
             break;
@@ -211,9 +211,9 @@ loadRcData (ScreenInfo *screen_info, Settings *rc)
         exit (1);
     }
     homedir = xfce_resource_save_location (XFCE_RESOURCE_CONFIG,
-                                           "xfce4" G_DIR_SEPARATOR_S "xfwm4",
+                                           "xfce4" G_DIR_SEPARATOR_S "eswm1",
                                            FALSE);
-    parseRc ("xfwm4rc", homedir, rc);
+    parseRc ("eswm1rc", homedir, rc);
     g_free (homedir);
 }
 
@@ -224,7 +224,7 @@ loadXfconfData (ScreenInfo *screen_info, Settings *rc)
     for (i = XPM_COLOR_SYMBOL_SIZE; rc[i].option; ++i)
     {
         gchar *property_name = g_strconcat("/general/", rc[i].option, NULL);
-        if(xfconf_channel_has_property(screen_info->xfwm4_channel, property_name))
+        if(xfconf_channel_has_property(screen_info->eswm1_channel, property_name))
         {
             if(rc[i].value)
             {
@@ -233,7 +233,7 @@ loadXfconfData (ScreenInfo *screen_info, Settings *rc)
             }
             rc[i].value = g_new0 (GValue, 1);
 
-            if(!xfconf_channel_get_property(screen_info->xfwm4_channel, property_name, rc[i].value))
+            if(!xfconf_channel_get_property(screen_info->eswm1_channel, property_name, rc[i].value))
             {
                g_warning("get prop failed");
             }
@@ -241,7 +241,7 @@ loadXfconfData (ScreenInfo *screen_info, Settings *rc)
         else
         {
             if (rc[i].value)
-                xfconf_channel_set_property(screen_info->xfwm4_channel, property_name, rc[i].value);
+                xfconf_channel_set_property(screen_info->eswm1_channel, property_name, rc[i].value);
         }
         g_free(property_name);
     }
@@ -383,7 +383,7 @@ loadTheme (ScreenInfo *screen_info, Settings *rc)
     GValue tmp_val = { 0, };
     GValue tmp_val2 = { 0, };
     DisplayInfo *display_info;
-    xfwmColorSymbol colsym[ XPM_COLOR_SYMBOL_SIZE + 1 ];
+    eswmColorSymbol colsym[ XPM_COLOR_SYMBOL_SIZE + 1 ];
     GtkWidget *widget;
     gchar *theme;
     const gchar *font;
@@ -404,7 +404,7 @@ loadTheme (ScreenInfo *screen_info, Settings *rc)
         g_free (color);
     }
 
-    /* Then load xfwm4 theme values */
+    /* Then load eswm1 theme values */
     theme = getThemeDir (getThemeName (screen_info, rc), THEMERC);
     parseRc (THEMERC, theme, rc);
 
@@ -483,40 +483,40 @@ loadTheme (ScreenInfo *screen_info, Settings *rc)
             continue;  /* There is no top decoration per se. */
 
         g_snprintf(imagename, sizeof (imagename), "%s-active", side_names[i]);
-        xfwmPixmapLoad (screen_info, &screen_info->sides[i][ACTIVE], theme, imagename, colsym);
+        eswmPixmapLoad (screen_info, &screen_info->sides[i][ACTIVE], theme, imagename, colsym);
 
         g_snprintf(imagename, sizeof (imagename), "%s-inactive", side_names[i]);
-        xfwmPixmapLoad (screen_info, &screen_info->sides[i][INACTIVE], theme, imagename, colsym);
+        eswmPixmapLoad (screen_info, &screen_info->sides[i][INACTIVE], theme, imagename, colsym);
     }
     for (i = 0; i < CORNER_COUNT; i++)
     {
         g_snprintf(imagename, sizeof (imagename), "%s-active", corner_names[i]);
-        xfwmPixmapLoad (screen_info, &screen_info->corners[i][ACTIVE], theme, imagename, colsym);
+        eswmPixmapLoad (screen_info, &screen_info->corners[i][ACTIVE], theme, imagename, colsym);
 
         g_snprintf(imagename, sizeof (imagename), "%s-inactive", corner_names[i]);
-        xfwmPixmapLoad (screen_info, &screen_info->corners[i][INACTIVE], theme, imagename, colsym);
+        eswmPixmapLoad (screen_info, &screen_info->corners[i][INACTIVE], theme, imagename, colsym);
     }
     for (i = 0; i < BUTTON_COUNT; i++)
     {
         for (j = 0; j < STATE_COUNT; j++)
         {
             g_snprintf(imagename, sizeof (imagename), "%s-%s", button_names[i], button_state_names[j]);
-            xfwmPixmapLoad (screen_info, &screen_info->buttons[i][j], theme, imagename, colsym);
+            eswmPixmapLoad (screen_info, &screen_info->buttons[i][j], theme, imagename, colsym);
         }
     }
     for (i = 0; i < TITLE_COUNT; i++)
     {
         g_snprintf(imagename, sizeof (imagename), "title-%d-active", i + 1);
-        xfwmPixmapLoad (screen_info, &screen_info->title[i][ACTIVE], theme, imagename, colsym);
+        eswmPixmapLoad (screen_info, &screen_info->title[i][ACTIVE], theme, imagename, colsym);
 
         g_snprintf(imagename, sizeof (imagename), "title-%d-inactive", i + 1);
-        xfwmPixmapLoad (screen_info, &screen_info->title[i][INACTIVE], theme, imagename, colsym);
+        eswmPixmapLoad (screen_info, &screen_info->title[i][INACTIVE], theme, imagename, colsym);
 
         g_snprintf(imagename, sizeof (imagename), "top-%d-active", i + 1);
-        xfwmPixmapLoad (screen_info, &screen_info->top[i][ACTIVE], theme, imagename, colsym);
+        eswmPixmapLoad (screen_info, &screen_info->top[i][ACTIVE], theme, imagename, colsym);
 
         g_snprintf(imagename, sizeof (imagename), "top-%d-inactive", i + 1);
-        xfwmPixmapLoad (screen_info, &screen_info->top[i][INACTIVE], theme, imagename, colsym);
+        eswmPixmapLoad (screen_info, &screen_info->top[i][INACTIVE], theme, imagename, colsym);
     }
 
     screen_info->box_gc = createGC (screen_info, "#FFFFFF", GXxor, NULL, 2, TRUE);
@@ -936,27 +936,27 @@ unloadTheme (ScreenInfo *screen_info)
 
     for (i = 0; i < SIDE_COUNT; i++)
     {
-        xfwmPixmapFree (&screen_info->sides[i][ACTIVE]);
-        xfwmPixmapFree (&screen_info->sides[i][INACTIVE]);
+        eswmPixmapFree (&screen_info->sides[i][ACTIVE]);
+        eswmPixmapFree (&screen_info->sides[i][INACTIVE]);
     }
     for (i = 0; i < CORNER_COUNT; i++)
     {
-        xfwmPixmapFree (&screen_info->corners[i][ACTIVE]);
-        xfwmPixmapFree (&screen_info->corners[i][INACTIVE]);
+        eswmPixmapFree (&screen_info->corners[i][ACTIVE]);
+        eswmPixmapFree (&screen_info->corners[i][INACTIVE]);
     }
     for (i = 0; i < BUTTON_COUNT; i++)
     {
         for (j = 0; j < STATE_COUNT; j++)
         {
-            xfwmPixmapFree (&screen_info->buttons[i][j]);
+            eswmPixmapFree (&screen_info->buttons[i][j]);
         }
     }
     for (i = 0; i < TITLE_COUNT; i++)
     {
-        xfwmPixmapFree (&screen_info->title[i][ACTIVE]);
-        xfwmPixmapFree (&screen_info->title[i][INACTIVE]);
-        xfwmPixmapFree (&screen_info->top[i][ACTIVE]);
-        xfwmPixmapFree (&screen_info->top[i][INACTIVE]);
+        eswmPixmapFree (&screen_info->title[i][ACTIVE]);
+        eswmPixmapFree (&screen_info->title[i][INACTIVE]);
+        eswmPixmapFree (&screen_info->top[i][ACTIVE]);
+        eswmPixmapFree (&screen_info->top[i][INACTIVE]);
     }
     if (screen_info->box_gc != None)
     {
@@ -1065,15 +1065,15 @@ initSettings (ScreenInfo *screen_info)
     val = 0;
     i = 0;
 
-    screen_info->xfwm4_channel = xfconf_channel_new(CHANNEL_XFWM);
-    g_signal_connect (screen_info->xfwm4_channel, "property-changed",
-                      G_CALLBACK (cb_xfwm4_channel_property_changed), screen_info);
+    screen_info->eswm1_channel = xfconf_channel_new(CHANNEL_ESWM);
+    g_signal_connect (screen_info->eswm1_channel, "property-changed",
+                      G_CALLBACK (cb_eswm1_channel_property_changed), screen_info);
 
     keymap = myDisplayGetKeymap (display_info);
     g_signal_connect (keymap, "keys-changed",
                       G_CALLBACK (cb_keys_changed), screen_info);
 
-    screen_info->shortcuts_provider = xfce_shortcuts_provider_new ("xfwm4");
+    screen_info->shortcuts_provider = xfce_shortcuts_provider_new ("eswm1");
     g_signal_connect (screen_info->shortcuts_provider, "shortcut-added",
                       G_CALLBACK (cb_shortcut_added), screen_info);
     g_signal_connect (screen_info->shortcuts_provider, "shortcut-removed",
@@ -1113,7 +1113,7 @@ closeSettings (ScreenInfo *screen_info)
 }
 
 static void
-cb_xfwm4_channel_property_changed(XfconfChannel *channel, const gchar *property_name, const GValue *value, ScreenInfo *screen_info)
+cb_eswm1_channel_property_changed(XfconfChannel *channel, const gchar *property_name, const GValue *value, ScreenInfo *screen_info)
 {
     if (g_str_has_prefix(property_name, "/general/") == TRUE)
     {

@@ -1,15 +1,15 @@
 bin_PROGRAMS = \
-	xfwm4-settings  \
-	xfwm4-tweaks-settings  \
-	xfwm4-workspace-settings
+	eswm1-settings  \
+	eswm1-tweaks-settings  \
+	eswm1-workspace-settings
 
-xfwm4_workspace_settings_SOURCES = \
+eswm1_workspace_settings_SOURCES = \
 	workspace-settings.c \
-	xfwm4-workspace-dialog_ui.h \
+	eswm1-workspace-dialog_ui.h \
 	workspace-resource.c \
 	workspace-resource.h
 
-xfwm4_workspace_settings_CFLAGS = \
+eswm1_workspace_settings_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
@@ -22,8 +22,8 @@ xfwm4_workspace_settings_CFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DWNCK_I_KNOW_THIS_IS_UNSTABLE
 
-xfwm4_workspace_settings_LDADD = \
-	$(top_builddir)/common/libxfwm-common.la \
+eswm1_workspace_settings_LDADD = \
+	$(top_builddir)/common/libeswm-common.la \
 	$(GTK_LIBS) \
 	$(GLIB_LIBS) \
 	$(DBUS_GLIB_LIBS) \
@@ -32,14 +32,14 @@ xfwm4_workspace_settings_LDADD = \
 	$(LIBXFCONF_LIBS) \
 	$(LIBWNCK_LIBS)
 
-xfwm4_settings_SOURCES = \
-	xfwm4-settings.c \
-	xfwm4-settings.h \
-	xfwm4-dialog_ui.h \
+eswm1_settings_SOURCES = \
+	eswm1-settings.c \
+	eswm1-settings.h \
+	eswm1-dialog_ui.h \
 	range-debouncer.c \
 	range-debouncer.h
 
-xfwm4_settings_CFLAGS = \
+eswm1_settings_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
@@ -50,8 +50,8 @@ xfwm4_settings_CFLAGS = \
 	-DSRCDIR=\"$(top_srcdir)\" \
 	-DLOCALEDIR=\"$(localedir)\"
 
-xfwm4_settings_LDADD = \
-	$(top_builddir)/common/libxfwm-common.la \
+eswm1_settings_LDADD = \
+	$(top_builddir)/common/libeswm-common.la \
 	$(GTK_LIBS) \
 	$(GLIB_LIBS) \
 	$(DBUS_GLIB_LIBS) \
@@ -59,13 +59,13 @@ xfwm4_settings_LDADD = \
 	$(LIBXFCE4KBD_PRIVATE_LIBS) \
 	$(LIBXFCONF_LIBS)
 
-xfwm4_tweaks_settings_SOURCES = \
+eswm1_tweaks_settings_SOURCES = \
 	tweaks-settings.c \
-	xfwm4-tweaks-dialog_ui.h \
+	eswm1-tweaks-dialog_ui.h \
 	range-debouncer.c \
 	range-debouncer.h
 
-xfwm4_tweaks_settings_CFLAGS = \
+eswm1_tweaks_settings_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
@@ -75,8 +75,8 @@ xfwm4_tweaks_settings_CFLAGS = \
 	-DSRCDIR=\"$(top_srcdir)\" \
 	-DLOCALEDIR=\"$(localedir)\"
 
-xfwm4_tweaks_settings_LDADD = \
-	$(top_builddir)/common/libxfwm-common.la \
+eswm1_tweaks_settings_LDADD = \
+	$(top_builddir)/common/libeswm-common.la \
 	$(GTK_LIBS) \
 	$(GLIB_LIBS) \
 	$(DBUS_GLIB_LIBS) \
@@ -90,19 +90,19 @@ AM_CPPFLAGS = \
 if MAINTAINER_MODE
 
 BUILT_SOURCES = \
-	xfwm4-dialog_ui.h \
-	xfwm4-tweaks-dialog_ui.h \
-	xfwm4-workspace-dialog_ui.h \
+	eswm1-dialog_ui.h \
+	eswm1-tweaks-dialog_ui.h \
+	eswm1-workspace-dialog_ui.h \
 	workspace-resource.h \
 	workspace-resource.c
 
-xfwm4-workspace-dialog_ui.h: xfwm4-workspace-dialog.glade
+eswm1-workspace-dialog_ui.h: eswm1-workspace-dialog.glade
 	$(AM_V_GEN) $(XDT_CSOURCE) --static --strip-comments --strip-content --name=workspace_dialog_ui $< >$@
 
-xfwm4-dialog_ui.h: xfwm4-dialog.glade
-	$(AM_V_GEN) $(XDT_CSOURCE) --static --strip-comments --strip-content --name=xfwm4_dialog_ui $< >$@
+eswm1-dialog_ui.h: eswm1-dialog.glade
+	$(AM_V_GEN) $(XDT_CSOURCE) --static --strip-comments --strip-content --name=eswm1_dialog_ui $< >$@
 
-xfwm4-tweaks-dialog_ui.h: xfwm4-tweaks-dialog.glade
+eswm1-tweaks-dialog_ui.h: eswm1-tweaks-dialog.glade
 	$(AM_V_GEN) $(XDT_CSOURCE) --static --strip-comments --strip-content --name=tweaks_dialog_ui $< >$@
 
 workspace-resource.h:
@@ -124,9 +124,9 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 EXTRA_DIST = \
 	$(desktop_in_files)  \
-	xfwm4-workspace-dialog.glade  \
-	xfwm4-tweaks-dialog.glade  \
-	xfwm4-dialog.glade \
+	eswm1-workspace-dialog.glade  \
+	eswm1-tweaks-dialog.glade  \
+	eswm1-dialog.glade \
 	workspace.gresource.xml \
 	monitor-icon.svg
 

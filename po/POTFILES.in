@@ -6,10 +6,10 @@ settings-dialogs/workspace-settings.c
 settings-dialogs/xfce-wm-settings.desktop.in
 settings-dialogs/xfce-wmtweaks-settings.desktop.in
 settings-dialogs/xfce-workspaces-settings.desktop.in
-settings-dialogs/xfwm4-dialog.glade
-settings-dialogs/xfwm4-settings.c
-settings-dialogs/xfwm4-tweaks-dialog.glade
-settings-dialogs/xfwm4-workspace-dialog.glade
+settings-dialogs/eswm1-dialog.glade
+settings-dialogs/eswm1-settings.c
+settings-dialogs/eswm1-tweaks-dialog.glade
+settings-dialogs/eswm1-workspace-dialog.glade
 src/client.c
 src/compositor.c
 src/cycle.c

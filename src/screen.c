@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -44,7 +44,7 @@
 #include <libsn/sn.h>
 #endif
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
 #include "display.h"
 #include "screen.h"
@@ -93,7 +93,7 @@ myScreenSetWMAtom (ScreenInfo *screen_info, gboolean replace_wm)
     display_info = screen_info->display_info;
     g_snprintf (selection, sizeof (selection), "WM_S%d", screen_info->screen);
     wm_sn_atom = XInternAtom (display_info->dpy, selection, FALSE);
-    display_name = xfwm_make_display_name (screen_info->gscr);
+    display_name = eswm_make_display_name (screen_info->gscr);
     wm_name = gdk_x11_screen_get_window_manager_name (screen_info->gscr);
 
     XSync (display_info->dpy, FALSE);
@@ -117,7 +117,7 @@ myScreenSetWMAtom (ScreenInfo *screen_info, gboolean replace_wm)
         }
     }
 
-    if (!setXAtomManagerOwner (display_info, wm_sn_atom, screen_info->xroot, screen_info->xfwm4_win))
+    if (!setXAtomManagerOwner (display_info, wm_sn_atom, screen_info->xroot, screen_info->eswm1_win))
     {
         g_warning ("Cannot acquire window manager selection on screen %s", display_name);
         g_free (display_name);
@@ -177,7 +177,7 @@ myScreenInit (DisplayInfo *display_info, GdkScreen *gscr, unsigned long event_ma
     TRACE ("entering");
 
     screen_info = g_new0 (ScreenInfo, 1);
-    screen_info->params = g_new0 (XfwmParams, 1);
+    screen_info->params = g_new0 (EswmParams, 1);
 
     screen_info->display_info = display_info;
     screen_info->gscr = gscr;
@@ -189,7 +189,7 @@ myScreenInit (DisplayInfo *display_info, GdkScreen *gscr, unsigned long event_ma
     gtk_window_set_screen (GTK_WINDOW (screen_info->gtk_win), gscr);
     gtk_window_resize (GTK_WINDOW (screen_info->gtk_win), 5, 5);
     gtk_window_move (GTK_WINDOW (screen_info->gtk_win), -1000, -1000);
-    gtk_widget_set_name (screen_info->gtk_win, "xfwm");
+    gtk_widget_set_name (screen_info->gtk_win, "eswm");
     gtk_widget_show_now (screen_info->gtk_win);
 
     /*
@@ -211,7 +211,7 @@ myScreenInit (DisplayInfo *display_info, GdkScreen *gscr, unsigned long event_ma
     screen_info->shape_win = (Window) None;
     myScreenComputeSize (screen_info);
 
-    screen_info->xfwm4_win = gdk_x11_window_get_xid (gtk_widget_get_window (screen_info->gtk_win));
+    screen_info->eswm1_win = gdk_x11_window_get_xid (gtk_widget_get_window (screen_info->gtk_win));
     if (!myScreenSetWMAtom (screen_info, replace_wm))
     {
         gtk_widget_destroy (screen_info->gtk_win);
@@ -259,7 +259,7 @@ myScreenInit (DisplayInfo *display_info, GdkScreen *gscr, unsigned long event_ma
     /* Create the side windows to detect edge movement */
 
     /*left*/
-    xfwmWindowTemp (screen_info,
+    eswmWindowTemp (screen_info,
                     NULL, 0,
                     screen_info->xroot,
                     &screen_info->sidewalk[0],
@@ -269,7 +269,7 @@ myScreenInit (DisplayInfo *display_info, GdkScreen *gscr, unsigned long event_ma
                     TRUE);
 
     /*right*/
-    xfwmWindowTemp (screen_info,
+    eswmWindowTemp (screen_info,
                     NULL, 0,
                     screen_info->xroot,
                     &screen_info->sidewalk[1],
@@ -279,7 +279,7 @@ myScreenInit (DisplayInfo *display_info, GdkScreen *gscr, unsigned long event_ma
                     TRUE);
 
     /*top*/
-    xfwmWindowTemp (screen_info,
+    eswmWindowTemp (screen_info,
                     NULL, 0,
                     screen_info->xroot,
                     &screen_info->sidewalk[2],
@@ -289,7 +289,7 @@ myScreenInit (DisplayInfo *display_info, GdkScreen *gscr, unsigned long event_ma
                     TRUE);
 
     /*bottom*/
-    xfwmWindowTemp (screen_info,
+    eswmWindowTemp (screen_info,
                     NULL, 0,
                     screen_info->xroot,
                     &screen_info->sidewalk[3],
@@ -310,27 +310,27 @@ myScreenInit (DisplayInfo *display_info, GdkScreen *gscr, unsigned long event_ma
 
     for (i = 0; i < SIDE_COUNT; i++)
     {
-        xfwmPixmapInit (screen_info, &screen_info->sides[i][ACTIVE]);
-        xfwmPixmapInit (screen_info, &screen_info->sides[i][INACTIVE]);
+        eswmPixmapInit (screen_info, &screen_info->sides[i][ACTIVE]);
+        eswmPixmapInit (screen_info, &screen_info->sides[i][INACTIVE]);
     }
     for (i = 0; i < CORNER_COUNT; i++)
     {
-        xfwmPixmapInit (screen_info, &screen_info->corners[i][ACTIVE]);
-        xfwmPixmapInit (screen_info, &screen_info->corners[i][INACTIVE]);
+        eswmPixmapInit (screen_info, &screen_info->corners[i][ACTIVE]);
+        eswmPixmapInit (screen_info, &screen_info->corners[i][INACTIVE]);
     }
     for (i = 0; i < BUTTON_COUNT; i++)
     {
         for (j = 0; j < STATE_COUNT; j++)
         {
-            xfwmPixmapInit (screen_info, &screen_info->buttons[i][j]);
+            eswmPixmapInit (screen_info, &screen_info->buttons[i][j]);
         }
     }
     for (i = 0; i < TITLE_COUNT; i++)
     {
-        xfwmPixmapInit (screen_info, &screen_info->title[i][ACTIVE]);
-        xfwmPixmapInit (screen_info, &screen_info->title[i][INACTIVE]);
-        xfwmPixmapInit (screen_info, &screen_info->top[i][ACTIVE]);
-        xfwmPixmapInit (screen_info, &screen_info->top[i][INACTIVE]);
+        eswmPixmapInit (screen_info, &screen_info->title[i][ACTIVE]);
+        eswmPixmapInit (screen_info, &screen_info->title[i][INACTIVE]);
+        eswmPixmapInit (screen_info, &screen_info->top[i][ACTIVE]);
+        eswmPixmapInit (screen_info, &screen_info->top[i][INACTIVE]);
     }
 
     screen_info->monitors_index = NULL;
@@ -367,10 +367,10 @@ myScreenClose (ScreenInfo *screen_info)
         screen_info->shape_win = (Window) None;
     }
 
-    xfwmWindowDelete (&screen_info->sidewalk[0]);
-    xfwmWindowDelete (&screen_info->sidewalk[1]);
-    xfwmWindowDelete (&screen_info->sidewalk[2]);
-    xfwmWindowDelete (&screen_info->sidewalk[3]);
+    eswmWindowDelete (&screen_info->sidewalk[0]);
+    eswmWindowDelete (&screen_info->sidewalk[1]);
+    eswmWindowDelete (&screen_info->sidewalk[2]);
+    eswmWindowDelete (&screen_info->sidewalk[3]);
     XSetInputFocus (display_info->dpy, screen_info->xroot, RevertToPointerRoot, CurrentTime);
 
     g_free (screen_info->params);
@@ -440,7 +440,7 @@ myScreenGrabKeyboard (ScreenInfo *screen_info, guint event_mask, guint32 timesta
     if (screen_info->key_grabs == 0)
     {
         myDisplayErrorTrapPush (screen_info->display_info);
-        grab = xfwm_device_grab (screen_info->display_info->devices,
+        grab = eswm_device_grab (screen_info->display_info->devices,
                                  &screen_info->display_info->devices->keyboard,
                                  myScreenGetXDisplay (screen_info), screen_info->xroot,
                                  TRUE, event_mask, GrabModeAsync, screen_info->xroot,
@@ -466,7 +466,7 @@ myScreenGrabPointer (ScreenInfo *screen_info, gboolean owner_events,
     if (screen_info->pointer_grabs == 0)
     {
         myDisplayErrorTrapPush (screen_info->display_info);
-        grab = xfwm_device_grab (screen_info->display_info->devices,
+        grab = eswm_device_grab (screen_info->display_info->devices,
                                  &screen_info->display_info->devices->pointer,
                                  myScreenGetXDisplay (screen_info), screen_info->xroot,
                                  owner_events, event_mask, GrabModeAsync, screen_info->xroot,
@@ -499,7 +499,7 @@ myScreenChangeGrabPointer (ScreenInfo *screen_info, gboolean owner_events,
         }
         else
         {
-            grab = xfwm_device_grab (screen_info->display_info->devices,
+            grab = eswm_device_grab (screen_info->display_info->devices,
                                      &screen_info->display_info->devices->pointer,
                                      myScreenGetXDisplay (screen_info), screen_info->xroot,
                                      owner_events, event_mask, GrabModeAsync, screen_info->xroot,
@@ -525,7 +525,7 @@ myScreenUngrabKeyboard (ScreenInfo *screen_info, guint32 timestamp)
     if (screen_info->key_grabs == 0)
     {
         myDisplayErrorTrapPush (screen_info->display_info);
-        xfwm_device_ungrab (screen_info->display_info->devices,
+        eswm_device_ungrab (screen_info->display_info->devices,
                             &screen_info->display_info->devices->keyboard,
                             myScreenGetXDisplay (screen_info), (Time) timestamp);
         myDisplayErrorTrapPopIgnored (screen_info->display_info);
@@ -549,7 +549,7 @@ myScreenUngrabPointer (ScreenInfo *screen_info, guint32 timestamp)
     if (screen_info->pointer_grabs == 0)
     {
         myDisplayErrorTrapPush (screen_info->display_info);
-        xfwm_device_ungrab (screen_info->display_info->devices,
+        eswm_device_ungrab (screen_info->display_info->devices,
                             &screen_info->display_info->devices->pointer,
                             myScreenGetXDisplay (screen_info), (Time) timestamp);
         myDisplayErrorTrapPopIgnored (screen_info->display_info);
@@ -588,7 +588,7 @@ myScreenUngrabKeys (ScreenInfo *screen_info)
 }
 
 gint
-myScreenGetKeyPressed (ScreenInfo *screen_info, XfwmEventKey *event)
+myScreenGetKeyPressed (ScreenInfo *screen_info, EswmEventKey *event)
 {
     gint key;
     guint state;
@@ -648,7 +648,7 @@ myScreenComputeSize (ScreenInfo *screen_info)
 
     width = 0;
     height = 0;
-    num_monitors = xfwm_get_n_monitors (screen_info->gscr);
+    num_monitors = eswm_get_n_monitors (screen_info->gscr);
 
     if (num_monitors == 0)
     {
@@ -657,7 +657,7 @@ myScreenComputeSize (ScreenInfo *screen_info)
 
     for (i = 0; i < num_monitors; i++)
     {
-        xfwm_get_monitor_geometry (screen_info->gscr, i, &monitor, TRUE);
+        eswm_get_monitor_geometry (screen_info->gscr, i, &monitor, TRUE);
         width = MAX (monitor.x + monitor.width, width);
         height = MAX (monitor.y + monitor.height, height);
     }
@@ -738,14 +738,14 @@ myScreenRebuildMonitorIndex (ScreenInfo *screen_info)
      * the bigger ones first (giving preference to taller monitors
      * over wider monitors)
      */
-    num_monitors = xfwm_get_n_monitors (screen_info->gscr);
+    num_monitors = eswm_get_n_monitors (screen_info->gscr);
     for (i = 0; i < num_monitors; i++)
     {
-        xfwm_get_monitor_geometry (screen_info->gscr, i, &monitor, TRUE);
+        eswm_get_monitor_geometry (screen_info->gscr, i, &monitor, TRUE);
         cloned = FALSE;
         for (j = 0; j < (gint) screen_info->monitors_index->len; j++)
         {
-            xfwm_get_monitor_geometry (screen_info->gscr, j, &previous, TRUE);
+            eswm_get_monitor_geometry (screen_info->gscr, j, &previous, TRUE);
             if ((previous.x == monitor.x) && (previous.y == monitor.y))
             {
                 cloned = TRUE;
@@ -808,7 +808,7 @@ myScreenFindMonitorAtPoint (ScreenInfo *screen_info, gint x, gint y, GdkRectangl
         gint monitor_index;
 
         monitor_index = myScreenGetMonitorIndex (screen_info, i);
-        xfwm_get_monitor_geometry (screen_info->gscr, monitor_index, &monitor, TRUE);
+        eswm_get_monitor_geometry (screen_info->gscr, monitor_index, &monitor, TRUE);
 
         if ((x >= monitor.x) && (x < (monitor.x + monitor.width)) &&
             (y >= monitor.y) && (y < (monitor.y + monitor.height)))

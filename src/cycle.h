@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -35,7 +35,7 @@
 #define INC_CYCLE_H
 
 void                     clientCycle                            (Client *,
-                                                                 XfwmEventKey *);
+                                                                 EswmEventKey *);
 gboolean                 clientSwitchWindow                     (void);
 gboolean                 clientSwitchApp                        (void);
 #endif /* INC_CYCLE_H */

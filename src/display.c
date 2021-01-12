@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2020 Olivier Fourdan
+        eswm1    - (c) 2002-2020 Olivier Fourdan
 
  */
 
@@ -164,8 +164,8 @@ myDisplayInitAtoms (DisplayInfo *display_info)
         "WM_TAKE_FOCUS",
         "WM_TRANSIENT_FOR",
         "WM_WINDOW_ROLE",
-        "XFWM4_COMPOSITING_MANAGER",
-        "XFWM4_TIMESTAMP_PROP",
+        "ESWM4_COMPOSITING_MANAGER",
+        "ESWM4_TIMESTAMP_PROP",
         "_XROOTPMAP_ID",
         "_XSETROOT_ID",
         "_GTK_READ_RCFILES"
@@ -219,7 +219,7 @@ myDisplayInit (GdkDisplay *gdisplay)
         g_warning ("Some internal atoms were not properly created.");
     }
 
-    display->devices = xfwm_devices_new (gdisplay);
+    display->devices = eswm_devices_new (gdisplay);
 
     /* Test XShape extension support */
     major = 0;
@@ -775,7 +775,7 @@ myDisplayGetDefaultScreen (DisplayInfo *display)
 }
 
 guint32
-myDisplayUpdateCurrentTime (DisplayInfo *display, XfwmEvent *event)
+myDisplayUpdateCurrentTime (DisplayInfo *display, EswmEvent *event)
 {
     guint32 timestamp;
     XEvent *xevent;
@@ -785,19 +785,19 @@ myDisplayUpdateCurrentTime (DisplayInfo *display, XfwmEvent *event)
     timestamp = (guint32) CurrentTime;
     switch (event->meta.type)
     {
-        case XFWM_EVENT_KEY:
+        case ESWM_EVENT_KEY:
             timestamp = (guint32) event->key.time;
             break;
-        case XFWM_EVENT_BUTTON:
+        case ESWM_EVENT_BUTTON:
             timestamp = (guint32) event->button.time;
             break;
-        case XFWM_EVENT_MOTION:
+        case ESWM_EVENT_MOTION:
             timestamp = (guint32) event->motion.time;
             break;
-        case XFWM_EVENT_CROSSING:
+        case ESWM_EVENT_CROSSING:
             timestamp = (guint32) event->crossing.time;
             break;
-        case XFWM_EVENT_XEVENT:
+        case ESWM_EVENT_XEVENT:
             xevent = event->meta.xevent;
 
             switch (xevent->type)

@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -39,8 +39,8 @@
 
 #define MYWINDOW_XWINDOW(w) (w.window)
 
-typedef struct _xfwmWindow xfwmWindow;
-struct _xfwmWindow
+typedef struct _eswmWindow eswmWindow;
+struct _eswmWindow
 {
     ScreenInfo *screen_info;
     Visual *visual;
@@ -54,38 +54,38 @@ struct _xfwmWindow
     gboolean map;
 };
 
-void                     xfwmWindowInit                         (xfwmWindow *);
-void                     xfwmWindowSetCursor                    (xfwmWindow *,
+void                     eswmWindowInit                         (eswmWindow *);
+void                     eswmWindowSetCursor                    (eswmWindow *,
                                                                  Cursor);
-void                     xfwmWindowCreate                       (ScreenInfo *,
+void                     eswmWindowCreate                       (ScreenInfo *,
                                                                  Visual *,
                                                                  gint,
                                                                  Window,
-                                                                 xfwmWindow *,
+                                                                 eswmWindow *,
                                                                  long,
                                                                  Cursor);
-void                     xfwmWindowTemp                         (ScreenInfo *,
+void                     eswmWindowTemp                         (ScreenInfo *,
                                                                  Visual *,
                                                                  gint,
                                                                  Window,
-                                                                 xfwmWindow *,
+                                                                 eswmWindow *,
                                                                  int,
                                                                  int,
                                                                  int,
                                                                  int,
                                                                  long,
                                                                  gboolean);
-void                     xfwmWindowDelete                       (xfwmWindow *);
-void                     xfwmWindowShow                         (xfwmWindow *,
+void                     eswmWindowDelete                       (eswmWindow *);
+void                     eswmWindowShow                         (eswmWindow *,
                                                                  int,
                                                                  int,
                                                                  int,
                                                                  int,
                                                                  gboolean);
-void                     xfwmWindowHide                         (xfwmWindow *);
-gboolean                 xfwmWindowVisible                      (xfwmWindow *);
-gboolean                 xfwmWindowDeleted                      (xfwmWindow *);
-void                     xfwmWindowSetBG                        (xfwmWindow *,
-                                                                 xfwmPixmap *);
+void                     eswmWindowHide                         (eswmWindow *);
+gboolean                 eswmWindowVisible                      (eswmWindow *);
+gboolean                 eswmWindowDeleted                      (eswmWindow *);
+void                     eswmWindowSetBG                        (eswmWindow *,
+                                                                 eswmPixmap *);
 
 #endif /* INC_MYWINDOW_H */

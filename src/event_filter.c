@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -34,23 +34,23 @@
 #include "event_filter.h"
 
 static eventFilterStatus
-default_event_filter (XfwmEvent *event, gpointer data)
+default_event_filter (EswmEvent *event, gpointer data)
 {
     switch (event->meta.type)
     {
-        case XFWM_EVENT_KEY:
-            TRACE ("unhandled XFWM_EVENT_KEY [%d] event", event->key.pressed);
+        case ESWM_EVENT_KEY:
+            TRACE ("unhandled ESWM_EVENT_KEY [%d] event", event->key.pressed);
             break;
-        case XFWM_EVENT_BUTTON:
-            TRACE ("unhandled XFWM_EVENT_BUTTON [%d] event", event->button.pressed);
+        case ESWM_EVENT_BUTTON:
+            TRACE ("unhandled ESWM_EVENT_BUTTON [%d] event", event->button.pressed);
             break;
-        case XFWM_EVENT_MOTION:
-            TRACE ("unhandled XFWM_EVENT_MOTION event");
+        case ESWM_EVENT_MOTION:
+            TRACE ("unhandled ESWM_EVENT_MOTION event");
             break;
-        case XFWM_EVENT_CROSSING:
-            TRACE ("unhandled XFWM_EVENT_CROSSING [%d] event", event->crossing.enter);
+        case ESWM_EVENT_CROSSING:
+            TRACE ("unhandled ESWM_EVENT_CROSSING [%d] event", event->crossing.enter);
             break;
-        case XFWM_EVENT_XEVENT:
+        case ESWM_EVENT_XEVENT:
             switch (event->meta.xevent->type)
             {
                 case KeyPress:
@@ -153,9 +153,9 @@ default_event_filter (XfwmEvent *event, gpointer data)
 }
 
 static GdkFilterReturn
-eventXfwmFilter (GdkXEvent *gdk_xevent, GdkEvent *gevent, gpointer data)
+eventEswmFilter (GdkXEvent *gdk_xevent, GdkEvent *gevent, gpointer data)
 {
-    XfwmEvent *event;
+    EswmEvent *event;
     eventFilterStatus loop;
     eventFilterSetup *setup;
     eventFilterStack *filterelt;
@@ -166,7 +166,7 @@ eventXfwmFilter (GdkXEvent *gdk_xevent, GdkEvent *gevent, gpointer data)
     filterelt = setup->filterstack;
     g_return_val_if_fail (filterelt != NULL, GDK_FILTER_CONTINUE);
 
-    event = xfwm_device_translate_event (setup->devices, (XEvent *)gdk_xevent, NULL);
+    event = eswm_device_translate_event (setup->devices, (XEvent *)gdk_xevent, NULL);
     loop = EVENT_FILTER_CONTINUE;
 
     while ((filterelt) && (loop == EVENT_FILTER_CONTINUE))
@@ -176,12 +176,12 @@ eventXfwmFilter (GdkXEvent *gdk_xevent, GdkEvent *gevent, gpointer data)
         filterelt = filterelt_next;
     }
 
-    xfwm_device_free_event (event);
+    eswm_device_free_event (event);
     return (loop & EVENT_FILTER_REMOVE) ? GDK_FILTER_REMOVE : GDK_FILTER_CONTINUE;
 }
 
 eventFilterStack *
-eventFilterPush (eventFilterSetup *setup, XfwmFilter filter, gpointer data)
+eventFilterPush (eventFilterSetup *setup, EswmFilter filter, gpointer data)
 {
     g_assert (filter != NULL);
     if (setup->filterstack)
@@ -219,7 +219,7 @@ eventFilterPop (eventFilterSetup *setup)
 }
 
 GdkWindow *
-eventFilterAddWin (GdkScreen *gscr, XfwmDevices *devices, long event_mask)
+eventFilterAddWin (GdkScreen *gscr, EswmDevices *devices, long event_mask)
 {
     XWindowAttributes attribs;
     Display *dpy;
@@ -242,7 +242,7 @@ eventFilterAddWin (GdkScreen *gscr, XfwmDevices *devices, long event_mask)
     XGetWindowAttributes (dpy, xroot, &attribs);
     XSelectInput (dpy, xroot, attribs.your_event_mask | event_mask);
 #ifdef HAVE_XI2
-    xfwm_device_configure_xi2_event_mask (devices, dpy, xroot, attribs.your_event_mask | event_mask);
+    eswm_device_configure_xi2_event_mask (devices, dpy, xroot, attribs.your_event_mask | event_mask);
 #endif
 
     gdk_x11_ungrab_server ();
@@ -258,7 +258,7 @@ eventFilterAddWin (GdkScreen *gscr, XfwmDevices *devices, long event_mask)
 }
 
 eventFilterSetup *
-eventFilterInit (XfwmDevices *devices, gpointer data)
+eventFilterInit (EswmDevices *devices, gpointer data)
 {
     eventFilterSetup *setup;
 
@@ -266,7 +266,7 @@ eventFilterInit (XfwmDevices *devices, gpointer data)
     setup->filterstack = NULL;
     setup->devices = devices;
     eventFilterPush (setup, default_event_filter, data);
-    gdk_window_add_filter (NULL, eventXfwmFilter, (gpointer) setup);
+    gdk_window_add_filter (NULL, eventEswmFilter, (gpointer) setup);
 
     return (setup);
 }
@@ -278,6 +278,6 @@ eventFilterClose (eventFilterSetup *setup)
 
     filterelt = setup->filterstack;
     while ((filterelt = eventFilterPop (setup)));
-    gdk_window_remove_filter (NULL, eventXfwmFilter, NULL);
+    gdk_window_remove_filter (NULL, eventEswmFilter, NULL);
     setup->filterstack = NULL;
 }

@@ -1,9 +1,9 @@
 appiconsdir = $(datadir)/icons/hicolor/scalable/apps
 appicons_DATA =								\
-	org.xfce.xfwm4-tweaks.svg							\
+	com.expidus.eswm1-tweaks.svg							\
 	org.xfce.workspaces.svg						\
-	org.xfce.xfwm4.svg							\
-	xfwm4-default.svg
+	com.expidus.eswm1.svg							\
+	eswm1-default.svg
 
 actionsiconsdir = $(datadir)/icons/hicolor/scalable/actions
 actionsicons_DATA =							\

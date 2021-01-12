@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -103,7 +103,7 @@ clientGetTopMostFocusable (ScreenInfo *screen_info, guint layer, GList * exclude
             {
                 break;
             }
-            else if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+            else if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
             {
                 if (clientSelectMask (c, NULL, 0, WINDOW_REGULAR_FOCUSABLE))
                 {
@@ -185,7 +185,7 @@ clientFocusNew(Client * c)
             give_focus = TRUE;
             prevented = FALSE;
         }
-        else if (FLAG_TEST (client_focus->xfwm_flags, XFWM_FLAG_MOVING_RESIZING))
+        else if (FLAG_TEST (client_focus->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
         {
             give_focus = FALSE;
             prevented = TRUE;
@@ -475,7 +475,7 @@ clientFocusNone (ScreenInfo *screen_info, Client *previous, guint32 timestamp)
         }
     }
     clientSetNetActiveWindow (screen_info, NULL, timestamp);
-    XSetInputFocus (myScreenGetXDisplay (screen_info), screen_info->xfwm4_win, RevertToPointerRoot, timestamp);
+    XSetInputFocus (myScreenGetXDisplay (screen_info), screen_info->eswm1_win, RevertToPointerRoot, timestamp);
 }
 
 void
@@ -562,7 +562,7 @@ clientSetFocus (ScreenInfo *screen_info, Client *c, guint32 timestamp, unsigned 
         }
     }
     c2 = ((client_focus != c) ? client_focus : NULL);
-    if ((c) && FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+    if ((c) && FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
     {
         TRACE ("setting focus to client \"%s\" (0x%lx) with timestamp %u", c->name, c->window, (unsigned int) timestamp);
         user_focus = c;
@@ -654,12 +654,12 @@ clientInitFocusFlag (Client * c)
     for (list = screen_info->windows_stack; list; list = g_list_next (list))
     {
         c2 = (Client *) list->data;
-        if ((c2->win_workspace == workspace) && FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_FOCUS))
+        if ((c2->win_workspace == workspace) && FLAG_TEST (c2->eswm_flags, ESWM_FLAG_FOCUS))
         {
-            FLAG_UNSET (c2->xfwm_flags, XFWM_FLAG_FOCUS);
+            FLAG_UNSET (c2->eswm_flags, ESWM_FLAG_FOCUS);
         }
     }
-    FLAG_SET (c->xfwm_flags, XFWM_FLAG_FOCUS);
+    FLAG_SET (c->eswm_flags, ESWM_FLAG_FOCUS);
 }
 
 Client *

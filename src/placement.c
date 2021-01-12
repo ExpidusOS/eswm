@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -29,7 +29,7 @@
 #include <glib.h>
 #include <libxfce4util/libxfce4util.h>
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
 #include "screen.h"
 #include "misc.h"
@@ -41,7 +41,7 @@
 #include "netwm.h"
 
 #define MAX_VALID_STRUT(n) (n / 4) /* 25% of available space */
-#define USE_CLIENT_STRUTS(c) (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE) && \
+#define USE_CLIENT_STRUTS(c) (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE) && \
                               FLAG_TEST (c->flags, CLIENT_FLAG_HAS_STRUT))
 
 /* Compute rectangle overlap area */
@@ -512,7 +512,7 @@ static void
 clientAutoMaximize (Client * c, int full_w, int full_h)
 {
     if (FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN) ||
-        !FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_BORDER))
+        !FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_BORDER))
     {
         /*
          * Fullscreen or undecorated windows should not be
@@ -601,7 +601,7 @@ smartPlacement (Client * c, int full_x, int full_y, int full_w, int full_h)
             {
                 if ((c2 != c) && (c2->type != WINDOW_DESKTOP)
                     && (c->win_workspace == c2->win_workspace)
-                    && FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE))
+                    && FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE))
                 {
                     c2_x = frameExtentX (c2);
                     c2_frame_width = frameExtentWidth (c2);
@@ -804,11 +804,11 @@ clientInitPosition (Client * c)
         place = TRUE;
     }
 
-    full_x = MAX (screen_info->params->xfwm_margins[STRUTS_LEFT], rect.x);
-    full_y = MAX (screen_info->params->xfwm_margins[STRUTS_TOP], rect.y);
-    full_w = MIN (screen_info->width - screen_info->params->xfwm_margins[STRUTS_RIGHT],
+    full_x = MAX (screen_info->params->eswm_margins[STRUTS_LEFT], rect.x);
+    full_y = MAX (screen_info->params->eswm_margins[STRUTS_TOP], rect.y);
+    full_w = MIN (screen_info->width - screen_info->params->eswm_margins[STRUTS_RIGHT],
                   rect.x + rect.width) - full_x;
-    full_h = MIN (screen_info->height - screen_info->params->xfwm_margins[STRUTS_BOTTOM],
+    full_h = MIN (screen_info->height - screen_info->params->eswm_margins[STRUTS_BOTTOM],
                   rect.y + rect.height) - full_y;
 
     /* Adjust size to the widest size available, not covering struts */
@@ -888,7 +888,7 @@ clientFill (Client * c, int fill_type)
         /* Filter out all windows which are not visible, or not on the same layer
          * as well as the client window itself
          */
-        if ((c != c2) && FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE) && (c2->win_layer == c->win_layer))
+        if ((c != c2) && FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE) && (c2->win_layer == c->win_layer))
         {
             /* Fill horizontally */
             if (fill_type & CLIENT_FILL_HORIZ)
@@ -994,11 +994,11 @@ clientFill (Client * c, int fill_type)
 
     myScreenFindMonitorAtPoint (screen_info, cx, cy, &rect);
 
-    full_x = MAX (screen_info->params->xfwm_margins[STRUTS_LEFT], rect.x);
-    full_y = MAX (screen_info->params->xfwm_margins[STRUTS_TOP], rect.y);
-    full_w = MIN (screen_info->width - screen_info->params->xfwm_margins[STRUTS_RIGHT],
+    full_x = MAX (screen_info->params->eswm_margins[STRUTS_LEFT], rect.x);
+    full_y = MAX (screen_info->params->eswm_margins[STRUTS_TOP], rect.y);
+    full_w = MIN (screen_info->width - screen_info->params->eswm_margins[STRUTS_RIGHT],
                   rect.x + rect.width) - full_x;
-    full_h = MIN (screen_info->height - screen_info->params->xfwm_margins[STRUTS_BOTTOM],
+    full_h = MIN (screen_info->height - screen_info->params->eswm_margins[STRUTS_BOTTOM],
                   rect.y + rect.height) - full_y;
 
     if ((fill_type & CLIENT_FILL) == CLIENT_FILL)
@@ -1049,7 +1049,7 @@ clientFill (Client * c, int fill_type)
     }
 
     TRACE ("fill size request: (%d,%d) %dx%d", wc.x, wc.y, wc.width, wc.height);
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MANAGED))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MANAGED))
     {
         clientConfigure(c, &wc, mask, NO_CFG_FLAG);
     }

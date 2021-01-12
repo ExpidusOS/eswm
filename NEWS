@@ -102,7 +102,7 @@
 ======
 
 - Add support for opaque regions in the compositor
-- Make cursor zoom optional (xfce/xfwm4#439)
+- Make cursor zoom optional (xfce/eswm1#439)
 - Remove the deprecated options "--daemon" (Pablo Mazzini)
 - Disable Xi2 support by default
 - Add column sorting in settings
@@ -119,7 +119,7 @@
 4.15.1
 ======
 
-- Fix an error leak in compositor (xfce/xfwm4#351)
+- Fix an error leak in compositor (xfce/eswm1#351)
 - Fix compositor selection atom misuse
 - Prefer zero initialized memory allocation functions
 - Use g_slice allocator for compositor windows
@@ -163,7 +163,7 @@
   (bug #15453)
 - Compositor updates with GLX
 - Small optimization with zoom on GLX
-- Increase X11 client priority of xfwm4
+- Increase X11 client priority of eswm1
 - Change default compositor background to plain black
 - Fallback to resource class name for icons (Iharob Al Asimi, bug #15510)
 - Clear shortcut in settings-dialog when removed (bug #12802)
@@ -203,7 +203,7 @@
    pnd23@telenet.be)
  - Fix size increment with scaled UI
  - Various compositor improvements and optimizations with GLX
- - Check for appropriate XSync version and increase xfwm4 priority
+ - Check for appropriate XSync version and increase eswm1 priority
  - Adjust zoom update based on monitor refresh rate (bug #15391, Alistair
    Buxton)
  - Fix window type for broken clients (bug #15399)
@@ -222,7 +222,7 @@
  - Remove the old vblank code (bug #13613, Błażej Szczygieł)
  - Update "presentproto" requirement to avoid XPresent issue on 32bit
    (bug #13257)
- - Remove support for environment variable "XFWM4_USE_PRESENT"
+ - Remove support for environment variable "ESWM4_USE_PRESENT"
  - Allow to resize borderless maximized window with [Alt] + mouse
  - Add support for GTK3 (Viktor Odintsev)
  - Add XI2 support (Viktor Odintsev)
@@ -353,7 +353,7 @@
 - Optimize smart placement (bug #5785).
 - Improvements in accelerator handling.
 - Remove unmaintained translations.
-- Make the xfwm4-settings dialog use less height.
+- Make the eswm1-settings dialog use less height.
 - Fixup padding in keyboard shortcuts tab.
 - Autotools updates.
 - Add Vsync support for the compositor (bug #8898).
@@ -410,7 +410,7 @@
   timestamp to avoid setting focus on wrong window in focus follow
   mouse (Bug #8323).
 - Remove docbook documentation.
-- Remove older themes from main package (moved to xfwm4-themes now).
+- Remove older themes from main package (moved to eswm1-themes now).
 - Add patch for themeable tab-window (bug #8238).
 - Use themeable icons for the settings manager and the menu, rework
   the default icons for the settings manager and the window menu and
@@ -428,7 +428,7 @@
 - Update mouse cursor theme and size dynamically (bug #6854).
 - Optimize transients for group evaluation while withdrawing windows.
 - Increase timeout for other WM to exit with "--replace",
-- Rework focus and fullscreen windows to make xfwm4 simpler and
+- Rework focus and fullscreen windows to make eswm1 simpler and
   more predictable.
 - Get rid or of old GNOME 1.x protocol.
 - Get rif of legacy fullscreen emulation.
@@ -515,7 +515,7 @@
 
 4.7.4
 =====
-- Fix bug #6651 Shape Mask Changes not Immediately Recognized by Xfwm4.
+- Fix bug #6651 Shape Mask Changes not Immediately Recognized by Eswm4.
 - Use Xsettings standard double-click-distance (bug 6334).
 - Fix bug #6334.
 - Bug 6334: Use lower prio for double click timeout.
@@ -582,7 +582,7 @@
 - Check for invalid type for GValue to avoid a crash (bug #6195).
 - Don't save the settings dialogs when saving the session.
 - Watch workspace changes in wnck and update treeview accordingly.
-- Move helper-dialog to $libdir/xfce4/xfwm4.
+- Move helper-dialog to $libdir/xfce4/eswm1.
 - Build documentation in make dist.
 - Various theme updates.
 - Translation updates (ja, es, pl, uk, da, ro, ast, lv, sq, gl, ru, sk, pt,
@@ -623,9 +623,9 @@
   without focus stealing prevention enabled (Bug #5044)
 - Reduce minimum timeout for focus delay in focus follow mouse (100ms was way
   too much)
-- Fix raise delay settings in xfwm4 dialog being totally ignored
+- Fix raise delay settings in eswm1 dialog being totally ignored
 - Avoid unecessary warnings about timestamps at startup
-- Fix a long standing bug in xfwm4 4.6 were activating a transient would not
+- Fix a long standing bug in eswm1 4.6 were activating a transient would not
   regrab the mouse on parent window.
 - Do not go over adjacent windows with fill (Bug #5152)
 - Do not actually change window layer when status is above, below or fullscreen
@@ -663,7 +663,7 @@
 ======================
 
 - Fix a crash when removing a monitor with xrandr 1.2.
-- Command line option "--daemon" would have no effect when xfwm4 connects to
+- Command line option "--daemon" would have no effect when eswm1 connects to
   the session manager (Bug #4839).
 - Fix settings not being set at startup (Bug #4845).
 - Flatten default theme.
@@ -729,7 +729,7 @@
   the wmtweaks GUI.
 - Allow any modifier to be used for easy move, including disabling the functionality
   entirely.
-- Add embedding support to all xfwm4 settings dialogs.
+- Add embedding support to all eswm1 settings dialogs.
 - Sort theme alphabetically (Bug #4318).
 - Implement workspace name changing.
 - Do not allocate window extents if the window is not visible (Bug #4363).
@@ -763,10 +763,10 @@
 - Rework the event filter to avoid passing all events to gtk+.
 - Treat dialogs and utility windows as transients for group (bug #3102).
 - Add support for shape input with XShape extension 1.1 (Bug #3092).
-- Make the title button in the xfwm4 settings manager dragable (bug #3000).
+- Make the title button in the eswm1 settings manager dragable (bug #3000).
 - Fix a misinterpretation of ICCCM about when to send a synthetic
   configureNotify event (bug #2977).
-- Add option to instruct xfwm4 not to bring window back on
+- Add option to instruct eswm1 not to bring window back on
   current workspace when activated (bug #2961).
 - Place splash screen windows on the normal layer, so that dialogs that
   get mapped during startup have a chance to be placed above the splash
@@ -802,7 +802,7 @@
 - Rework grab release (bug #2694)
 - Fix display of ARGB32 windows with compositing enabled but without
   compositor active (bug #2710).
-- Apply NET_WM_STATE_DEMANDS_ATTENTION changes (otherwise it breaks xfwm4
+- Apply NET_WM_STATE_DEMANDS_ATTENTION changes (otherwise it breaks eswm1
   demand attention mechanism), but do not obey client state change requests
   for NET_WM_STATE_DEMANDS_ATTENTION if the client is already focused.
 - Apply patch from Mike Massonnet that fixes an error in Stonage decoration
@@ -831,7 +831,7 @@
   from EWMH version 1.3 and above, fix focus transition with
   NET_CURRENT_DESKTOP messages causing either flickering or wrong restacking
   on workspace switch (bug #2654),
-- Quit nicely when MANAGE client message is received, so that xfwm4 obeys to
+- Quit nicely when MANAGE client message is received, so that eswm1 obeys to
   ICCCM2 standard (bug #2374)
 - Fix demands attention being activated when it shouldn't
 - Improve focus stealing prevention.
@@ -889,7 +889,7 @@
 - Add support for XSync protocol.
 - Add support to NET_WM_MOVERESIZE.
 - New SVG based default theme (using PNG for speend and
-  compatibility although xfwm4 is able to use SVG theme), previous
+  compatibility although eswm1 is able to use SVG theme), previous
   theme renamed as "Sassandra".
 - Fix compositor unredirect with Xorg 7.1 (bug #64115 in Ubuntu
   Launchpad).
@@ -916,7 +916,7 @@
 - Add new option to enable/disable unredirection of fullscreen override windows
   (overlays).
 - Prevent shaped windows to request a frame.
-- Fix meaning of the Xfwm/CycleMinimum option in the WM tweak plugin
+- Fix meaning of the Eswm/CycleMinimum option in the WM tweak plugin
   (Bug #2058).
 - Fix focus transition back to regular window when an override window grabbing
   keyboard is unmapped (Bug #2090).

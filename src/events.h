@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2015 Olivier Fourdan
+        eswm1    - (c) 2002-2015 Olivier Fourdan
 
  */
 
@@ -38,7 +38,7 @@
 #include "event_filter.h"
 
 void                     initMenuEventWin                       (void);
-eventFilterStatus        xfwm4_event_filter                     (XfwmEvent *,
+eventFilterStatus        eswm1_event_filter                     (EswmEvent *,
                                                                  gpointer);
 void                     initPerScreenCallbacks                 (ScreenInfo *);
 void                     initPerDisplayCallbacks                (DisplayInfo *);

@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -42,11 +42,11 @@ typedef enum {
 }
 eventFilterStatus;
 
-typedef eventFilterStatus (*XfwmFilter) (XfwmEvent *event, gpointer data);
+typedef eventFilterStatus (*EswmFilter) (EswmEvent *event, gpointer data);
 
 typedef struct eventFilterStack
 {
-    XfwmFilter filter;
+    EswmFilter filter;
     gpointer data;
     struct eventFilterStack *next;
 }
@@ -55,18 +55,18 @@ eventFilterStack;
 typedef struct eventFilterSetup
 {
     eventFilterStack *filterstack;
-    XfwmDevices *devices;
+    EswmDevices *devices;
 }
 eventFilterSetup;
 
 GdkWindow               *eventFilterAddWin                      (GdkScreen *,
-                                                                 XfwmDevices *,
+                                                                 EswmDevices *,
                                                                  long);
 eventFilterStack        *eventFilterPush                        (eventFilterSetup *,
-                                                                 XfwmFilter,
+                                                                 EswmFilter,
                                                                  gpointer );
 eventFilterStack        *eventFilterPop                         (eventFilterSetup *);
-eventFilterSetup        *eventFilterInit                        (XfwmDevices *,
+eventFilterSetup        *eventFilterInit                        (EswmDevices *,
                                                                  gpointer);
 void                     eventFilterClose                       (eventFilterSetup *);
 

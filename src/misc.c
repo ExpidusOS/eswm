@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -183,24 +183,24 @@ placeSidewalks(ScreenInfo *screen_info, gboolean activate)
     if ((activate) && (l.cols > 1))
     {
         /*left*/
-        xfwmWindowShow (&screen_info->sidewalk[0],
+        eswmWindowShow (&screen_info->sidewalk[0],
                         0, 0,
                         1, screen_info->height, FALSE);
 
         /*right*/
-         xfwmWindowShow (&screen_info->sidewalk[1],
+         eswmWindowShow (&screen_info->sidewalk[1],
                         screen_info->width - 1, 0,
                         1, screen_info->height, FALSE);
     }
     else /* Place the windows off screen */
     {
         /*left*/
-        xfwmWindowShow (&screen_info->sidewalk[0],
+        eswmWindowShow (&screen_info->sidewalk[0],
                         -1, 0,
                         1, screen_info->height, FALSE);
 
         /*right*/
-        xfwmWindowShow (&screen_info->sidewalk[1],
+        eswmWindowShow (&screen_info->sidewalk[1],
                         screen_info->width, 0,
                         1, screen_info->height, FALSE);
     }
@@ -208,24 +208,24 @@ placeSidewalks(ScreenInfo *screen_info, gboolean activate)
     if ((activate) && (l.rows > 1))
     {
         /*top*/
-        xfwmWindowShow (&screen_info->sidewalk[2],
+        eswmWindowShow (&screen_info->sidewalk[2],
                         0, 0,
                         screen_info->width, 1, FALSE);
 
         /*bottom*/
-        xfwmWindowShow (&screen_info->sidewalk[3],
+        eswmWindowShow (&screen_info->sidewalk[3],
                         0, screen_info->height - 1,
                         screen_info->width, 1, FALSE);
     }
     else /* Place the windows off screen */
     {
         /*top*/
-        xfwmWindowShow (&screen_info->sidewalk[2],
+        eswmWindowShow (&screen_info->sidewalk[2],
                         0, -1,
                         screen_info->width, 1, FALSE);
 
         /*bottom*/
-        xfwmWindowShow (&screen_info->sidewalk[3],
+        eswmWindowShow (&screen_info->sidewalk[3],
                         0, screen_info->height,
                         screen_info->width, 1, FALSE);
     }

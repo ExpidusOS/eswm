@@ -1,4 +1,4 @@
-themedir = $(datadir)/themes/Daloa/xfwm4
+themedir = $(datadir)/themes/Daloa/eswm1
 
 PNG_FILES = 								\
 	bottom-active.png						\

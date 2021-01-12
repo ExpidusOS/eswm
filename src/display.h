@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2020 Olivier Fourdan
+        eswm1    - (c) 2002-2020 Olivier Fourdan
 
  */
 
@@ -268,8 +268,8 @@ enum
     WM_TAKE_FOCUS,
     WM_TRANSIENT_FOR,
     WM_WINDOW_ROLE,
-    XFWM4_COMPOSITING_MANAGER,
-    XFWM4_TIMESTAMP_PROP,
+    ESWM4_COMPOSITING_MANAGER,
+    ESWM4_TIMESTAMP_PROP,
     XROOTPMAP,
     XSETROOT,
     GTK_READ_RCFILES,
@@ -278,8 +278,8 @@ enum
 
 typedef struct _Client            Client;
 typedef struct _DisplayInfo       DisplayInfo;
-typedef struct _xfwmPixmap        xfwmPixmap;
-typedef struct _XfwmParams        XfwmParams;
+typedef struct _eswmPixmap        eswmPixmap;
+typedef struct _EswmParams        EswmParams;
 typedef struct _ScreenInfo        ScreenInfo;
 typedef struct _Settings          Settings;
 
@@ -301,7 +301,7 @@ struct _DisplayInfo
     Atom atoms[ATOM_COUNT];
 
     eventFilterSetup *xfilter;
-    XfwmDevices *devices;
+    EswmDevices *devices;
     GSList *screens;
     GSList *clients;
 
@@ -415,7 +415,7 @@ Client                  *myDisplayGetClientFromXSyncAlarm       (DisplayInfo *,
 #endif /* HAVE_XSYNC */
 ScreenInfo              *myDisplayGetDefaultScreen              (DisplayInfo *);
 guint32                  myDisplayUpdateCurrentTime             (DisplayInfo *,
-                                                                 XfwmEvent *);
+                                                                 EswmEvent *);
 guint32                  myDisplayGetCurrentTime                (DisplayInfo *);
 guint32                  myDisplayGetTime                       (DisplayInfo *,
                                                                  guint32);

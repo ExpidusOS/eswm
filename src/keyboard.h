@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -52,19 +52,19 @@ gboolean                 getModifierMap                         (const char *,
 void                     parseKeyString                         (Display *,
                                                                  MyKey *,
                                                                  const char *);
-gboolean                 grabKey                                (XfwmDevices *,
+gboolean                 grabKey                                (EswmDevices *,
                                                                  Display *,
                                                                  MyKey *,
                                                                  Window);
-void                     ungrabKeys                             (XfwmDevices *,
+void                     ungrabKeys                             (EswmDevices *,
                                                                  Display *,
                                                                  Window);
-gboolean                 grabButton                             (XfwmDevices *,
+gboolean                 grabButton                             (EswmDevices *,
                                                                  Display *,
                                                                  guint,
                                                                  guint,
                                                                  Window);
-void                     ungrabButton                           (XfwmDevices *,
+void                     ungrabButton                           (EswmDevices *,
                                                                  Display *,
                                                                  guint,
                                                                  guint,

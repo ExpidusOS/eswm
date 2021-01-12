@@ -21,12 +21,12 @@
 #include <string.h>
 #include <gdk/gdkx.h>
 
-#include "xfwm-common.h"
+#include "eswm-common.h"
 #define DEFAULT_REFRESH_RATE 30
 
 
 void
-xfwm_widget_reparent (GtkWidget *widget,
+eswm_widget_reparent (GtkWidget *widget,
                       GtkWidget *new_parent)
 {
   GtkWidget *old_parent;
@@ -50,7 +50,7 @@ xfwm_widget_reparent (GtkWidget *widget,
 
 
 void
-xfwm_get_screen_dimensions (gint *width, gint *height)
+eswm_get_screen_dimensions (gint *width, gint *height)
 {
   GdkDisplay   *display;
   GdkMonitor   *monitor;
@@ -69,7 +69,7 @@ xfwm_get_screen_dimensions (gint *width, gint *height)
 
 
 static void
-xfwm_geometry_convert_to_device_pixels (GdkRectangle *geometry,
+eswm_geometry_convert_to_device_pixels (GdkRectangle *geometry,
                                         gint          scale)
 {
   if (geometry != NULL)
@@ -84,7 +84,7 @@ xfwm_geometry_convert_to_device_pixels (GdkRectangle *geometry,
 
 
 void
-xfwm_get_monitor_geometry (GdkScreen    *screen,
+eswm_get_monitor_geometry (GdkScreen    *screen,
                            gint          monitor_num,
                            GdkRectangle *geometry,
                            gboolean      scaled)
@@ -99,13 +99,13 @@ xfwm_get_monitor_geometry (GdkScreen    *screen,
   gdk_monitor_get_geometry (monitor, geometry);
 
   if (scaled && scale != 1)
-    xfwm_geometry_convert_to_device_pixels (geometry, scale);
+    eswm_geometry_convert_to_device_pixels (geometry, scale);
 }
 
 
 
 gboolean
-xfwm_get_primary_monitor_geometry (GdkScreen    *screen,
+eswm_get_primary_monitor_geometry (GdkScreen    *screen,
                                    GdkRectangle *geometry,
                                    gboolean      scaled)
 {
@@ -128,7 +128,7 @@ xfwm_get_primary_monitor_geometry (GdkScreen    *screen,
   gdk_monitor_get_geometry (monitor, geometry);
 
   if (scaled && scale != 1)
-    xfwm_geometry_convert_to_device_pixels (geometry, scale);
+    eswm_geometry_convert_to_device_pixels (geometry, scale);
 
   return TRUE;
 }
@@ -136,7 +136,7 @@ xfwm_get_primary_monitor_geometry (GdkScreen    *screen,
 
 
 gint
-xfwm_get_primary_refresh_rate (GdkScreen *screen)
+eswm_get_primary_refresh_rate (GdkScreen *screen)
 {
   GdkDisplay *display;
   GdkMonitor *monitor;
@@ -158,7 +158,7 @@ xfwm_get_primary_refresh_rate (GdkScreen *screen)
 
 
 gboolean
-xfwm_monitor_is_primary (GdkScreen *screen,
+eswm_monitor_is_primary (GdkScreen *screen,
                          gint      monitor_num)
 {
   GdkDisplay *display;
@@ -173,7 +173,7 @@ xfwm_monitor_is_primary (GdkScreen *screen,
 
 
 gint
-xfwm_get_n_monitors (GdkScreen *screen)
+eswm_get_n_monitors (GdkScreen *screen)
 {
   return gdk_display_get_n_monitors (gdk_screen_get_display (screen));
 }
@@ -204,7 +204,7 @@ substitute_screen_number (const gchar *display_name,
 
 
 gchar *
-xfwm_make_display_name (GdkScreen *screen)
+eswm_make_display_name (GdkScreen *screen)
 {
   const gchar *name;
   gint         number;

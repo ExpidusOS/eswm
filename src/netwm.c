@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2015 Olivier Fourdan
+        eswm1    - (c) 2002-2015 Olivier Fourdan
 
  */
 
@@ -158,7 +158,7 @@ clientGetNetState (Client * c)
     atoms = NULL;
     n_atoms = 0;
 
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_SESSION_MANAGED))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_SESSION_MANAGED))
     {
         if (FLAG_TEST (c->flags, CLIENT_FLAG_SHADED))
         {
@@ -292,7 +292,7 @@ clientUpdateNetWmDesktop (Client * c, XClientMessageEvent * ev)
 
     if ((guint) ev->data.l[0] == ALL_WORKSPACES)
     {
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_STICK) && !FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_STICK) && !FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
         {
             clientStick (c, TRUE);
             frameQueueDraw (c, FALSE);
@@ -300,7 +300,7 @@ clientUpdateNetWmDesktop (Client * c, XClientMessageEvent * ev)
     }
     else if ((guint) ev->data.l[0] < (guint) screen_info->workspace_count)
     {
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_STICK) && FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_STICK) && FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
         {
             clientUnstick (c, TRUE);
             frameQueueDraw (c, FALSE);
@@ -383,7 +383,7 @@ clientUpdateNetState (Client * c, XClientMessageEvent * ev)
     if ((first  == display_info->atoms[NET_WM_STATE_STICKY]) ||
         (second == display_info->atoms[NET_WM_STATE_STICKY]))
     {
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_STICK))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_STICK))
         {
             if ((action == NET_WM_STATE_ADD) && !FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
             {
@@ -406,7 +406,7 @@ clientUpdateNetState (Client * c, XClientMessageEvent * ev)
         (first  == display_info->atoms[NET_WM_STATE_MAXIMIZED_VERT]) ||
         (second == display_info->atoms[NET_WM_STATE_MAXIMIZED_VERT]))
     {
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_MAXIMIZE))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_MAXIMIZE))
         {
             if ((action == NET_WM_STATE_ADD) && !FLAG_TEST_ALL (c->flags, CLIENT_FLAG_MAXIMIZED))
             {
@@ -628,7 +628,7 @@ clientNetMoveResize (Client * c, XClientMessageEvent * ev)
     int corner;
     gboolean resize; /* true == resize, false == move */
     XEvent *xevent;
-    XfwmEvent *event;
+    EswmEvent *event;
 
     g_return_if_fail (c != NULL);
     TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
@@ -717,7 +717,7 @@ clientNetMoveResize (Client * c, XClientMessageEvent * ev)
             resize = FALSE; /* Move */
             break;
         case NET_WM_MOVERESIZE_CANCEL:
-            FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING);
+            FLAG_UNSET (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING);
             FALLTHROUGH;
         default: /* Do nothing */
             return;
@@ -726,17 +726,17 @@ clientNetMoveResize (Client * c, XClientMessageEvent * ev)
 
     if (!FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN))
     {
-        if (resize && FLAG_TEST_ALL (c->xfwm_flags, XFWM_FLAG_HAS_RESIZE | XFWM_FLAG_IS_RESIZABLE))
+        if (resize && FLAG_TEST_ALL (c->eswm_flags, ESWM_FLAG_HAS_RESIZE | ESWM_FLAG_IS_RESIZABLE))
         {
-            event = xfwm_device_translate_event (display_info->devices, xevent, NULL);
-            clientResize (c, corner, event->meta.type == XFWM_EVENT_BUTTON ? &event->button : NULL);
-            xfwm_device_free_event (event);
+            event = eswm_device_translate_event (display_info->devices, xevent, NULL);
+            clientResize (c, corner, event->meta.type == ESWM_EVENT_BUTTON ? &event->button : NULL);
+            eswm_device_free_event (event);
         }
-        else if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_MOVE))
+        else if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_MOVE))
         {
-            event = xfwm_device_translate_event (display_info->devices, xevent, NULL);
-            clientMove (c, event->meta.type == XFWM_EVENT_BUTTON ? &event->button : NULL);
-            xfwm_device_free_event (event);
+            event = eswm_device_translate_event (display_info->devices, xevent, NULL);
+            clientMove (c, event->meta.type == ESWM_EVENT_BUTTON ? &event->button : NULL);
+            eswm_device_free_event (event);
         }
     }
 }
@@ -751,7 +751,7 @@ clientNetMoveResizeWindow (Client * c, XClientMessageEvent * ev)
     g_return_if_fail (c != NULL);
     TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
 
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
     {
         /* not allowed */
         return;
@@ -896,10 +896,10 @@ clientGetInitialNetWmDesktop (Client * c)
     display_info = screen_info->display_info;
     val = 0;
 
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_SESSION_MANAGED)
-        &&  !FLAG_TEST (c->xfwm_flags, XFWM_FLAG_WORKSPACE_SET))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_SESSION_MANAGED)
+        &&  !FLAG_TEST (c->eswm_flags, ESWM_FLAG_WORKSPACE_SET))
     {
-        FLAG_SET (c->xfwm_flags, XFWM_FLAG_WORKSPACE_SET);
+        FLAG_SET (c->eswm_flags, ESWM_FLAG_WORKSPACE_SET);
         c->win_workspace = c->screen_info->current_ws;
     }
     if (getHint (display_info, c->window, NET_WM_DESKTOP, &val))
@@ -907,7 +907,7 @@ clientGetInitialNetWmDesktop (Client * c)
         TRACE ("atom net_wm_desktop detected");
         if (val == (int) ALL_WORKSPACES)
         {
-            if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_STICK) && !FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
+            if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_STICK) && !FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
             {
                 TRACE ("atom net_wm_desktop specifies window \"%s\" is sticky", c->name);
                 FLAG_SET (c->flags, CLIENT_FLAG_STICKY);
@@ -919,7 +919,7 @@ clientGetInitialNetWmDesktop (Client * c)
             TRACE ("atom net_wm_desktop specifies window \"%s\" is on desk %i", c->name, (int) val);
             c->win_workspace = (int) val;
         }
-        FLAG_SET (c->xfwm_flags, XFWM_FLAG_WORKSPACE_SET);
+        FLAG_SET (c->eswm_flags, ESWM_FLAG_WORKSPACE_SET);
     }
 
     /* This is to make sure that transient are shown with their "ancestor" window */
@@ -928,7 +928,7 @@ clientGetInitialNetWmDesktop (Client * c)
         c2 = clientGetTransient (c);
         if (c2)
         {
-            FLAG_SET (c->xfwm_flags, XFWM_FLAG_WORKSPACE_SET);
+            FLAG_SET (c->eswm_flags, ESWM_FLAG_WORKSPACE_SET);
             c->win_workspace = c2->win_workspace;
             if (FLAG_TEST (c2->flags, CLIENT_FLAG_STICKY))
             {
@@ -943,7 +943,7 @@ clientGetInitialNetWmDesktop (Client * c)
     {
         TRACE ("value off limits, using %i instead", c->screen_info->workspace_count - 1);
         c->win_workspace = c->screen_info->workspace_count - 1;
-        FLAG_SET (c->xfwm_flags, XFWM_FLAG_WORKSPACE_SET);
+        FLAG_SET (c->eswm_flags, ESWM_FLAG_WORKSPACE_SET);
     }
     TRACE ("initial desktop for window \"%s\" is %i", c->name, c->win_workspace);
     if (FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
@@ -1179,14 +1179,14 @@ clientSetNetActions (Client * c)
         atoms[i++] = display_info->atoms[NET_WM_ACTION_ABOVE];
         atoms[i++] = display_info->atoms[NET_WM_ACTION_BELOW];
     }
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
     {
         atoms[i++] = display_info->atoms[NET_WM_ACTION_FULLSCREEN];
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_MOVE))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_MOVE))
         {
             atoms[i++] = display_info->atoms[NET_WM_ACTION_MOVE];
         }
-            if (FLAG_TEST_ALL (c->xfwm_flags, XFWM_FLAG_HAS_RESIZE | XFWM_FLAG_IS_RESIZABLE) &&
+            if (FLAG_TEST_ALL (c->eswm_flags, ESWM_FLAG_HAS_RESIZE | ESWM_FLAG_IS_RESIZABLE) &&
                 !FLAG_TEST_ALL (c->flags, CLIENT_FLAG_MAXIMIZED))
         {
             atoms[i++] = display_info->atoms[NET_WM_ACTION_RESIZE];
@@ -1196,7 +1196,7 @@ clientSetNetActions (Client * c)
             atoms[i++] = display_info->atoms[NET_WM_ACTION_MAXIMIZE_HORZ];
             atoms[i++] = display_info->atoms[NET_WM_ACTION_MAXIMIZE_VERT];
         }
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_BORDER))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_BORDER))
         {
             atoms[i++] = display_info->atoms[NET_WM_ACTION_SHADE];
         }
@@ -1205,7 +1205,7 @@ clientSetNetActions (Client * c)
     {
         atoms[i++] = display_info->atoms[NET_WM_ACTION_MINIMIZE];
     }
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_STICK))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_STICK))
     {
         atoms[i++] = display_info->atoms[NET_WM_ACTION_CHANGE_DESKTOP];
         atoms[i++] = display_info->atoms[NET_WM_ACTION_STICK];
@@ -1244,11 +1244,11 @@ clientWindowType (Client * c)
             FLAG_SET (c->flags,
                 CLIENT_FLAG_SKIP_PAGER | CLIENT_FLAG_STICKY |
                 CLIENT_FLAG_SKIP_TASKBAR);
-            FLAG_UNSET (c->xfwm_flags,
-                XFWM_FLAG_HAS_RESIZE | XFWM_FLAG_HAS_MOVE |
-                XFWM_FLAG_HAS_HIDE | XFWM_FLAG_HAS_MAXIMIZE |
-                XFWM_FLAG_HAS_MENU | XFWM_FLAG_HAS_STICK |
-                XFWM_FLAG_HAS_BORDER);
+            FLAG_UNSET (c->eswm_flags,
+                ESWM_FLAG_HAS_RESIZE | ESWM_FLAG_HAS_MOVE |
+                ESWM_FLAG_HAS_HIDE | ESWM_FLAG_HAS_MAXIMIZE |
+                ESWM_FLAG_HAS_MENU | ESWM_FLAG_HAS_STICK |
+                ESWM_FLAG_HAS_BORDER);
         }
         else if (c->type_atom == display_info->atoms[NET_WM_WINDOW_TYPE_DOCK])
         {
@@ -1258,10 +1258,10 @@ clientWindowType (Client * c)
              FLAG_SET (c->flags,
                 CLIENT_FLAG_SKIP_PAGER | CLIENT_FLAG_STICKY |
                 CLIENT_FLAG_SKIP_TASKBAR);
-            FLAG_UNSET (c->xfwm_flags,
-                XFWM_FLAG_HAS_BORDER |  XFWM_FLAG_HAS_MOVE |
-                XFWM_FLAG_HAS_HIDE | XFWM_FLAG_HAS_MAXIMIZE |
-                XFWM_FLAG_HAS_MENU);
+            FLAG_UNSET (c->eswm_flags,
+                ESWM_FLAG_HAS_BORDER |  ESWM_FLAG_HAS_MOVE |
+                ESWM_FLAG_HAS_HIDE | ESWM_FLAG_HAS_MAXIMIZE |
+                ESWM_FLAG_HAS_MENU);
         }
         else if (c->type_atom == display_info->atoms[NET_WM_WINDOW_TYPE_TOOLBAR])
         {
@@ -1270,8 +1270,8 @@ clientWindowType (Client * c)
             c->initial_layer = WIN_LAYER_NORMAL;
             FLAG_SET (c->flags,
                 CLIENT_FLAG_SKIP_PAGER | CLIENT_FLAG_SKIP_TASKBAR);
-            FLAG_UNSET (c->xfwm_flags,
-                XFWM_FLAG_HAS_HIDE | XFWM_FLAG_HAS_MAXIMIZE);
+            FLAG_UNSET (c->eswm_flags,
+                ESWM_FLAG_HAS_HIDE | ESWM_FLAG_HAS_MAXIMIZE);
         }
         else if (c->type_atom == display_info->atoms[NET_WM_WINDOW_TYPE_MENU])
         {
@@ -1284,8 +1284,8 @@ clientWindowType (Client * c)
              */
             FLAG_SET (c->flags,
                 CLIENT_FLAG_SKIP_PAGER | CLIENT_FLAG_SKIP_TASKBAR);
-            FLAG_UNSET (c->xfwm_flags,
-                XFWM_FLAG_HAS_HIDE | XFWM_FLAG_HAS_MAXIMIZE);
+            FLAG_UNSET (c->eswm_flags,
+                ESWM_FLAG_HAS_HIDE | ESWM_FLAG_HAS_MAXIMIZE);
         }
         else if (c->type_atom == display_info->atoms[NET_WM_WINDOW_TYPE_DIALOG])
         {
@@ -1332,10 +1332,10 @@ clientWindowType (Client * c)
             c->initial_layer = WIN_LAYER_NORMAL;
             FLAG_SET (c->flags,
                 CLIENT_FLAG_SKIP_PAGER | CLIENT_FLAG_SKIP_TASKBAR);
-            FLAG_UNSET (c->xfwm_flags,
-                XFWM_FLAG_HAS_BORDER | XFWM_FLAG_HAS_HIDE |
-                XFWM_FLAG_HAS_MENU | XFWM_FLAG_HAS_MOVE |
-                XFWM_FLAG_HAS_RESIZE);
+            FLAG_UNSET (c->eswm_flags,
+                ESWM_FLAG_HAS_BORDER | ESWM_FLAG_HAS_HIDE |
+                ESWM_FLAG_HAS_MENU | ESWM_FLAG_HAS_MOVE |
+                ESWM_FLAG_HAS_RESIZE);
             /* Treat SPLASHSCREEN as transient for group to work around
              * broken apps placing splashscreens above and then complaining
              * it hides their dialogs, sigh.

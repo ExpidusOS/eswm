@@ -18,7 +18,7 @@
 
         xcompmgr - (c) 2003 Keith Packard
         metacity - (c) 2003, 2004 Red Hat, Inc.
-        xfwm4    - (c) 2005-2020 Olivier Fourdan
+        eswm1    - (c) 2005-2020 Olivier Fourdan
 
 */
 
@@ -59,7 +59,7 @@
 #include "compositor.h"
 
 #ifdef HAVE_COMPOSITOR
-#include "common/xfwm-common.h"
+#include "common/eswm-common.h"
 
 #include <X11/extensions/Xcomposite.h>
 #include <X11/extensions/Xdamage.h>
@@ -3156,7 +3156,7 @@ init_opacity (CWindow *cw)
     cw->native_opacity = FALSE;
     if (c)
     {
-        cw->opacity_locked = FLAG_TEST (c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED);
+        cw->opacity_locked = FLAG_TEST (c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED);
         cw->opacity = c->opacity_applied;
         cw->native_opacity = WIN_IS_OPAQUE(cw);
     }
@@ -3843,11 +3843,11 @@ compositorHandlePropertyNotify (DisplayInfo *display_info, XPropertyEvent *ev)
             {
                 if (cw->opacity_locked)
                 {
-                    FLAG_SET (cw->c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED);
+                    FLAG_SET (cw->c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED);
                 }
                 else
                 {
-                    FLAG_UNSET (cw->c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED);
+                    FLAG_UNSET (cw->c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED);
                 }
             }
         }
@@ -4569,7 +4569,7 @@ compositorHandleEvent (DisplayInfo *display_info, XEvent *ev)
 }
 
 void
-compositorZoomIn (ScreenInfo *screen_info, XfwmEventButton *event)
+compositorZoomIn (ScreenInfo *screen_info, EswmEventButton *event)
 {
     TRACE ("entering");
 
@@ -4606,7 +4606,7 @@ compositorZoomIn (ScreenInfo *screen_info, XfwmEventButton *event)
     {
         gint timeout_rate;
 
-        timeout_rate = xfwm_get_primary_refresh_rate (screen_info->gscr);
+        timeout_rate = eswm_get_primary_refresh_rate (screen_info->gscr);
         screen_info->zoom_timeout_id = g_timeout_add ((1000 / timeout_rate /* per second */),
                                                       zoom_timeout_cb, screen_info);
     }
@@ -4615,7 +4615,7 @@ compositorZoomIn (ScreenInfo *screen_info, XfwmEventButton *event)
 }
 
 void
-compositorZoomOut (ScreenInfo *screen_info, XfwmEventButton *event)
+compositorZoomOut (ScreenInfo *screen_info, EswmEventButton *event)
 {
     TRACE ("entering");
 
@@ -4774,7 +4774,7 @@ compositorManageScreen (ScreenInfo *screen_info)
         return FALSE;
     }
 
-    compositorSetCMSelection (screen_info, screen_info->xfwm4_win);
+    compositorSetCMSelection (screen_info, screen_info->eswm1_win);
     display_info = screen_info->display_info;
 
     screen_info->output = screen_info->xroot;
@@ -5301,7 +5301,7 @@ compositorTestServer (DisplayInfo *display_info)
     {
         /*
            Check the version, X.org 6.8.x has some bugs that makes
-           it not suitable for use with xfwm4 compositor
+           it not suitable for use with eswm1 compositor
          */
         if ((VendorRelease(display_info->dpy) / 10) <= 68)
         {

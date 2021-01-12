@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
         metacity - (c) 2001, 2002 Havoc Pennington
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 

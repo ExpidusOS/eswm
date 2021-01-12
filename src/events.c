@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2020 Olivier Fourdan
+        eswm1    - (c) 2002-2020 Olivier Fourdan
 
  */
 
@@ -43,7 +43,7 @@
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4ui/libxfce4ui.h>
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
 #include "misc.h"
 #include "workspaces.h"
@@ -82,12 +82,12 @@
                                  ButtonPressMask | \
                                  ButtonReleaseMask)
 
-static xfwmWindow menu_event_window;
+static eswmWindow menu_event_window;
 
 /* Forward decl. */
 
 static eventFilterStatus handleEvent (DisplayInfo *display_info,
-                                      XfwmEvent *event);
+                                      EswmEvent *event);
 static void menu_callback            (Menu * menu,
                                       MenuOp op,
                                       Window xid,
@@ -106,16 +106,16 @@ static gboolean set_reload           (DisplayInfo *display_info);
 
 typedef enum
 {
-    XFWM_BUTTON_UNDEFINED = 0,
-    XFWM_BUTTON_DRAG = 1,
-    XFWM_BUTTON_CLICK = 2,
-    XFWM_BUTTON_CLICK_AND_DRAG = 3,
-    XFWM_BUTTON_DOUBLE_CLICK = 4
+    ESWM_BUTTON_UNDEFINED = 0,
+    ESWM_BUTTON_DRAG = 1,
+    ESWM_BUTTON_CLICK = 2,
+    ESWM_BUTTON_CLICK_AND_DRAG = 3,
+    ESWM_BUTTON_DOUBLE_CLICK = 4
 }
-XfwmButtonClickType;
+EswmButtonClickType;
 
-typedef struct _XfwmButtonClickData XfwmButtonClickData;
-struct _XfwmButtonClickData
+typedef struct _EswmButtonClickData EswmButtonClickData;
+struct _EswmButtonClickData
 {
     DisplayInfo *display_info;
     Window w;
@@ -136,7 +136,7 @@ struct _XfwmButtonClickData
 static gboolean
 typeOfClick_end (gpointer data)
 {
-    XfwmButtonClickData *passdata;
+    EswmButtonClickData *passdata;
 
     passdata = data;
     if (passdata->timeout)
@@ -151,9 +151,9 @@ typeOfClick_end (gpointer data)
 }
 
 static eventFilterStatus
-typeOfClick_event_filter (XfwmEvent *event, gpointer data)
+typeOfClick_event_filter (EswmEvent *event, gpointer data)
 {
-    XfwmButtonClickData *passdata;
+    EswmButtonClickData *passdata;
     eventFilterStatus status;
     guint32 timestamp;
     gboolean keep_going;
@@ -173,21 +173,21 @@ typeOfClick_event_filter (XfwmEvent *event, gpointer data)
             keep_going = FALSE;
         }
     }
-    if (event->meta.type == XFWM_EVENT_BUTTON)
+    if (event->meta.type == ESWM_EVENT_BUTTON)
     {
         if (event->button.button == passdata->button)
         {
             passdata->clicks++;
         }
-        if (((XfwmButtonClickType) passdata->clicks == XFWM_BUTTON_DOUBLE_CLICK)
+        if (((EswmButtonClickType) passdata->clicks == ESWM_BUTTON_DOUBLE_CLICK)
             || (!(passdata->allow_double_click) &&
-                 (XfwmButtonClickType) passdata->clicks == XFWM_BUTTON_CLICK))
+                 (EswmButtonClickType) passdata->clicks == ESWM_BUTTON_CLICK))
         {
             keep_going = FALSE;
         }
         status = EVENT_FILTER_STOP;
     }
-    else if (event->meta.type == XFWM_EVENT_MOTION)
+    else if (event->meta.type == ESWM_EVENT_MOTION)
     {
         passdata->xcurrent = event->motion.x_root;
         passdata->ycurrent = event->motion.y_root;
@@ -204,7 +204,7 @@ typeOfClick_event_filter (XfwmEvent *event, gpointer data)
         if (event->meta.window == passdata->w)
         {
             /* Discard, mark the click as undefined */
-            passdata->clicks = (guint) XFWM_BUTTON_UNDEFINED;
+            passdata->clicks = (guint) ESWM_BUTTON_UNDEFINED;
             keep_going = FALSE;
         }
     }
@@ -221,16 +221,16 @@ typeOfClick_event_filter (XfwmEvent *event, gpointer data)
     return status;
 }
 
-static XfwmButtonClickType
-typeOfClick (ScreenInfo *screen_info, Window w, XfwmEventButton *event, gboolean allow_double_click)
+static EswmButtonClickType
+typeOfClick (ScreenInfo *screen_info, Window w, EswmEventButton *event, gboolean allow_double_click)
 {
     DisplayInfo *display_info;
-    XfwmButtonClickData passdata;
+    EswmButtonClickData passdata;
     gboolean g;
 
-    g_return_val_if_fail (screen_info != NULL, XFWM_BUTTON_UNDEFINED);
-    g_return_val_if_fail (event != NULL, XFWM_BUTTON_UNDEFINED);
-    g_return_val_if_fail (w != None, XFWM_BUTTON_UNDEFINED);
+    g_return_val_if_fail (screen_info != NULL, ESWM_BUTTON_UNDEFINED);
+    g_return_val_if_fail (event != NULL, ESWM_BUTTON_UNDEFINED);
+    g_return_val_if_fail (w != None, ESWM_BUTTON_UNDEFINED);
 
     display_info = screen_info->display_info;
     g = myScreenGrabPointer (screen_info, FALSE, DOUBLE_CLICK_GRAB, None, event->time);
@@ -240,7 +240,7 @@ typeOfClick (ScreenInfo *screen_info, Window w, XfwmEventButton *event, gboolean
         TRACE ("grab failed");
         gdk_display_beep (display_info->gdisplay);
         myScreenUngrabPointer (screen_info, event->time);
-        return XFWM_BUTTON_UNDEFINED;
+        return ESWM_BUTTON_UNDEFINED;
     }
 
     passdata.display_info = display_info;
@@ -271,7 +271,7 @@ typeOfClick (ScreenInfo *screen_info, Window w, XfwmEventButton *event, gboolean
 
     myScreenUngrabPointer (screen_info, myDisplayGetCurrentTime (display_info));
 
-    return (XfwmButtonClickType) passdata.clicks;
+    return (EswmButtonClickType) passdata.clicks;
 }
 
 static void
@@ -285,14 +285,14 @@ toggle_show_desktop (ScreenInfo *screen_info)
 }
 
 static eventFilterStatus
-handleMotionNotify (DisplayInfo *display_info, XfwmEventMotion *event)
+handleMotionNotify (DisplayInfo *display_info, EswmEventMotion *event)
 {
     TRACE ("entering");
     return EVENT_FILTER_REMOVE;
 }
 
 static eventFilterStatus
-handleKeyPress (DisplayInfo *display_info, XfwmEventKey *event)
+handleKeyPress (DisplayInfo *display_info, EswmEventKey *event)
 {
     eventFilterStatus status;
     ScreenInfo *screen_info;
@@ -350,7 +350,7 @@ handleKeyPress (DisplayInfo *display_info, XfwmEventKey *event)
                 clientToggleShaded (c);
                 break;
             case KEY_STICK_WINDOW:
-                if (FLAG_TEST(c->xfwm_flags, XFWM_FLAG_HAS_STICK))
+                if (FLAG_TEST(c->eswm_flags, ESWM_FLAG_HAS_STICK))
                 {
                     clientToggleSticky (c, TRUE);
                     frameQueueDraw (c, FALSE);
@@ -559,7 +559,7 @@ handleKeyPress (DisplayInfo *display_info, XfwmEventKey *event)
 }
 
 static eventFilterStatus
-handleKeyRelease (DisplayInfo *display_info, XfwmEventKey *event)
+handleKeyRelease (DisplayInfo *display_info, EswmEventKey *event)
 {
     TRACE ("entering");
 
@@ -575,10 +575,10 @@ handleKeyRelease (DisplayInfo *display_info, XfwmEventKey *event)
  * Button 3 : Resize
  */
 static void
-edgeButton (Client *c, int part, XfwmEventButton *event)
+edgeButton (Client *c, int part, EswmEventButton *event)
 {
     ScreenInfo *screen_info;
-    XfwmButtonClickType tclick;
+    EswmButtonClickType tclick;
     guint state;
 
     screen_info = c->screen_info;
@@ -587,11 +587,11 @@ edgeButton (Client *c, int part, XfwmEventButton *event)
     if (event->button == Button2)
     {
         tclick = typeOfClick (screen_info, c->window, event, FALSE);
-        if (tclick == XFWM_BUTTON_CLICK)
+        if (tclick == ESWM_BUTTON_CLICK)
         {
             clientLower (c, None);
         }
-        else if (tclick == XFWM_BUTTON_DRAG)
+        else if (tclick == ESWM_BUTTON_DRAG)
         {
             clientMove (c, event);
         }
@@ -608,7 +608,7 @@ edgeButton (Client *c, int part, XfwmEventButton *event)
             clientRaise (c, None);
         }
         tclick = typeOfClick (screen_info, c->window, event, TRUE);
-        if (tclick == XFWM_BUTTON_DOUBLE_CLICK)
+        if (tclick == ESWM_BUTTON_DOUBLE_CLICK)
         {
             switch (part)
             {
@@ -625,7 +625,7 @@ edgeButton (Client *c, int part, XfwmEventButton *event)
                     break;
             }
         }
-        else if (tclick == XFWM_BUTTON_DRAG)
+        else if (tclick == ESWM_BUTTON_DRAG)
         {
             clientResize (c, part, event);
         }
@@ -633,7 +633,7 @@ edgeButton (Client *c, int part, XfwmEventButton *event)
 }
 
 static int
-edgeGetPart (Client *c, XfwmEventButton *event)
+edgeGetPart (Client *c, EswmEventButton *event)
 {
     int part, x_corner_pixels, y_corner_pixels, x_distance, y_distance;
 
@@ -706,10 +706,10 @@ edgeGetPart (Client *c, XfwmEventButton *event)
     return part;
 }
 static void
-button1Action (Client *c, XfwmEventButton *event)
+button1Action (Client *c, EswmEventButton *event)
 {
     ScreenInfo *screen_info;
-    XfwmButtonClickType tclick;
+    EswmButtonClickType tclick;
 
     g_return_if_fail (c != NULL);
     g_return_if_fail (event != NULL);
@@ -723,11 +723,11 @@ button1Action (Client *c, XfwmEventButton *event)
     clientRaise (c, None);
 
     tclick = typeOfClick (screen_info, c->window, event, TRUE);
-    if ((tclick == XFWM_BUTTON_DRAG) || (tclick == XFWM_BUTTON_CLICK_AND_DRAG))
+    if ((tclick == ESWM_BUTTON_DRAG) || (tclick == ESWM_BUTTON_CLICK_AND_DRAG))
     {
         clientMove (c, event);
     }
-    else if (tclick == XFWM_BUTTON_DOUBLE_CLICK)
+    else if (tclick == ESWM_BUTTON_DOUBLE_CLICK)
     {
         switch (screen_info->params->double_click_action)
         {
@@ -756,7 +756,7 @@ button1Action (Client *c, XfwmEventButton *event)
 }
 
 static void
-titleButton (Client *c, guint state, XfwmEventButton *event)
+titleButton (Client *c, guint state, EswmEventButton *event)
 {
     ScreenInfo *screen_info;
 
@@ -776,14 +776,14 @@ titleButton (Client *c, guint state, XfwmEventButton *event)
     }
     else if (event->button == Button3)
     {
-        XfwmButtonClickType tclick;
+        EswmButtonClickType tclick;
 
         tclick = typeOfClick (screen_info, c->window, event, FALSE);
-        if (tclick == XFWM_BUTTON_DRAG)
+        if (tclick == ESWM_BUTTON_DRAG)
         {
             clientMove (c, event);
         }
-        else if (tclick != XFWM_BUTTON_UNDEFINED)
+        else if (tclick != ESWM_BUTTON_UNDEFINED)
         {
             if (!(c->type & WINDOW_TYPE_DONT_FOCUS))
             {
@@ -793,7 +793,7 @@ titleButton (Client *c, guint state, XfwmEventButton *event)
             {
                 clientRaise (c, None);
             }
-            xfwm_device_button_update_window (event, event->root);
+            eswm_device_button_update_window (event, event->root);
             if (screen_info->button_handler_id)
             {
                 g_signal_handler_disconnect (G_OBJECT (myScreenGetGtkWidget (screen_info)), screen_info->button_handler_id);
@@ -857,7 +857,7 @@ titleButton (Client *c, guint state, XfwmEventButton *event)
 }
 
 static void
-rootScrollButton (DisplayInfo *display_info, XfwmEventButton *event)
+rootScrollButton (DisplayInfo *display_info, EswmEventButton *event)
 {
     static guint32 lastscroll = CurrentTime;
     ScreenInfo *screen_info;
@@ -888,7 +888,7 @@ rootScrollButton (DisplayInfo *display_info, XfwmEventButton *event)
 
 
 static eventFilterStatus
-handleButtonPress (DisplayInfo *display_info, XfwmEventButton *event)
+handleButtonPress (DisplayInfo *display_info, EswmEventButton *event)
 {
     ScreenInfo *screen_info;
     Client *c;
@@ -965,15 +965,15 @@ handleButtonPress (DisplayInfo *display_info, XfwmEventButton *event)
         {
             if (event->button == Button1)
             {
-                XfwmButtonClickType tclick;
+                EswmButtonClickType tclick;
 
                 tclick = typeOfClick (screen_info, c->window, event, TRUE);
 
-                if (tclick == XFWM_BUTTON_DOUBLE_CLICK)
+                if (tclick == ESWM_BUTTON_DOUBLE_CLICK)
                 {
                     clientClose (c);
                 }
-                else if (tclick != XFWM_BUTTON_UNDEFINED)
+                else if (tclick != ESWM_BUTTON_UNDEFINED)
                 {
                     if (!(c->type & WINDOW_TYPE_DONT_FOCUS))
                     {
@@ -984,7 +984,7 @@ handleButtonPress (DisplayInfo *display_info, XfwmEventButton *event)
                         clientClearDelayedRaise ();
                         clientRaise (c, None);
                     }
-                    xfwm_device_button_update_window (event, event->root);
+                    eswm_device_button_update_window (event, event->root);
                     if (screen_info->button_handler_id)
                     {
                         g_signal_handler_disconnect (G_OBJECT (myScreenGetGtkWidget (screen_info)), screen_info->button_handler_id);
@@ -1038,7 +1038,7 @@ handleButtonPress (DisplayInfo *display_info, XfwmEventButton *event)
                     clientSetFocus (screen_info, c, event->time, NO_FOCUS_FLAG);
                 }
                 if ((screen_info->params->raise_on_click) ||
-                    !FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_BORDER))
+                    !FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_BORDER))
                 {
                     clientClearDelayedRaise ();
                     clientRaise (c, None);
@@ -1063,9 +1063,9 @@ handleButtonPress (DisplayInfo *display_info, XfwmEventButton *event)
             else
             {
                 myDisplayErrorTrapPush (display_info);
-                xfwm_device_ungrab (display_info->devices, &display_info->devices->pointer,
+                eswm_device_ungrab (display_info->devices, &display_info->devices->pointer,
                                     display_info->dpy, event->time);
-                XSendEvent (display_info->dpy, screen_info->xfwm4_win, FALSE, SubstructureNotifyMask, event->meta.xevent);
+                XSendEvent (display_info->dpy, screen_info->eswm1_win, FALSE, SubstructureNotifyMask, event->meta.xevent);
                 myDisplayErrorTrapPopIgnored (display_info);
             }
         }
@@ -1078,7 +1078,7 @@ handleButtonPress (DisplayInfo *display_info, XfwmEventButton *event)
 }
 
 static eventFilterStatus
-handleButtonRelease (DisplayInfo *display_info, XfwmEventButton *event)
+handleButtonRelease (DisplayInfo *display_info, EswmEventButton *event)
 {
     ScreenInfo *screen_info;
 
@@ -1089,7 +1089,7 @@ handleButtonRelease (DisplayInfo *display_info, XfwmEventButton *event)
     myDisplayErrorTrapPush (display_info);
     if (screen_info)
     {
-        XSendEvent (display_info->dpy, screen_info->xfwm4_win, FALSE, SubstructureNotifyMask,
+        XSendEvent (display_info->dpy, screen_info->eswm1_win, FALSE, SubstructureNotifyMask,
                     (XEvent *) event->meta.xevent);
     }
 
@@ -1158,13 +1158,13 @@ handleMapRequest (DisplayInfo *display_info, XMapRequestEvent * ev)
     {
         ScreenInfo *screen_info = c->screen_info;
 
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MAP_PENDING))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MAP_PENDING))
         {
             TRACE ("ignoring MapRequest on window (0x%lx)", ev->window);
             status = EVENT_FILTER_REMOVE;
         }
 
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_WAS_SHOWN))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_WAS_SHOWN))
         {
              clientClearAllShowDesktop (screen_info);
         }
@@ -1197,9 +1197,9 @@ handleMapNotify (DisplayInfo *display_info, XMapEvent * ev)
     if (c)
     {
         TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MAP_PENDING))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MAP_PENDING))
         {
-            FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_MAP_PENDING);
+            FLAG_UNSET (c->eswm_flags, ESWM_FLAG_MAP_PENDING);
         }
         return EVENT_FILTER_REMOVE;
     }
@@ -1237,7 +1237,7 @@ handleUnmapNotify (DisplayInfo *display_info, XUnmapEvent * ev)
         }
 
         status = EVENT_FILTER_REMOVE;
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MAP_PENDING))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MAP_PENDING))
         {
             /*
              * This UnmapNotify event is caused by reparenting
@@ -1258,7 +1258,7 @@ handleUnmapNotify (DisplayInfo *display_info, XUnmapEvent * ev)
          */
         if ((ev->event == screen_info->xroot) && (ev->send_event))
         {
-            if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+            if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
             {
                 TRACE ("ICCCM UnmapNotify for \"%s\"", c->name);
                 list_of_windows = clientListTransientOrModal (c);
@@ -1335,7 +1335,7 @@ handleConfigureRequest (DisplayInfo *display_info, XConfigureRequestEvent * ev)
                 wc.height -= frameTop (c) + frameBottom (c);
             }
             /* We don't allow changing stacking order by accessing the frame
-               window because that would break the layer management in xfwm4
+               window because that would break the layer management in eswm1
              */
             ev->value_mask &= ~(CWSibling | CWStackMode);
         }
@@ -1343,7 +1343,7 @@ handleConfigureRequest (DisplayInfo *display_info, XConfigureRequestEvent * ev)
     if (c)
     {
         TRACE ("window \"%s\" (0x%lx)", c->name, c->window);
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
         {
             /* Sorry, but it's not the right time for configure request */
             return EVENT_FILTER_REMOVE;
@@ -1363,7 +1363,7 @@ handleConfigureRequest (DisplayInfo *display_info, XConfigureRequestEvent * ev)
 }
 
 static eventFilterStatus
-handleEnterNotify (DisplayInfo *display_info, XfwmEventCrossing *event)
+handleEnterNotify (DisplayInfo *display_info, EswmEventCrossing *event)
 {
     ScreenInfo *screen_info;
     Client *c;
@@ -1416,7 +1416,7 @@ handleEnterNotify (DisplayInfo *display_info, XfwmEventCrossing *event)
             {
                 if (MYWINDOW_XWINDOW(c->buttons[b]) == event->meta.window)
                 {
-                    if (!xfwmPixmapNone(clientGetButtonPixmap(c, b, PRELIGHT)))
+                    if (!eswmPixmapNone(clientGetButtonPixmap(c, b, PRELIGHT)))
                     {
                         c->button_status[b] = BUTTON_STATE_PRELIGHT;
                         need_redraw = TRUE;
@@ -1458,7 +1458,7 @@ handleEnterNotify (DisplayInfo *display_info, XfwmEventCrossing *event)
 }
 
 static eventFilterStatus
-handleLeaveNotify (DisplayInfo *display_info, XfwmEventCrossing *event)
+handleLeaveNotify (DisplayInfo *display_info, EswmEventCrossing *event)
 {
     Client *c;
     int b;
@@ -1559,7 +1559,7 @@ handleFocusIn (DisplayInfo *display_info, XFocusChangeEvent * ev)
     current_focus = clientGetFocus ();
 
     TRACE ("window (0x%lx)", ev->window);
-    if ((c) && (c != current_focus) && (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE)))
+    if ((c) && (c != current_focus) && (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE)))
     {
         TRACE ("focus transfered to \"%s\" (0x%lx)", c->name, c->window);
 
@@ -1755,7 +1755,7 @@ handlePropertyNotify (DisplayInfo *display_info, XPropertyEvent * ev)
                  (ev->atom == display_info->atoms[NET_WM_STRUT_PARTIAL]))
         {
             TRACE ("client \"%s\" (0x%lx) has received a NET_WM_STRUT notify", c->name, c->window);
-            if (clientGetNetStruts (c) && FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+            if (clientGetNetStruts (c) && FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
             {
                 workspaceUpdateArea (c->screen_info);
             }
@@ -1804,11 +1804,11 @@ handlePropertyNotify (DisplayInfo *display_info, XPropertyEvent * ev)
             TRACE ("client \"%s\" (0x%lx) has received a NET_WM_WINDOW_OPACITY_LOCKED notify", c->name, c->window);
             if (getOpacityLock (display_info, c->window))
             {
-                FLAG_SET (c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED);
+                FLAG_SET (c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED);
             }
             else
             {
-                FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED);
+                FLAG_UNSET (c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED);
             }
         }
         else if ((screen_info->params->show_app_icon) &&
@@ -2072,7 +2072,7 @@ handleSelectionClear (DisplayInfo *display_info, XSelectionClearEvent * ev)
     for (list = display_info->screens; list; list = g_slist_next (list))
     {
         pscreen = (ScreenInfo *) list->data;
-        if (ev->window == pscreen->xfwm4_win)
+        if (ev->window == pscreen->eswm1_win)
         {
             screen_info = pscreen;
             break;
@@ -2182,7 +2182,7 @@ handleXSyncAlarmNotify (DisplayInfo *display_info, XSyncAlarmNotifyEvent * ev)
 #endif /* HAVE_XSYNC */
 
 static eventFilterStatus
-handleEvent (DisplayInfo *display_info, XfwmEvent *event)
+handleEvent (DisplayInfo *display_info, EswmEvent *event)
 {
     eventFilterStatus status;
     status = EVENT_FILTER_PASS;
@@ -2195,7 +2195,7 @@ handleEvent (DisplayInfo *display_info, XfwmEvent *event)
 
     switch (event->meta.type)
     {
-        case XFWM_EVENT_KEY:
+        case ESWM_EVENT_KEY:
             if (event->key.pressed)
             {
                 status = handleKeyPress (display_info, &event->key);
@@ -2205,7 +2205,7 @@ handleEvent (DisplayInfo *display_info, XfwmEvent *event)
                 status = handleKeyRelease (display_info, &event->key);
             }
             break;
-        case XFWM_EVENT_BUTTON:
+        case ESWM_EVENT_BUTTON:
             if (event->button.pressed)
             {
                 status = handleButtonPress (display_info, &event->button);
@@ -2215,10 +2215,10 @@ handleEvent (DisplayInfo *display_info, XfwmEvent *event)
                 status = handleButtonRelease (display_info, &event->button);
             }
             break;
-        case XFWM_EVENT_MOTION:
+        case ESWM_EVENT_MOTION:
             status = handleMotionNotify (display_info, &event->motion);
             break;
-        case XFWM_EVENT_CROSSING:
+        case ESWM_EVENT_CROSSING:
             if (event->crossing.enter)
             {
                 status = handleEnterNotify (display_info, &event->crossing);
@@ -2228,7 +2228,7 @@ handleEvent (DisplayInfo *display_info, XfwmEvent *event)
                 status = handleLeaveNotify (display_info, &event->crossing);
             }
             break;
-        case XFWM_EVENT_XEVENT:
+        case ESWM_EVENT_XEVENT:
             switch (event->meta.xevent->type)
             {
                 case DestroyNotify:
@@ -2311,7 +2311,7 @@ handleEvent (DisplayInfo *display_info, XfwmEvent *event)
 }
 
 eventFilterStatus
-xfwm4_event_filter (XfwmEvent *event, gpointer data)
+eswm1_event_filter (EswmEvent *event, gpointer data)
 {
     eventFilterStatus status;
     DisplayInfo *display_info;
@@ -2333,9 +2333,9 @@ menu_callback (Menu * menu, MenuOp op, Window xid, gpointer menu_data, gpointer 
 
     TRACE ("entering");
 
-    if (!xfwmWindowDeleted(&menu_event_window))
+    if (!eswmWindowDeleted(&menu_event_window))
     {
-        xfwmWindowDelete (&menu_event_window);
+        eswmWindowDelete (&menu_event_window);
     }
 
     c = NULL;
@@ -2377,7 +2377,7 @@ menu_callback (Menu * menu, MenuOp op, Window xid, gpointer menu_data, gpointer 
                 clientWithdrawAll (c, c->win_workspace);
                 break;
             case MENU_OP_UNMINIMIZE:
-                if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_WAS_SHOWN))
+                if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_WAS_SHOWN))
                 {
                     clientClearAllShowDesktop (c->screen_info);
                 }
@@ -2429,7 +2429,7 @@ menu_callback (Menu * menu, MenuOp op, Window xid, gpointer menu_data, gpointer 
 void
 initMenuEventWin (void)
 {
-    xfwmWindowInit (&menu_event_window);
+    eswmWindowInit (&menu_event_window);
 }
 
 static void
@@ -2451,7 +2451,7 @@ show_window_menu (Client *c, gint px, gint py, guint button, guint32 timestamp, 
         return;
     }
 
-    if (!c || !FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+    if (!c || !FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
     {
         return;
     }
@@ -2491,7 +2491,7 @@ show_window_menu (Client *c, gint px, gint py, guint button, guint32 timestamp, 
         ops |= MENU_OP_MAXIMIZE;
     }
 
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_MOVE))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_MOVE))
     {
         insensitive |= MENU_OP_MOVE;
     }
@@ -2523,18 +2523,18 @@ show_window_menu (Client *c, gint px, gint py, guint button, guint32 timestamp, 
         ops |= MENU_OP_STICK;
     }
 
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_BORDER))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_BORDER))
     {
         insensitive |= MENU_OP_SHADE | MENU_OP_UNSHADE;
     }
 
 
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_CLOSE))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_CLOSE))
     {
         insensitive |= MENU_OP_DELETE;
     }
 
-    if (is_transient || !FLAG_TEST(c->xfwm_flags, XFWM_FLAG_HAS_STICK))
+    if (is_transient || !FLAG_TEST(c->eswm_flags, ESWM_FLAG_HAS_STICK))
     {
         insensitive |= MENU_OP_STICK | MENU_OP_UNSTICK;
     }
@@ -2549,12 +2549,12 @@ show_window_menu (Client *c, gint px, gint py, guint button, guint32 timestamp, 
         insensitive |= MENU_OP_MAXIMIZE;
     }
 
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_MOVE))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_MOVE))
     {
         insensitive |= MENU_OP_MOVE;
     }
 
-    if (!FLAG_TEST_ALL (c->xfwm_flags, XFWM_FLAG_HAS_RESIZE | XFWM_FLAG_IS_RESIZABLE) ||
+    if (!FLAG_TEST_ALL (c->eswm_flags, ESWM_FLAG_HAS_RESIZE | ESWM_FLAG_IS_RESIZABLE) ||
         FLAG_TEST_ALL (c->flags, CLIENT_FLAG_MAXIMIZED))
     {
         insensitive |= MENU_OP_RESIZE;
@@ -2607,7 +2607,7 @@ show_window_menu (Client *c, gint px, gint py, guint button, guint32 timestamp, 
     }
 
     if (is_transient
-        || !FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_STICK)
+        || !FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_STICK)
         || FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
     {
         insensitive |= MENU_OP_WORKSPACES;
@@ -2620,9 +2620,9 @@ show_window_menu (Client *c, gint px, gint py, guint button, guint32 timestamp, 
     screen_info->button_handler_id = g_signal_connect (G_OBJECT (myScreenGetGtkWidget (screen_info)),
                                               "button_press_event", G_CALLBACK (show_popup_cb), (gpointer) NULL);
 
-    if (!xfwmWindowDeleted(&menu_event_window))
+    if (!eswmWindowDeleted(&menu_event_window))
     {
-        xfwmWindowDelete (&menu_event_window);
+        eswmWindowDelete (&menu_event_window);
     }
     /*
        Since all button press/release events are catched by the windows frames, there is some
@@ -2635,7 +2635,7 @@ show_window_menu (Client *c, gint px, gint py, guint button, guint32 timestamp, 
        Don't forget to delete that window once the menu is closed, though, or we'll get in
        trouble.
      */
-    xfwmWindowTemp (screen_info,
+    eswmWindowTemp (screen_info,
                     NULL, 0,
                     screen_info->xroot,
                     &menu_event_window, 0, 0,
@@ -2654,7 +2654,7 @@ show_window_menu (Client *c, gint px, gint py, guint button, guint32 timestamp, 
         gdk_display_beep (display_info->gdisplay);
         c->button_status[MENU_BUTTON] = BUTTON_STATE_NORMAL;
         frameQueueDraw (c, FALSE);
-        xfwmWindowDelete (&menu_event_window);
+        eswmWindowDelete (&menu_event_window);
         menu_free (menu);
     }
 }
@@ -2775,7 +2775,7 @@ size_changed_cb(GdkScreen *gscreen, gpointer data)
     g_return_if_fail (screen_info);
     display_info = screen_info->display_info;
 
-    if (xfwm_get_n_monitors (screen_info->gscr) == 0)
+    if (eswm_get_n_monitors (screen_info->gscr) == 0)
     {
         /*
          * Recent Xorg drivers disable the output when the lid
@@ -2821,7 +2821,7 @@ monitors_changed_cb(GdkScreen *gscreen, gpointer data)
     g_return_if_fail (screen_info);
     display_info = screen_info->display_info;
 
-    if (xfwm_get_n_monitors (screen_info->gscr) == 0)
+    if (eswm_get_n_monitors (screen_info->gscr) == 0)
     {
         /*
          * Recent Xorg drivers disable the output when the lid

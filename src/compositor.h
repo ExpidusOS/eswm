@@ -17,7 +17,7 @@
 
 
         xcompmgr - (c) 2003 Keith Packard
-        xfwm4    - (c) 2005-2011 Olivier Fourdan
+        eswm1    - (c) 2005-2011 Olivier Fourdan
 
  */
 
@@ -59,9 +59,9 @@ Pixmap                   compositorGetWindowPixmapAtSize        (ScreenInfo *,
 void                     compositorHandleEvent                  (DisplayInfo *,
                                                                  XEvent *);
 void                     compositorZoomIn                       (ScreenInfo *,
-                                                                 XfwmEventButton *);
+                                                                 EswmEventButton *);
 void                     compositorZoomOut                      (ScreenInfo *,
-                                                                 XfwmEventButton *);
+                                                                 EswmEventButton *);
 void                     compositorInitDisplay                  (DisplayInfo *);
 void                     compositorSetCompositeMode             (DisplayInfo *,
                                                                  gboolean);

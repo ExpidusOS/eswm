@@ -39,11 +39,11 @@
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
-#include "xfwm4-workspace-dialog_ui.h"
+#include "eswm1-workspace-dialog_ui.h"
 
-#define WORKSPACES_CHANNEL         "xfwm4"
+#define WORKSPACES_CHANNEL         "eswm1"
 
 #define WORKSPACE_NAMES_PROP       "/general/workspace_names"
 #define WORKSPACE_COUNT_PROP       "/general/workspace_count"
@@ -328,7 +328,7 @@ workspace_dialog_configure_widgets (GtkBuilder *builder,
     GtkWidget *margin_left_spinbutton = GTK_WIDGET (gtk_builder_get_object (builder, "margin_left_spinbutton"));
 
     /* Set monitor icon */
-    monitor = gdk_pixbuf_new_from_resource ("/org/xfce/xfwm4/monitor-icon.pixdata", NULL);
+    monitor = gdk_pixbuf_new_from_resource ("/org/xfce/eswm1/monitor-icon.pixdata", NULL);
     if(G_LIKELY (monitor != NULL))
     {
         image = GTK_WIDGET (gtk_builder_get_object (builder, "monitor_icon"));
@@ -337,7 +337,7 @@ workspace_dialog_configure_widgets (GtkBuilder *builder,
     }
 
     /* Set max margins range */
-    xfwm_get_screen_dimensions (&wmax, &hmax);
+    eswm_get_screen_dimensions (&wmax, &hmax);
     wmax /= 4;
     hmax /= 4;
 
@@ -383,7 +383,7 @@ workspace_dialog_response (GtkWidget *dialog,
 {
     if (response_id == GTK_RESPONSE_HELP)
     {
-        xfce_dialog_show_help (GTK_WINDOW (dialog), "xfwm4",
+        xfce_dialog_show_help (GTK_WINDOW (dialog), "eswm1",
                                "workspaces", NULL);
     }
     else
@@ -465,7 +465,7 @@ main(int argc, gchar **argv)
 
             /* Get plug child widget */
             plug_child = GTK_WIDGET (gtk_builder_get_object (builder, "plug-child"));
-            xfwm_widget_reparent (plug_child, plug);
+            eswm_widget_reparent (plug_child, plug);
             gtk_widget_show (plug_child);
 
             /* To prevent the settings dialog to be saved in the session */

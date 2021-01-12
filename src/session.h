@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
  */
 
 
@@ -44,7 +44,7 @@ gboolean                sessionSaveWindowStates                 (DisplayInfo *,
 gboolean                sessionLoadWindowStates                 (const gchar *);
 
 /*
- * Free allocated structure. Should be called before xfwm4 dies
+ * Free allocated structure. Should be called before eswm1 dies
  */
 void                    sessionFreeWindowStates                 (void);
 

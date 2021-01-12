@@ -1,14 +1,14 @@
 dnl configure.ac
 dnl
-dnl xfwm4 - window manager for the Xfce4 desktop environment
+dnl eswm1 - window manager for the Xfce4 desktop environment
 dnl
 
-m4_define([xfwm4_version_major], [4])
-m4_define([xfwm4_version_minor], [16])
-m4_define([xfwm4_version_micro], [1])
-m4_define([xfwm4_version_build], [@REVISION@])
-m4_define([xfwm4_version_tag],   [git])
-m4_define([xfwm4_version], [xfwm4_version_major().xfwm4_version_minor().xfwm4_version_micro()ifelse(xfwm4_version_tag(), [git], [xfwm4_version_tag().xfwm4_version_build()], [xfwm4_version_tag()])])
+m4_define([eswm1_version_major], [1])
+m4_define([eswm1_version_minor], [0])
+m4_define([eswm1_version_micro], [0])
+m4_define([eswm1_version_build], [@REVISION@])
+m4_define([eswm1_version_tag],   [git])
+m4_define([eswm1_version], [eswm1_version_major().eswm1_version_minor().eswm1_version_micro()ifelse(eswm1_version_tag(), [git], [eswm1_version_tag().eswm1_version_build()], [eswm1_version_tag()])])
 
 m4_define([gtk_minimum_version], [3.22.0])
 m4_define([xfce_minimum_version], [4.8.0])
@@ -25,15 +25,15 @@ m4_define([xpresent_minimum_version], [1.0])
 m4_define([presentproto_minimum_version], [1.1])
 
 dnl debugging support for git snapshots
-m4_define([xfwm4_debug_default], [ifelse(xfwm4_version_tag(), [git], [yes], [minimum])])
+m4_define([eswm1_debug_default], [ifelse(eswm1_version_tag(), [git], [yes], [minimum])])
 
 
 dnl init autoconf
 AC_COPYRIGHT([Copyright (c) 2002-2020
-        The Xfce development team. All rights reserved.
+        The Xfce development team and Midstall Software. All rights reserved.
 
 Written for Xfce by Olivier Fourdan <fourdan@xfce.org>.])
-AC_INIT([xfwm4], [xfwm4_version], [xfce4-dev@xfce.org])
+AC_INIT([eswm1], [eswm1_version], [xfce4-dev@xfce.org])
 AM_INIT_AUTOMAKE([1.8 dist-bzip2 tar-ustar no-dist-gzip foreign])
 
 AC_CONFIG_MACRO_DIRS([m4])
@@ -269,8 +269,8 @@ compositor="no"
 ENABLE_COMPOSITOR=""
 
 AC_ARG_ENABLE([compositor],
-AC_HELP_STRING([--enable-compositor], [enable compositor in xfwm4 (default)])
-AC_HELP_STRING([--disable-compositor], [disable compositor in xfwm4]),
+AC_HELP_STRING([--enable-compositor], [enable compositor in eswm1 (default)])
+AC_HELP_STRING([--disable-compositor], [disable compositor in eswm1]),
   [], [enable_compositor=yes])
 
 if test x"$enable_compositor" = x"yes"; then
@@ -303,7 +303,7 @@ fi
 AC_SUBST(ENABLE_KDE_SYSTRAY)
 
 dnl Check for debugging support
-XDT_FEATURE_DEBUG([xfwm4_debug_default])
+XDT_FEATURE_DEBUG([eswm1_debug_default])
 
 REVISION=unknown
 if test x"@REVISION@" != x""; then

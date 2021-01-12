@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -120,29 +120,29 @@
 #define MAX_SNAP_DRIFT                  15
 #endif
 
-#define XFWM_FLAG_HAS_BORDER            (1L<<0)
-#define XFWM_FLAG_HAS_MENU              (1L<<1)
-#define XFWM_FLAG_HAS_MAXIMIZE          (1L<<2)
-#define XFWM_FLAG_HAS_CLOSE             (1L<<3)
-#define XFWM_FLAG_HAS_HIDE              (1L<<4)
-#define XFWM_FLAG_HAS_MOVE              (1L<<5)
-#define XFWM_FLAG_HAS_RESIZE            (1L<<6)
-#define XFWM_FLAG_HAS_STICK             (1L<<7)
-#define XFWM_FLAG_FOCUS                 (1L<<8)
-#define XFWM_FLAG_IS_RESIZABLE          (1L<<9)
-#define XFWM_FLAG_MAP_PENDING           (1L<<10)
-#define XFWM_FLAG_VISIBLE               (1L<<11)
-#define XFWM_FLAG_MANAGED               (1L<<13)
-#define XFWM_FLAG_SESSION_MANAGED       (1L<<14)
-#define XFWM_FLAG_WORKSPACE_SET         (1L<<15)
-#define XFWM_FLAG_WAS_SHOWN             (1L<<16)
-#define XFWM_FLAG_DRAW_ACTIVE           (1L<<17)
-#define XFWM_FLAG_SEEN_ACTIVE           (1L<<18)
-#define XFWM_FLAG_FIRST_MAP             (1L<<19)
-#define XFWM_FLAG_SAVED_POS             (1L<<20)
-#define XFWM_FLAG_MOVING_RESIZING       (1L<<21)
-#define XFWM_FLAG_NEEDS_REDRAW          (1L<<22)
-#define XFWM_FLAG_OPACITY_LOCKED        (1L<<23)
+#define ESWM_FLAG_HAS_BORDER            (1L<<0)
+#define ESWM_FLAG_HAS_MENU              (1L<<1)
+#define ESWM_FLAG_HAS_MAXIMIZE          (1L<<2)
+#define ESWM_FLAG_HAS_CLOSE             (1L<<3)
+#define ESWM_FLAG_HAS_HIDE              (1L<<4)
+#define ESWM_FLAG_HAS_MOVE              (1L<<5)
+#define ESWM_FLAG_HAS_RESIZE            (1L<<6)
+#define ESWM_FLAG_HAS_STICK             (1L<<7)
+#define ESWM_FLAG_FOCUS                 (1L<<8)
+#define ESWM_FLAG_IS_RESIZABLE          (1L<<9)
+#define ESWM_FLAG_MAP_PENDING           (1L<<10)
+#define ESWM_FLAG_VISIBLE               (1L<<11)
+#define ESWM_FLAG_MANAGED               (1L<<13)
+#define ESWM_FLAG_SESSION_MANAGED       (1L<<14)
+#define ESWM_FLAG_WORKSPACE_SET         (1L<<15)
+#define ESWM_FLAG_WAS_SHOWN             (1L<<16)
+#define ESWM_FLAG_DRAW_ACTIVE           (1L<<17)
+#define ESWM_FLAG_SEEN_ACTIVE           (1L<<18)
+#define ESWM_FLAG_FIRST_MAP             (1L<<19)
+#define ESWM_FLAG_SAVED_POS             (1L<<20)
+#define ESWM_FLAG_MOVING_RESIZING       (1L<<21)
+#define ESWM_FLAG_NEEDS_REDRAW          (1L<<22)
+#define ESWM_FLAG_OPACITY_LOCKED        (1L<<23)
 
 #define CLIENT_FLAG_HAS_STRUT           (1L<<0)
 #define CLIENT_FLAG_HAS_STRUT_PARTIAL   (1L<<1)
@@ -179,16 +179,16 @@
 #define WM_FLAG_URGENT                  (1L<<4)
 #define WM_FLAG_PING                    (1L<<5)
 
-#define XFWM_FLAG_INITIAL_VALUES        XFWM_FLAG_HAS_BORDER | \
-                                        XFWM_FLAG_HAS_MENU | \
-                                        XFWM_FLAG_HAS_MAXIMIZE | \
-                                        XFWM_FLAG_HAS_STICK | \
-                                        XFWM_FLAG_HAS_HIDE | \
-                                        XFWM_FLAG_HAS_CLOSE | \
-                                        XFWM_FLAG_HAS_MOVE | \
-                                        XFWM_FLAG_HAS_RESIZE | \
-                                        XFWM_FLAG_FIRST_MAP | \
-                                        XFWM_FLAG_NEEDS_REDRAW
+#define ESWM_FLAG_INITIAL_VALUES        ESWM_FLAG_HAS_BORDER | \
+                                        ESWM_FLAG_HAS_MENU | \
+                                        ESWM_FLAG_HAS_MAXIMIZE | \
+                                        ESWM_FLAG_HAS_STICK | \
+                                        ESWM_FLAG_HAS_HIDE | \
+                                        ESWM_FLAG_HAS_CLOSE | \
+                                        ESWM_FLAG_HAS_MOVE | \
+                                        ESWM_FLAG_HAS_RESIZE | \
+                                        ESWM_FLAG_FIRST_MAP | \
+                                        ESWM_FLAG_NEEDS_REDRAW
 
 #define ALL_WORKSPACES                  (guint) 0xFFFFFFFF
 
@@ -222,20 +222,20 @@
 #define FLAG_UNSET(flag,bits)                  (flag &= ~(bits))
 #define FLAG_TOGGLE(flag,bits)                 (flag ^= (bits))
 
-#define CLIENT_CAN_HIDE_WINDOW(c)       (FLAG_TEST(c->xfwm_flags, XFWM_FLAG_HAS_HIDE) && \
+#define CLIENT_CAN_HIDE_WINDOW(c)       (FLAG_TEST(c->eswm_flags, ESWM_FLAG_HAS_HIDE) && \
                                          !FLAG_TEST(c->flags, CLIENT_FLAG_SKIP_TASKBAR))
-#define CLIENT_CAN_MAXIMIZE_WINDOW(c)   (FLAG_TEST_ALL(c->xfwm_flags, XFWM_FLAG_HAS_MAXIMIZE | \
-                                                                      XFWM_FLAG_IS_RESIZABLE) && \
+#define CLIENT_CAN_MAXIMIZE_WINDOW(c)   (FLAG_TEST_ALL(c->eswm_flags, ESWM_FLAG_HAS_MAXIMIZE | \
+                                                                      ESWM_FLAG_IS_RESIZABLE) && \
                                          !FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN))
-#define CLIENT_CAN_FILL_WINDOW(c)       (FLAG_TEST(c->xfwm_flags, XFWM_FLAG_HAS_RESIZE | \
-                                                                  XFWM_FLAG_IS_RESIZABLE) && \
+#define CLIENT_CAN_FILL_WINDOW(c)       (FLAG_TEST(c->eswm_flags, ESWM_FLAG_HAS_RESIZE | \
+                                                                  ESWM_FLAG_IS_RESIZABLE) && \
                                          !FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN | \
                                                                CLIENT_FLAG_MAXIMIZED | \
                                                                CLIENT_FLAG_SHADED))
 #define CLIENT_CAN_TILE_WINDOW(c)       (CLIENT_CAN_MAXIMIZE_WINDOW(c) && \
                                          !FLAG_TEST (c->flags, CLIENT_FLAG_SHADED) && \
                                          (c->type & WINDOW_NORMAL))
-#define CLIENT_HAS_FRAME(c)             (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_BORDER) && \
+#define CLIENT_HAS_FRAME(c)             (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_BORDER) && \
                                          !FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN) && \
                                          (FLAG_TEST (c->flags, CLIENT_FLAG_SHADED) || \
                                           !FLAG_TEST_ALL (c->flags, CLIENT_FLAG_MAXIMIZED) ||  \
@@ -285,13 +285,13 @@ struct _Client
     Window *cmap_windows;
     Colormap cmap;
     gint ncmap;
-    xfwmWindow title;
-    xfwmWindow sides[SIDE_COUNT];
-    xfwmWindow corners[CORNER_COUNT];
-    xfwmWindow buttons[BUTTON_COUNT];
+    eswmWindow title;
+    eswmWindow sides[SIDE_COUNT];
+    eswmWindow corners[CORNER_COUNT];
+    eswmWindow buttons[BUTTON_COUNT];
     Window client_leader;
     Window group_leader;
-    xfwmPixmap appmenu[STATE_TOGGLED];
+    eswmPixmap appmenu[STATE_TOGGLED];
     unsigned long win_layer;
     unsigned long serial;
     unsigned long initial_layer;
@@ -331,7 +331,7 @@ struct _Client
     guint32 ping_time;
     unsigned long flags;
     unsigned long wm_flags;
-    unsigned long xfwm_flags;
+    unsigned long eswm_flags;
     gint fullscreen_monitors[4];
     gint frame_extents[SIDE_COUNT];
     tilePositionType tile_mode;
@@ -493,8 +493,8 @@ void                     clientScreenResize                     (ScreenInfo *,
                                                                  gboolean);
 void                     clientButtonPress                      (Client *,
                                                                  Window,
-                                                                 XfwmEventButton *);
-xfwmPixmap *             clientGetButtonPixmap                  (Client *,
+                                                                 EswmEventButton *);
+eswmPixmap *             clientGetButtonPixmap                  (Client *,
                                                                  int,
                                                                  int);
 int                      clientGetButtonState                   (Client *,

@@ -36,13 +36,13 @@ Makefile.in
 /settings-dialogs/*.desktop
 /settings-dialogs/workspace-resource.c
 /settings-dialogs/workspace-resource.h
-/settings-dialogs/xfwm4-dialog_ui.h
-/settings-dialogs/xfwm4-tweaks-dialog_ui.h
-/settings-dialogs/xfwm4-workspace-dialog_ui.h
+/settings-dialogs/eswm1-dialog_ui.h
+/settings-dialogs/eswm1-tweaks-dialog_ui.h
+/settings-dialogs/eswm1-workspace-dialog_ui.h
 
 # binaries
 /helper-dialog/helper-dialog
-/settings-dialogs/xfwm4-settings
-/settings-dialogs/xfwm4-tweaks-settings
-/settings-dialogs/xfwm4-workspace-settings
-/src/xfwm4
+/settings-dialogs/eswm1-settings
+/settings-dialogs/eswm1-tweaks-settings
+/settings-dialogs/eswm1-workspace-settings
+/src/eswm1

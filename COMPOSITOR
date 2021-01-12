@@ -1,18 +1,18 @@
 Compositing manager notes.
 ==========================
 
-xfwm4 now features a compositing manager. This code is new and has received only
+eswm1 now features a compositing manager. This code is new and has received only
 a moderate amount of testing, so it's disabled by default.
 
 So, if you want to stay safe, keep the compositor disabled...
 
-If you still want to try the compositor extensions with xfwm4, here follows how
-to enable the compositing manager in xfwm4.
+If you still want to try the compositor extensions with eswm1, here follows how
+to enable the compositing manager in eswm1.
 
-1) Enabling the compositor manager in xfwm4
+1) Enabling the compositor manager in eswm1
 -------------------------------------------
 
-To enable the compositing manager in xfwm4, add --enable-compositor when running
+To enable the compositing manager in eswm1, add --enable-compositor when running
 the configure script.
 
 eg:
@@ -47,28 +47,28 @@ EndSection
 ------------------
 
 The composite extensions in X.org look fairly new and there are several problems
-that may arise when using the compositing manager in xfwm4:
+that may arise when using the compositing manager in eswm1:
 
 - Windows aren't correctly refreshed
 - Scrolling may leave glitches
 - Xv and composite extension don't always play nice together
 - Xinerama and composite extension have problems too
 
-All this is not specifically related to the xfwm4's compositing manager. It's
+All this is not specifically related to the eswm1's compositing manager. It's
 not worth filling bugs in Xfce's bugzilla.
 
-If you still think you have found a bug in xfwm4 compositing manager, here
+If you still think you have found a bug in eswm1 compositing manager, here
 are a few hints that could help categorizing the problem:
 
-- Does it happen when xfwm4 compositor is disabled?
-  ie, when running "xfwm4 --compositor=off"
+- Does it happen when eswm1 compositor is disabled?
+  ie, when running "eswm1 --compositor=off"
 - Does it happen with xcompmgr?
-  ie, when running "xfwm4 --compositor=off; xcompmgr -c"
+  ie, when running "eswm1 --compositor=off; xcompmgr -c"
 - Does it show with the Xserver embedded compositor manager?
-  ie, when running "xfwm4 --compositor=auto"
+  ie, when running "eswm1 --compositor=auto"
 
 If the problem with xcompmgr and/or with the Xserver compositor, then there
-is a good chance that the problem is not with xfwm4...
+is a good chance that the problem is not with eswm1...
 
 4) Tips
 -------
@@ -114,12 +114,12 @@ to the card's Device section in xorg.conf.
 4.3) vblank and tearing
 ======================
 
-Starting with version 4.13, xfwm4 now supports vblank via two different
+Starting with version 4.13, eswm1 now supports vblank via two different
 methods, either using GLX or the Present X11 extension.
 
-xfwm4 relies on libepoxy for GLX, and on libXpresent for Present support.
+eswm1 relies on libepoxy for GLX, and on libXpresent for Present support.
 
-Support for those features can be checked using "xfwm4 --version":
+Support for those features can be checked using "eswm1 --version":
 
 	Build configuration and supported features:
         ...
@@ -128,31 +128,31 @@ Support for those features can be checked using "xfwm4 --version":
 	- Epoxy support:                                Yes
         ...
 
-If both vblank methods are available, xfwm4 will first try GLX and fallback
+If both vblank methods are available, eswm1 will first try GLX and fallback
 to Present if available.
 
 To select a different vblank method, either use the "--vblank" command
 line options:
 
-  $ xfwm4 --replace --vblank=glx &
-  $ xfwm4 --replace --vblank=xpresent &
-  $ xfwm4 --replace --vblank=off &
+  $ eswm1 --replace --vblank=glx &
+  $ eswm1 --replace --vblank=xpresent &
+  $ eswm1 --replace --vblank=off &
 
 Or the "/general/vblank_mode" xfconf setting.
 
-Use "auto" to let xfwm4 decide (default):
+Use "auto" to let eswm1 decide (default):
 
- $ xfconf-query -c xfwm4 -p /general/vblank_mode -s auto
+ $ xfconf-query -c eswm1 -p /general/vblank_mode -s auto
 
 Use "glx" to set GLX as vblank method (if enabled at build time):
 
-  $ xfconf-query -c xfwm4 -p /general/vblank_mode -s glx
+  $ xfconf-query -c eswm1 -p /general/vblank_mode -s glx
 
 Use "xpresent" to set GLX as vblank method (if enabled at build time):
 
-  $ xfconf-query -c xfwm4 -p /general/vblank_mode -s xpresent
+  $ xfconf-query -c eswm1 -p /general/vblank_mode -s xpresent
 
 Use "off" to disable vblank altogether:
 
-  $ xfconf-query -c xfwm4 -p /general/vblank_mode -s off
+  $ xfconf-query -c eswm1 -p /general/vblank_mode -s off
 

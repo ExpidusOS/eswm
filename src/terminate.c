@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
         metacity - (c) 2001, 2002 Havoc Pennington
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -29,7 +29,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
 #include "client.h"
 #include "terminate.h"
@@ -98,7 +98,7 @@ terminateShowDialogSetEnvironment (gpointer user_data)
 {
     GdkScreen *screen = user_data;
 
-    g_setenv ("DISPLAY", xfwm_make_display_name (screen), TRUE);
+    g_setenv ("DISPLAY", eswm_make_display_name (screen), TRUE);
 }
 
 gboolean
@@ -120,7 +120,7 @@ terminateShowDialog (Client *c)
     screen_info = c->screen_info;
     xid = g_strdup_printf ("0x%lx", c->window);
 
-    argv[0] = HELPERDIR "/xfce4/xfwm4/helper-dialog";
+    argv[0] = HELPERDIR "/xfce4/eswm1/helper-dialog";
     argv[1] = xid;
     argv[2] = c->name;
     argv[3] = NULL;

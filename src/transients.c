@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -286,9 +286,9 @@ clientTransientOrModalHasAncestor (Client * c, guint ws)
         if ((c2 != c)
             && !clientIsTransientOrModal (c2)
             && clientIsTransientOrModalFor (c, c2)
-            && FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE)
+            && FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE)
             && (c2->win_workspace == ws)
-            && (((ws == screen_info->current_ws) && FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE))
+            && (((ws == screen_info->current_ws) && FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE))
                 || !FLAG_TEST (c2->flags, CLIENT_FLAG_ICONIFIED)))
         {
             return TRUE;

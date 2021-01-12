@@ -44,12 +44,12 @@
 #include <xfconf/xfconf.h>
 #include <libxfce4kbd-private/xfce-shortcut-dialog.h>
 #include <libxfce4kbd-private/xfce-shortcuts-provider.h>
-#include <libxfce4kbd-private/xfce-shortcuts-xfwm4.h>
+#include <libxfce4kbd-private/xfce-shortcuts-eswm1.h>
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
-#include "xfwm4-dialog_ui.h"
-#include "xfwm4-settings.h"
+#include "eswm1-dialog_ui.h"
+#include "eswm1-settings.h"
 #include "range-debouncer.h"
 
 
@@ -76,127 +76,127 @@ enum
 
 
 
-static void       xfwm_settings_constructed                          (GObject              *object);
-static void       xfwm_settings_finalize                             (GObject              *object);
-static void       xfwm_settings_get_property                         (GObject              *object,
+static void       eswm_settings_constructed                          (GObject              *object);
+static void       eswm_settings_finalize                             (GObject              *object);
+static void       eswm_settings_get_property                         (GObject              *object,
                                                                       guint                 prop_id,
                                                                       GValue               *value,
                                                                       GParamSpec           *pspec);
-static void       xfwm_settings_set_property                         (GObject              *object,
+static void       eswm_settings_set_property                         (GObject              *object,
                                                                       guint                 prop_id,
                                                                       const GValue         *value,
                                                                       GParamSpec           *pspec);
-static gint       xfwm_settings_theme_sort_func                      (GtkTreeModel         *model,
+static gint       eswm_settings_theme_sort_func                      (GtkTreeModel         *model,
                                                                       GtkTreeIter          *iter1,
                                                                       GtkTreeIter          *iter2,
                                                                       gpointer              data);
-static void       xfwm_settings_load_themes                          (XfwmSettings         *settings);
-static void       xfwm_settings_theme_selection_changed              (GtkTreeSelection     *selection,
-                                                                      XfwmSettings         *settings);
-static void       xfwm_settings_title_alignment_changed              (GtkComboBox          *combo,
-                                                                      XfwmSettings         *settings);
-static void       xfwm_settings_active_frame_drag_data               (GtkWidget            *widget,
+static void       eswm_settings_load_themes                          (EswmSettings         *settings);
+static void       eswm_settings_theme_selection_changed              (GtkTreeSelection     *selection,
+                                                                      EswmSettings         *settings);
+static void       eswm_settings_title_alignment_changed              (GtkComboBox          *combo,
+                                                                      EswmSettings         *settings);
+static void       eswm_settings_active_frame_drag_data               (GtkWidget            *widget,
                                                                       GdkDragContext       *drag_context,
                                                                       gint                  x,
                                                                       gint                  y,
                                                                       GtkSelectionData     *data,
                                                                       guint                 info,
                                                                       guint                 time,
-                                                                      XfwmSettings         *settings);
-static gboolean   xfwm_settings_active_frame_drag_motion             (GtkWidget            *widget,
+                                                                      EswmSettings         *settings);
+static gboolean   eswm_settings_active_frame_drag_motion             (GtkWidget            *widget,
                                                                       GdkDragContext       *drag_context,
                                                                       gint                  x,
                                                                       gint                  y,
                                                                       guint                 time,
-                                                                      XfwmSettings         *settings);
-static void       xfwm_settings_active_frame_drag_leave              (GtkWidget            *widget,
+                                                                      EswmSettings         *settings);
+static void       eswm_settings_active_frame_drag_leave              (GtkWidget            *widget,
                                                                       GdkDragContext       *drag_context,
                                                                       guint                 time,
-                                                                      XfwmSettings         *settings);
-static void       xfwm_settings_hidden_frame_drag_data               (GtkWidget            *widget,
+                                                                      EswmSettings         *settings);
+static void       eswm_settings_hidden_frame_drag_data               (GtkWidget            *widget,
                                                                       GdkDragContext       *drag_context,
                                                                       gint                  x,
                                                                       gint                  y,
                                                                       GtkSelectionData     *data,
                                                                       guint                 info,
                                                                       guint                 timestamp,
-                                                                      XfwmSettings         *settings);
-static gboolean   xfwm_settings_title_button_press_event             (GtkWidget            *widget);
-static void       xfwm_settings_title_button_drag_data               (GtkWidget            *widget,
+                                                                      EswmSettings         *settings);
+static gboolean   eswm_settings_title_button_press_event             (GtkWidget            *widget);
+static void       eswm_settings_title_button_drag_data               (GtkWidget            *widget,
                                                                       GdkDragContext       *drag_context,
                                                                       GtkSelectionData     *data,
                                                                       guint                 info,
                                                                       guint                 timestamp);
-static void       xfwm_settings_title_button_drag_begin              (GtkWidget            *widget,
+static void       eswm_settings_title_button_drag_begin              (GtkWidget            *widget,
                                                                       GdkDragContext       *drag_context);
-static void       xfwm_settings_title_button_drag_end                (GtkWidget            *widget,
+static void       eswm_settings_title_button_drag_end                (GtkWidget            *widget,
                                                                       GdkDragContext       *drag_context);
-static gboolean   xfwm_settings_active_frame_draw                    (GtkWidget            *widget,
+static gboolean   eswm_settings_active_frame_draw                    (GtkWidget            *widget,
                                                                       cairo_t              *cr,
-                                                                      XfwmSettings         *settings);
-static gboolean   xfwm_settings_signal_blocker                       (GtkWidget            *widget);
+                                                                      EswmSettings         *settings);
+static gboolean   eswm_settings_signal_blocker                       (GtkWidget            *widget);
 
 /* FIXME! */
 #if 0
-static GdkPixbuf *xfwm_settings_create_icon_from_widget              (GtkWidget            *widget);
+static GdkPixbuf *eswm_settings_create_icon_from_widget              (GtkWidget            *widget);
 #endif
 
-static void       xfwm_settings_save_button_layout                   (XfwmSettings          *settings,
+static void       eswm_settings_save_button_layout                   (EswmSettings          *settings,
                                                                       GtkContainer          *container);
-static void       xfwm_settings_double_click_action_changed          (GtkComboBox           *combo,
-                                                                      XfwmSettings          *settings);
-static void       xfwm_settings_title_button_alignment_changed       (GtkComboBox           *combo,
+static void       eswm_settings_double_click_action_changed          (GtkComboBox           *combo,
+                                                                      EswmSettings          *settings);
+static void       eswm_settings_title_button_alignment_changed       (GtkComboBox           *combo,
                                                                       GtkWidget             *button);
 
-static void       xfwm_settings_button_layout_property_changed       (XfconfChannel         *channel,
+static void       eswm_settings_button_layout_property_changed       (XfconfChannel         *channel,
                                                                       const gchar           *property,
                                                                       const GValue          *value,
-                                                                      XfwmSettings          *settings);
-static void       xfwm_settings_title_alignment_property_changed     (XfconfChannel         *channel,
+                                                                      EswmSettings          *settings);
+static void       eswm_settings_title_alignment_property_changed     (XfconfChannel         *channel,
                                                                       const gchar           *property,
                                                                       const GValue          *value,
-                                                                      XfwmSettings          *settings);
-static void       xfwm_settings_double_click_action_property_changed (XfconfChannel         *channel,
+                                                                      EswmSettings          *settings);
+static void       eswm_settings_double_click_action_property_changed (XfconfChannel         *channel,
                                                                       const gchar           *property,
                                                                       const GValue          *value,
-                                                                      XfwmSettings          *settings);
-static void       xfwm_settings_click_to_focus_property_changed      (XfconfChannel         *channel,
+                                                                      EswmSettings          *settings);
+static void       eswm_settings_click_to_focus_property_changed      (XfconfChannel         *channel,
                                                                       const gchar           *property,
                                                                       const GValue          *value,
-                                                                      XfwmSettings          *settings);
-static void       xfwm_settings_initialize_shortcuts                 (XfwmSettings          *settings);
-static void       xfwm_settings_reload_shortcuts                     (XfwmSettings          *settings);
-static void       xfwm_settings_shortcut_added                       (XfceShortcutsProvider *provider,
+                                                                      EswmSettings          *settings);
+static void       eswm_settings_initialize_shortcuts                 (EswmSettings          *settings);
+static void       eswm_settings_reload_shortcuts                     (EswmSettings          *settings);
+static void       eswm_settings_shortcut_added                       (XfceShortcutsProvider *provider,
                                                                       const gchar           *shortcut,
-                                                                      XfwmSettings          *settings);
-static void       xfwm_settings_shortcut_removed                     (XfceShortcutsProvider *provider,
+                                                                      EswmSettings          *settings);
+static void       eswm_settings_shortcut_removed                     (XfceShortcutsProvider *provider,
                                                                       const gchar           *shortcut,
-                                                                      XfwmSettings          *settings);
-static gboolean   xfwm_settings_update_treeview_on_conflict_replace  (GtkTreeModel          *model,
+                                                                      EswmSettings          *settings);
+static gboolean   eswm_settings_update_treeview_on_conflict_replace  (GtkTreeModel          *model,
                                                                       GtkTreePath           *path,
                                                                       GtkTreeIter           *iter,
                                                                       gpointer               shortcut_to_erase);
-static void       xfwm_settings_shortcut_edit_clicked                (GtkButton             *button,
-                                                                      XfwmSettings          *settings);
-static void       xfwm_settings_shortcut_clear_clicked               (GtkButton             *button,
-                                                                      XfwmSettings          *settings);
-static void       xfwm_settings_shortcut_reset_clicked               (GtkButton             *button,
-                                                                      XfwmSettings          *settings);
-static void       xfwm_settings_shortcut_row_activated               (GtkTreeView           *tree_view,
+static void       eswm_settings_shortcut_edit_clicked                (GtkButton             *button,
+                                                                      EswmSettings          *settings);
+static void       eswm_settings_shortcut_clear_clicked               (GtkButton             *button,
+                                                                      EswmSettings          *settings);
+static void       eswm_settings_shortcut_reset_clicked               (GtkButton             *button,
+                                                                      EswmSettings          *settings);
+static void       eswm_settings_shortcut_row_activated               (GtkTreeView           *tree_view,
                                                                       GtkTreePath           *path,
                                                                       GtkTreeViewColumn     *column,
-                                                                      XfwmSettings          *settings);
+                                                                      EswmSettings          *settings);
 
 
 
-struct _XfwmSettingsPrivate
+struct _EswmSettingsPrivate
 {
   GtkBuilder            *builder;
   XfceShortcutsProvider *provider;
   XfconfChannel         *wm_channel;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (XfwmSettings, xfwm_settings, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (EswmSettings, eswm_settings, G_TYPE_OBJECT)
 
 struct _MenuTemplate
 {
@@ -244,15 +244,15 @@ static GOptionEntry       opt_entries[] = {
 
 
 static void
-xfwm_settings_class_init (XfwmSettingsClass *klass)
+eswm_settings_class_init (EswmSettingsClass *klass)
 {
   GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->constructed = xfwm_settings_constructed;
-  gobject_class->finalize = xfwm_settings_finalize;
-  gobject_class->get_property = xfwm_settings_get_property;
-  gobject_class->set_property = xfwm_settings_set_property;
+  gobject_class->constructed = eswm_settings_constructed;
+  gobject_class->finalize = eswm_settings_finalize;
+  gobject_class->get_property = eswm_settings_get_property;
+  gobject_class->set_property = eswm_settings_set_property;
 
   g_object_class_install_property (gobject_class,
                                    PROP_GTK_BUILDER,
@@ -267,21 +267,21 @@ xfwm_settings_class_init (XfwmSettingsClass *klass)
 
 
 static void
-xfwm_settings_init (XfwmSettings *settings)
+eswm_settings_init (EswmSettings *settings)
 {
-  settings->priv = xfwm_settings_get_instance_private (settings);
+  settings->priv = eswm_settings_get_instance_private (settings);
 
   settings->priv->builder = NULL;
-  settings->priv->provider = xfce_shortcuts_provider_new ("xfwm4");
-  settings->priv->wm_channel = xfconf_channel_new ("xfwm4");
+  settings->priv->provider = xfce_shortcuts_provider_new ("eswm1");
+  settings->priv->wm_channel = xfconf_channel_new ("eswm1");
 }
 
 
 
 static void
-xfwm_settings_constructed (GObject *object)
+eswm_settings_constructed (GObject *object)
 {
-  XfwmSettings       *settings = XFWM_SETTINGS (object);
+  EswmSettings       *settings = ESWM_SETTINGS (object);
   const MenuTemplate *template;
   GtkTreeSelection   *selection;
   GtkCellRenderer    *renderer;
@@ -333,7 +333,7 @@ xfwm_settings_constructed (GObject *object)
   {
     list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (list_store), COL_THEME_NAME,
-                                     (GtkTreeIterCompareFunc) xfwm_settings_theme_sort_func,
+                                     (GtkTreeIterCompareFunc) eswm_settings_theme_sort_func,
                                      NULL, NULL);
     gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (list_store), COL_THEME_NAME, GTK_SORT_ASCENDING);
     gtk_tree_view_set_model (GTK_TREE_VIEW (theme_name_treeview), GTK_TREE_MODEL (list_store));
@@ -344,11 +344,11 @@ xfwm_settings_constructed (GObject *object)
                                                  0, _("Theme"), renderer, "text", 0, NULL);
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (theme_name_treeview));
-    g_signal_connect (selection, "changed", G_CALLBACK (xfwm_settings_theme_selection_changed),
+    g_signal_connect (selection, "changed", G_CALLBACK (eswm_settings_theme_selection_changed),
                       settings);
     gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 
-    xfwm_settings_load_themes (settings);
+    eswm_settings_load_themes (settings);
   }
 
   /* Style tab: font */
@@ -373,43 +373,43 @@ xfwm_settings_constructed (GObject *object)
       }
     g_object_unref (G_OBJECT (list_store));
     xfconf_channel_get_property (settings->priv->wm_channel, "/general/title_alignment", &value);
-    xfwm_settings_title_alignment_property_changed (settings->priv->wm_channel,
+    eswm_settings_title_alignment_property_changed (settings->priv->wm_channel,
                                                     "/general/title_alignment", &value, settings);
     g_value_unset (&value);
 
     g_signal_connect (title_align_combo, "changed",
-                      G_CALLBACK (xfwm_settings_title_alignment_changed), settings);
+                      G_CALLBACK (eswm_settings_title_alignment_changed), settings);
     g_signal_connect (settings->priv->wm_channel, "property-changed::/general/title_alignment",
-                      G_CALLBACK (xfwm_settings_title_alignment_property_changed), settings);
+                      G_CALLBACK (eswm_settings_title_alignment_property_changed), settings);
   }
 
   /* Style tab: button layout */
   {
-    target_entry[0].target = "_xfwm4_button_layout";
+    target_entry[0].target = "_eswm1_button_layout";
     target_entry[0].flags = 0;
     target_entry[0].info = 2;
 
-    target_entry[1].target = "_xfwm4_active_layout";
+    target_entry[1].target = "_eswm1_active_layout";
     target_entry[1].flags = 0;
     target_entry[1].info = 3;
 
     gtk_drag_dest_set (active_frame, GTK_DEST_DEFAULT_ALL, target_entry, 2, GDK_ACTION_MOVE);
 
     g_signal_connect (active_frame, "drag-data-received",
-                      G_CALLBACK (xfwm_settings_active_frame_drag_data), settings);
+                      G_CALLBACK (eswm_settings_active_frame_drag_data), settings);
     g_signal_connect (active_frame, "drag-motion",
-                      G_CALLBACK (xfwm_settings_active_frame_drag_motion), settings);
+                      G_CALLBACK (eswm_settings_active_frame_drag_motion), settings);
     g_signal_connect (active_frame, "drag-leave",
-                      G_CALLBACK (xfwm_settings_active_frame_drag_leave), settings);
+                      G_CALLBACK (eswm_settings_active_frame_drag_leave), settings);
 
     gtk_drag_dest_set (hidden_frame, GTK_DEST_DEFAULT_ALL, target_entry, 1, GDK_ACTION_MOVE);
 
     g_signal_connect (hidden_frame, "drag-data-received",
-                      G_CALLBACK (xfwm_settings_hidden_frame_drag_data), settings);
+                      G_CALLBACK (eswm_settings_hidden_frame_drag_data), settings);
 
     g_object_set_data (G_OBJECT (active_frame), "indicator-position", GINT_TO_POINTER (-1));
     g_signal_connect (active_frame, "draw",
-                      G_CALLBACK (xfwm_settings_active_frame_draw), settings);
+                      G_CALLBACK (eswm_settings_active_frame_draw), settings);
 
     children = gtk_container_get_children (GTK_CONTAINER (active_box));
     for (list_iter = children; list_iter != NULL; list_iter = g_list_next (list_iter))
@@ -420,8 +420,8 @@ xfwm_settings_constructed (GObject *object)
         if (name[strlen (name) - 1] == '|')
           {
             g_signal_connect (title_align_combo, "changed",
-                              G_CALLBACK (xfwm_settings_title_button_alignment_changed), button);
-            xfwm_settings_title_button_alignment_changed (GTK_COMBO_BOX (title_align_combo),
+                              G_CALLBACK (eswm_settings_title_button_alignment_changed), button);
+            eswm_settings_title_button_alignment_changed (GTK_COMBO_BOX (title_align_combo),
                                                           button);
           }
 
@@ -429,16 +429,16 @@ xfwm_settings_constructed (GObject *object)
         gtk_drag_source_set (button, GDK_BUTTON1_MASK, &target_entry[1], 1, GDK_ACTION_MOVE);
 
         g_signal_connect (button, "drag_data_get",
-                          G_CALLBACK (xfwm_settings_title_button_drag_data), NULL);
-        g_signal_connect (button, "drag_begin", G_CALLBACK (xfwm_settings_title_button_drag_begin),
+                          G_CALLBACK (eswm_settings_title_button_drag_data), NULL);
+        g_signal_connect (button, "drag_begin", G_CALLBACK (eswm_settings_title_button_drag_begin),
                           NULL);
-        g_signal_connect (button, "drag_end", G_CALLBACK (xfwm_settings_title_button_drag_end),
+        g_signal_connect (button, "drag_end", G_CALLBACK (eswm_settings_title_button_drag_end),
                           NULL);
         g_signal_connect (button, "button_press_event",
-                          G_CALLBACK (xfwm_settings_title_button_press_event), NULL);
+                          G_CALLBACK (eswm_settings_title_button_press_event), NULL);
         g_signal_connect (button, "enter_notify_event",
-                          G_CALLBACK (xfwm_settings_signal_blocker), NULL);
-        g_signal_connect (button, "focus",  G_CALLBACK (xfwm_settings_signal_blocker), NULL);
+                          G_CALLBACK (eswm_settings_signal_blocker), NULL);
+        g_signal_connect (button, "focus",  G_CALLBACK (eswm_settings_signal_blocker), NULL);
       }
     g_list_free (children);
 
@@ -452,21 +452,21 @@ xfwm_settings_constructed (GObject *object)
         gtk_drag_source_set (button, GDK_BUTTON1_MASK, &target_entry[0], 1, GDK_ACTION_MOVE);
 
           g_signal_connect (button, "drag_data_get",
-                            G_CALLBACK (xfwm_settings_title_button_drag_data), NULL);
-          g_signal_connect (button, "drag_begin", G_CALLBACK (xfwm_settings_title_button_drag_begin),
+                            G_CALLBACK (eswm_settings_title_button_drag_data), NULL);
+          g_signal_connect (button, "drag_begin", G_CALLBACK (eswm_settings_title_button_drag_begin),
                             NULL);
-          g_signal_connect (button, "drag_end", G_CALLBACK (xfwm_settings_title_button_drag_end),
+          g_signal_connect (button, "drag_end", G_CALLBACK (eswm_settings_title_button_drag_end),
                             NULL);
           g_signal_connect (button, "button_press_event",
-                            G_CALLBACK (xfwm_settings_title_button_press_event), NULL);
+                            G_CALLBACK (eswm_settings_title_button_press_event), NULL);
           g_signal_connect (button, "enter_notify_event",
-                            G_CALLBACK (xfwm_settings_signal_blocker), NULL);
-          g_signal_connect (button, "focus",  G_CALLBACK (xfwm_settings_signal_blocker), NULL);
+                            G_CALLBACK (eswm_settings_signal_blocker), NULL);
+          g_signal_connect (button, "focus",  G_CALLBACK (eswm_settings_signal_blocker), NULL);
       }
     g_list_free (children);
 
     xfconf_channel_get_property (settings->priv->wm_channel, "/general/button_layout", &value);
-    xfwm_settings_button_layout_property_changed (settings->priv->wm_channel,
+    eswm_settings_button_layout_property_changed (settings->priv->wm_channel,
                                                   "/general/button_layout", &value, settings);
     g_value_unset (&value);
   }
@@ -512,16 +512,16 @@ xfwm_settings_constructed (GObject *object)
     /* Initial sorting: By category; given by the model */
 
     g_signal_connect (shortcuts_treeview, "row-activated",
-                      G_CALLBACK (xfwm_settings_shortcut_row_activated), settings);
+                      G_CALLBACK (eswm_settings_shortcut_row_activated), settings);
   }
 
   /* Connect to shortcut buttons */
   g_signal_connect (shortcuts_edit_button, "clicked",
-                    G_CALLBACK (xfwm_settings_shortcut_edit_clicked), settings);
+                    G_CALLBACK (eswm_settings_shortcut_edit_clicked), settings);
   g_signal_connect (shortcuts_clear_button, "clicked",
-                    G_CALLBACK (xfwm_settings_shortcut_clear_clicked), settings);
+                    G_CALLBACK (eswm_settings_shortcut_clear_clicked), settings);
   g_signal_connect (shortcuts_reset_button, "clicked",
-                    G_CALLBACK (xfwm_settings_shortcut_reset_clicked), settings);
+                    G_CALLBACK (eswm_settings_shortcut_reset_clicked), settings);
 
   /* Focus tab widgets */
   focus_delay_scale = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "focus_delay_scale"));
@@ -546,10 +546,10 @@ xfwm_settings_constructed (GObject *object)
                           click_to_focus_radio, "active");
 
   g_signal_connect (settings->priv->wm_channel, "property-changed::/general/click_to_focus",
-                    G_CALLBACK (xfwm_settings_click_to_focus_property_changed), settings);
+                    G_CALLBACK (eswm_settings_click_to_focus_property_changed), settings);
 
   xfconf_channel_get_property (settings->priv->wm_channel, "/general/click_to_focus", &value);
-  xfwm_settings_click_to_focus_property_changed (settings->priv->wm_channel,
+  eswm_settings_click_to_focus_property_changed (settings->priv->wm_channel,
                                                  "/general/click_to_focus", &value, settings);
   g_value_unset (&value);
 
@@ -588,16 +588,16 @@ xfwm_settings_constructed (GObject *object)
     g_object_unref (G_OBJECT (list_store));
     xfconf_channel_get_property (settings->priv->wm_channel, "/general/double_click_action",
                                  &value);
-    xfwm_settings_double_click_action_property_changed (settings->priv->wm_channel,
+    eswm_settings_double_click_action_property_changed (settings->priv->wm_channel,
                                                         "/general/double_click_action",
                                                         &value, settings);
     g_value_unset (&value);
 
     g_signal_connect (double_click_action_combo, "changed",
-                      G_CALLBACK (xfwm_settings_double_click_action_changed),
+                      G_CALLBACK (eswm_settings_double_click_action_changed),
                       settings);
     g_signal_connect (settings->priv->wm_channel, "property-changed::/general/double_click_action",
-                      G_CALLBACK (xfwm_settings_double_click_action_property_changed), settings);
+                      G_CALLBACK (eswm_settings_double_click_action_property_changed), settings);
   }
 
   /* Advanced tab */
@@ -619,39 +619,39 @@ xfwm_settings_constructed (GObject *object)
                           snap_to_window_check, "active");
 
   /* Load shortcuts */
-  xfwm_settings_initialize_shortcuts (settings);
-  xfwm_settings_reload_shortcuts (settings);
+  eswm_settings_initialize_shortcuts (settings);
+  eswm_settings_reload_shortcuts (settings);
 
   /* Connect to shortcuts provider */
   g_signal_connect (settings->priv->provider, "shortcut-added",
-                    G_CALLBACK (xfwm_settings_shortcut_added), settings);
+                    G_CALLBACK (eswm_settings_shortcut_added), settings);
   g_signal_connect (settings->priv->provider, "shortcut-removed",
-                    G_CALLBACK (xfwm_settings_shortcut_removed), settings);
+                    G_CALLBACK (eswm_settings_shortcut_removed), settings);
 }
 
 
 
 static void
-xfwm_settings_finalize (GObject *object)
+eswm_settings_finalize (GObject *object)
 {
-  XfwmSettings *settings = XFWM_SETTINGS (object);
+  EswmSettings *settings = ESWM_SETTINGS (object);
 
   g_object_unref (settings->priv->wm_channel);
   g_object_unref (settings->priv->provider);
   g_object_unref (settings->priv->builder);
 
-  (*G_OBJECT_CLASS (xfwm_settings_parent_class)->finalize) (object);
+  (*G_OBJECT_CLASS (eswm_settings_parent_class)->finalize) (object);
 }
 
 
 
 static void
-xfwm_settings_get_property (GObject    *object,
+eswm_settings_get_property (GObject    *object,
                                   guint       prop_id,
                                   GValue     *value,
                                   GParamSpec *pspec)
 {
-  XfwmSettings *settings = XFWM_SETTINGS (object);
+  EswmSettings *settings = ESWM_SETTINGS (object);
 
   switch (prop_id)
     {
@@ -667,12 +667,12 @@ xfwm_settings_get_property (GObject    *object,
 
 
 static void
-xfwm_settings_set_property (GObject      *object,
+eswm_settings_set_property (GObject      *object,
                                   guint         prop_id,
                                   const GValue *value,
                                   GParamSpec   *pspec)
 {
-  XfwmSettings *settings = XFWM_SETTINGS (object);
+  EswmSettings *settings = ESWM_SETTINGS (object);
 
   switch (prop_id)
     {
@@ -690,25 +690,25 @@ xfwm_settings_set_property (GObject      *object,
 
 
 
-XfwmSettings *
-xfwm_settings_new (void)
+EswmSettings *
+eswm_settings_new (void)
 {
-  XfwmSettings *settings = NULL;
+  EswmSettings *settings = NULL;
   GtkBuilder   *builder;
 
   builder = gtk_builder_new ();
 
-  gtk_builder_add_from_string (builder, xfwm4_dialog_ui, xfwm4_dialog_ui_length, NULL);
+  gtk_builder_add_from_string (builder, eswm1_dialog_ui, eswm1_dialog_ui_length, NULL);
 
   if (G_LIKELY (builder != NULL))
-    settings = g_object_new (XFWM_TYPE_SETTINGS, "gtk-builder", builder, NULL);
+    settings = g_object_new (ESWM_TYPE_SETTINGS, "gtk-builder", builder, NULL);
 
   return settings;
 }
 
 
 static gint
-xfwm_settings_theme_sort_func (GtkTreeModel *model,
+eswm_settings_theme_sort_func (GtkTreeModel *model,
                                GtkTreeIter  *iter1,
                                GtkTreeIter  *iter2,
                                gpointer      data)
@@ -734,7 +734,7 @@ xfwm_settings_theme_sort_func (GtkTreeModel *model,
 
 
 static void
-xfwm_settings_load_themes (XfwmSettings *settings)
+eswm_settings_load_themes (EswmSettings *settings)
 {
   GtkTreeModel *model;
   GtkTreeIter   iter;
@@ -767,7 +767,7 @@ xfwm_settings_load_themes (XfwmSettings *settings)
 
       while ((file = g_dir_read_name (dir)) != NULL)
         {
-          filename = g_build_filename (theme_dirs[i], file, "xfwm4", "themerc", NULL);
+          filename = g_build_filename (theme_dirs[i], file, "eswm1", "themerc", NULL);
 
           /* check if the theme rc exists and there is not already a theme with the
            * same name in the database */
@@ -808,28 +808,28 @@ xfwm_settings_load_themes (XfwmSettings *settings)
 
 
 static GtkWidget *
-xfwm_settings_create_dialog (XfwmSettings *settings)
+eswm_settings_create_dialog (EswmSettings *settings)
 {
-  g_return_val_if_fail (XFWM_IS_SETTINGS (settings), NULL);
+  g_return_val_if_fail (ESWM_IS_SETTINGS (settings), NULL);
   return GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "main-dialog"));
 }
 
 
 
 static GtkWidget *
-xfwm_settings_create_plug (XfwmSettings   *settings,
+eswm_settings_create_plug (EswmSettings   *settings,
                            Window          socket_id)
 {
   GtkWidget *plug;
   GtkWidget *child;
 
-  g_return_val_if_fail (XFWM_IS_SETTINGS (settings), NULL);
+  g_return_val_if_fail (ESWM_IS_SETTINGS (settings), NULL);
 
   plug = gtk_plug_new (socket_id);
   gtk_widget_show (plug);
 
   child = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "plug-child"));
-  xfwm_widget_reparent (child, plug);
+  eswm_widget_reparent (child, plug);
   gtk_widget_show (child);
 
   return plug;
@@ -838,12 +838,12 @@ xfwm_settings_create_plug (XfwmSettings   *settings,
 
 
 static void
-xfwm_settings_response (GtkWidget *dialog,
+eswm_settings_response (GtkWidget *dialog,
                         gint response_id)
 {
     if (response_id == GTK_RESPONSE_HELP)
     {
-        xfce_dialog_show_help (GTK_WINDOW (dialog), "xfwm4",
+        xfce_dialog_show_help (GTK_WINDOW (dialog), "eswm1",
                                "preferences", NULL);
     }
     else
@@ -858,7 +858,7 @@ int
 main (int    argc,
       char **argv)
 {
-  XfwmSettings *settings;
+  EswmSettings *settings;
   GtkWidget    *dialog;
   GtkWidget    *plug;
   GError       *error = NULL;
@@ -881,7 +881,7 @@ main (int    argc,
     }
 
   wm_name = gdk_x11_screen_get_window_manager_name (gdk_screen_get_default ());
-  if (G_UNLIKELY (g_ascii_strcasecmp (wm_name, "Xfwm4")))
+  if (G_UNLIKELY (g_ascii_strcasecmp (wm_name, "Eswm4")))
     {
       g_print ("These settings cannot work with your current window manager (%s)\n", wm_name);
       return EXIT_FAILURE;
@@ -904,7 +904,7 @@ main (int    argc,
       return EXIT_FAILURE;
     }
 
-  settings = xfwm_settings_new ();
+  settings = eswm_settings_new ();
 
   if (G_UNLIKELY (settings == NULL))
     {
@@ -915,9 +915,9 @@ main (int    argc,
 
   if (G_UNLIKELY (opt_socket_id == 0))
     {
-      dialog = xfwm_settings_create_dialog (settings);
+      dialog = eswm_settings_create_dialog (settings);
       gtk_widget_show (dialog);
-      g_signal_connect (dialog, "response", G_CALLBACK (xfwm_settings_response), NULL);
+      g_signal_connect (dialog, "response", G_CALLBACK (eswm_settings_response), NULL);
 
       /* To prevent the settings dialog to be saved in the session */
       gdk_x11_set_sm_client_id ("FAKE ID");
@@ -928,7 +928,7 @@ main (int    argc,
     }
   else
     {
-      plug = xfwm_settings_create_plug (settings, opt_socket_id);
+      plug = eswm_settings_create_plug (settings, opt_socket_id);
       g_signal_connect (plug, "delete-event", G_CALLBACK (gtk_main_quit), NULL);
 
       /* To prevent the settings dialog to be saved in the session */
@@ -950,8 +950,8 @@ main (int    argc,
 
 
 static void
-xfwm_settings_theme_selection_changed (GtkTreeSelection *selection,
-                                       XfwmSettings     *settings)
+eswm_settings_theme_selection_changed (GtkTreeSelection *selection,
+                                       EswmSettings     *settings)
 {
   GtkTreeModel *model;
   GtkTreeIter   iter;
@@ -994,14 +994,14 @@ xfwm_settings_theme_selection_changed (GtkTreeSelection *selection,
 
 
 static void
-xfwm_settings_title_alignment_changed (GtkComboBox  *combo,
-                                       XfwmSettings *settings)
+eswm_settings_title_alignment_changed (GtkComboBox  *combo,
+                                       EswmSettings *settings)
 {
   GtkTreeModel *model;
   GtkTreeIter   iter;
   gchar        *alignment;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   model = gtk_combo_box_get_model (combo);
 
@@ -1016,14 +1016,14 @@ xfwm_settings_title_alignment_changed (GtkComboBox  *combo,
 
 
 static void
-xfwm_settings_active_frame_drag_data (GtkWidget        *widget,
+eswm_settings_active_frame_drag_data (GtkWidget        *widget,
                                       GdkDragContext   *drag_context,
                                       gint              x,
                                       gint              y,
                                       GtkSelectionData *data,
                                       guint             info,
                                       guint             timestamp,
-                                      XfwmSettings     *settings)
+                                      EswmSettings     *settings)
 {
   GtkWidget     *source;
   GtkWidget     *parent;
@@ -1034,7 +1034,7 @@ xfwm_settings_active_frame_drag_data (GtkWidget        *widget,
   gint           xoffset;
   gint           i;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   source = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder,
                                  (const gchar *)gtk_selection_data_get_data (data)));
@@ -1066,19 +1066,19 @@ xfwm_settings_active_frame_drag_data (GtkWidget        *widget,
 
   gtk_box_reorder_child (GTK_BOX (active_box), source, i);
 
-  xfwm_settings_save_button_layout (settings, GTK_CONTAINER (active_box));
+  eswm_settings_save_button_layout (settings, GTK_CONTAINER (active_box));
   gtk_widget_show (source);
 }
 
 
 
 static gboolean
-xfwm_settings_active_frame_drag_motion (GtkWidget      *widget,
+eswm_settings_active_frame_drag_motion (GtkWidget      *widget,
                                         GdkDragContext *drag_context,
                                         gint            x,
                                         gint            y,
                                         guint           timestamp,
-                                        XfwmSettings   *settings)
+                                        EswmSettings   *settings)
 {
   GtkWidget     *active_box;
   GList         *children;
@@ -1087,7 +1087,7 @@ xfwm_settings_active_frame_drag_motion (GtkWidget      *widget,
   gint           xoffset;
   gint           index = -1;
 
-  g_return_val_if_fail (XFWM_IS_SETTINGS (settings), FALSE);
+  g_return_val_if_fail (ESWM_IS_SETTINGS (settings), FALSE);
 
   gtk_widget_get_allocation (widget, &allocation);
 
@@ -1121,12 +1121,12 @@ xfwm_settings_active_frame_drag_motion (GtkWidget      *widget,
 
 
 static void
-xfwm_settings_active_frame_drag_leave (GtkWidget      *widget,
+eswm_settings_active_frame_drag_leave (GtkWidget      *widget,
                                        GdkDragContext *drag_context,
                                        guint           timestamp,
-                                       XfwmSettings   *settings)
+                                       EswmSettings   *settings)
 {
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   g_object_set_data (G_OBJECT (widget), "indicator-position", GINT_TO_POINTER (-1));
   gtk_widget_queue_draw (widget);
@@ -1135,21 +1135,21 @@ xfwm_settings_active_frame_drag_leave (GtkWidget      *widget,
 
 
 static void
-xfwm_settings_hidden_frame_drag_data (GtkWidget        *widget,
+eswm_settings_hidden_frame_drag_data (GtkWidget        *widget,
                                       GdkDragContext   *drag_context,
                                       gint              x,
                                       gint              y,
                                       GtkSelectionData *data,
                                       guint             info,
                                       guint             timestamp,
-                                      XfwmSettings     *settings)
+                                      EswmSettings     *settings)
 {
   GtkWidget *source;
   GtkWidget *parent;
   GtkWidget *hidden_box;
   GtkWidget *active_box;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   source = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder,
                                  (const gchar *)gtk_selection_data_get_data (data)));
@@ -1165,7 +1165,7 @@ xfwm_settings_hidden_frame_drag_data (GtkWidget        *widget,
       gtk_box_pack_start (GTK_BOX (hidden_box), source, FALSE, FALSE, 0);
       g_object_unref (source);
 
-      xfwm_settings_save_button_layout (settings, GTK_CONTAINER (active_box));
+      eswm_settings_save_button_layout (settings, GTK_CONTAINER (active_box));
     }
 
   gtk_widget_show (source);
@@ -1174,7 +1174,7 @@ xfwm_settings_hidden_frame_drag_data (GtkWidget        *widget,
 
 
 static gboolean
-xfwm_settings_title_button_press_event (GtkWidget *widget)
+eswm_settings_title_button_press_event (GtkWidget *widget)
 {
  /* FIXME! This crashes in cairo... xfce bug 14606 */
 #if 0
@@ -1182,7 +1182,7 @@ xfwm_settings_title_button_press_event (GtkWidget *widget)
 
   g_return_val_if_fail (GTK_IS_WIDGET (widget), TRUE);
   /* set pixbuf before drag begin cause it can be not displayed */
-  pixbuf = xfwm_settings_create_icon_from_widget (widget);
+  pixbuf = eswm_settings_create_icon_from_widget (widget);
   gtk_drag_source_set_icon_pixbuf (widget, pixbuf);
   g_object_unref (pixbuf);
 #endif
@@ -1193,7 +1193,7 @@ xfwm_settings_title_button_press_event (GtkWidget *widget)
 
 
 static void
-xfwm_settings_title_button_drag_data (GtkWidget        *widget,
+eswm_settings_title_button_drag_data (GtkWidget        *widget,
                                       GdkDragContext   *drag_context,
                                       GtkSelectionData *data,
                                       guint             info,
@@ -1203,14 +1203,14 @@ xfwm_settings_title_button_drag_data (GtkWidget        *widget,
 
   name = gtk_buildable_get_name (GTK_BUILDABLE (widget));
 
-  gtk_selection_data_set (data, gdk_atom_intern ("_xfwm4_button_layout", FALSE), 8,
+  gtk_selection_data_set (data, gdk_atom_intern ("_eswm1_button_layout", FALSE), 8,
                           (const guchar *)name, strlen (name));
 }
 
 
 
 static void
-xfwm_settings_title_button_drag_begin (GtkWidget      *widget,
+eswm_settings_title_button_drag_begin (GtkWidget      *widget,
                                        GdkDragContext *drag_context)
 {
   g_return_if_fail (GTK_IS_WIDGET (widget));
@@ -1221,7 +1221,7 @@ xfwm_settings_title_button_drag_begin (GtkWidget      *widget,
 
 
 static void
-xfwm_settings_title_button_drag_end (GtkWidget      *widget,
+eswm_settings_title_button_drag_end (GtkWidget      *widget,
                                      GdkDragContext *drag_context)
 {
   gtk_widget_show (widget);
@@ -1230,9 +1230,9 @@ xfwm_settings_title_button_drag_end (GtkWidget      *widget,
 
 
 static gboolean
-xfwm_settings_active_frame_draw (GtkWidget    *widget,
+eswm_settings_active_frame_draw (GtkWidget    *widget,
                                  cairo_t      *cr,
-                                 XfwmSettings *settings)
+                                 EswmSettings *settings)
 {
   GtkWidget     *active_box;
   gint           position;
@@ -1307,7 +1307,7 @@ xfwm_settings_active_frame_draw (GtkWidget    *widget,
 
 
 static gboolean
-xfwm_settings_signal_blocker (GtkWidget *widget)
+eswm_settings_signal_blocker (GtkWidget *widget)
 {
   return TRUE;
 }
@@ -1316,7 +1316,7 @@ xfwm_settings_signal_blocker (GtkWidget *widget)
 /* FIXME! This crashes in cairo... xfce bug 14606 */
 #if 0
 static GdkPixbuf *
-xfwm_settings_create_icon_from_widget (GtkWidget *widget)
+eswm_settings_create_icon_from_widget (GtkWidget *widget)
 {
   GdkWindow     *window;
   GtkAllocation  allocation;
@@ -1333,10 +1333,10 @@ xfwm_settings_create_icon_from_widget (GtkWidget *widget)
 
 
 static void
-xfwm_settings_button_layout_property_changed (XfconfChannel *channel,
+eswm_settings_button_layout_property_changed (XfconfChannel *channel,
                                               const gchar   *property,
                                               const GValue  *value,
-                                              XfwmSettings  *settings)
+                                              EswmSettings  *settings)
 {
   GtkWidget   *active_box;
   GtkWidget   *hidden_box;
@@ -1346,7 +1346,7 @@ xfwm_settings_button_layout_property_changed (XfconfChannel *channel,
   const gchar *str_value;
   const gchar *key_char;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   hidden_box = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "hidden-box"));
   active_box = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "active-box"));
@@ -1402,10 +1402,10 @@ xfwm_settings_button_layout_property_changed (XfconfChannel *channel,
 
 
 static void
-xfwm_settings_title_alignment_property_changed (XfconfChannel *channel,
+eswm_settings_title_alignment_property_changed (XfconfChannel *channel,
                                                 const gchar   *property,
                                                 const GValue  *value,
-                                                XfwmSettings  *settings)
+                                                EswmSettings  *settings)
 {
   GtkTreeModel *model;
   GtkTreeIter   iter;
@@ -1413,7 +1413,7 @@ xfwm_settings_title_alignment_property_changed (XfconfChannel *channel,
   gchar        *alignment;
   const gchar  *new_value;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   combo = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "title_align_combo"));
   model = gtk_combo_box_get_model (GTK_COMBO_BOX (combo));
@@ -1445,7 +1445,7 @@ xfwm_settings_title_alignment_property_changed (XfconfChannel *channel,
 
 
 static void
-xfwm_settings_save_button_layout (XfwmSettings *settings,
+eswm_settings_save_button_layout (EswmSettings *settings,
                                   GtkContainer *container)
 {
   GList        *children;
@@ -1454,7 +1454,7 @@ xfwm_settings_save_button_layout (XfwmSettings *settings,
   gchar        *value;
   gint          i;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   children = gtk_container_get_children (container);
 
@@ -1475,14 +1475,14 @@ xfwm_settings_save_button_layout (XfwmSettings *settings,
 
 
 static void
-xfwm_settings_double_click_action_changed (GtkComboBox  *combo,
-                                           XfwmSettings *settings)
+eswm_settings_double_click_action_changed (GtkComboBox  *combo,
+                                           EswmSettings *settings)
 {
   GtkTreeModel *model;
   GtkTreeIter   iter;
   gchar        *value;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   model = gtk_combo_box_get_model (combo);
   gtk_combo_box_get_active_iter (combo, &iter);
@@ -1496,7 +1496,7 @@ xfwm_settings_double_click_action_changed (GtkComboBox  *combo,
 
 
 static void
-xfwm_settings_title_button_alignment_changed (GtkComboBox *combo,
+eswm_settings_title_button_alignment_changed (GtkComboBox *combo,
                                               GtkWidget   *button)
 {
   GtkTreeModel *model;
@@ -1534,10 +1534,10 @@ xfwm_settings_title_button_alignment_changed (GtkComboBox *combo,
 
 
 static void
-xfwm_settings_double_click_action_property_changed (XfconfChannel *channel,
+eswm_settings_double_click_action_property_changed (XfconfChannel *channel,
                                                     const gchar   *property,
                                                     const GValue  *value,
-                                                    XfwmSettings  *settings)
+                                                    EswmSettings  *settings)
 {
   GtkTreeModel *model;
   GtkTreeIter   iter;
@@ -1545,7 +1545,7 @@ xfwm_settings_double_click_action_property_changed (XfconfChannel *channel,
   const gchar  *new_value;
   gchar        *current_value;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   combo = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "double_click_action_combo"));
   model = gtk_combo_box_get_model (GTK_COMBO_BOX (combo));
@@ -1577,16 +1577,16 @@ xfwm_settings_double_click_action_property_changed (XfconfChannel *channel,
 
 
 static void
-xfwm_settings_click_to_focus_property_changed (XfconfChannel *channel,
+eswm_settings_click_to_focus_property_changed (XfconfChannel *channel,
                                                const gchar   *property,
                                                const GValue  *value,
-                                               XfwmSettings  *settings)
+                                               EswmSettings  *settings)
 {
   GtkWidget *click_to_focus_radio;
   GtkWidget *focus_follows_mouse_radio;
   GtkWidget *focus_delay_hbox;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (GTK_IS_BUILDER (settings->priv->builder));
 
   click_to_focus_radio = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder,
@@ -1614,14 +1614,14 @@ xfwm_settings_click_to_focus_property_changed (XfconfChannel *channel,
 
 
 static void
-xfwm_settings_initialize_shortcuts (XfwmSettings *settings)
+eswm_settings_initialize_shortcuts (EswmSettings *settings)
 {
   GtkTreeModel *model;
   GtkTreeIter   iter;
   GtkWidget    *view;
   GList        *feature_list;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (GTK_IS_BUILDER (settings->priv->builder));
 
   view = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "shortcuts_treeview"));
@@ -1629,7 +1629,7 @@ xfwm_settings_initialize_shortcuts (XfwmSettings *settings)
 
   gtk_list_store_clear (GTK_LIST_STORE (model));
 
-  if ((feature_list = xfce_shortcuts_xfwm4_get_feature_list ()) != NULL)
+  if ((feature_list = xfce_shortcuts_eswm1_get_feature_list ()) != NULL)
     {
       GList *l;
 
@@ -1638,7 +1638,7 @@ xfwm_settings_initialize_shortcuts (XfwmSettings *settings)
           gtk_list_store_append (GTK_LIST_STORE (model), &iter);
           gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                               SHORTCUTS_NAME_COLUMN,
-                              xfce_shortcuts_xfwm4_get_feature_name (l->data),
+                              xfce_shortcuts_eswm1_get_feature_name (l->data),
                               SHORTCUTS_FEATURE_COLUMN, l->data,
                               -1);
         }
@@ -1650,13 +1650,13 @@ xfwm_settings_initialize_shortcuts (XfwmSettings *settings)
 
 
 static void
-xfwm_settings_clear_shortcuts_view (XfwmSettings *settings)
+eswm_settings_clear_shortcuts_view (EswmSettings *settings)
 {
   GtkTreeModel *model;
   GtkTreeIter   iter;
   GtkWidget    *view;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (GTK_IS_BUILDER (settings->priv->builder));
 
   view = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "shortcuts_treeview"));
@@ -1676,7 +1676,7 @@ xfwm_settings_clear_shortcuts_view (XfwmSettings *settings)
 
 
 static void
-xfwm_settings_reload_shortcut (XfceShortcut *shortcut,
+eswm_settings_reload_shortcut (XfceShortcut *shortcut,
                                GtkTreeModel *model)
 {
   GtkTreeIter iter;
@@ -1716,52 +1716,52 @@ xfwm_settings_reload_shortcut (XfceShortcut *shortcut,
 
 
 static void
-xfwm_settings_reload_shortcuts (XfwmSettings *settings)
+eswm_settings_reload_shortcuts (EswmSettings *settings)
 {
   GtkTreeModel *model;
   GtkWidget    *view;
   GList        *shortcuts;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (GTK_IS_BUILDER (settings->priv->builder));
   g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
   view = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "shortcuts_treeview"));
   model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
 
-  xfwm_settings_clear_shortcuts_view (settings);
+  eswm_settings_clear_shortcuts_view (settings);
 
   shortcuts = xfce_shortcuts_provider_get_shortcuts (settings->priv->provider);
-  g_list_foreach (shortcuts, (GFunc) xfwm_settings_reload_shortcut, model);
+  g_list_foreach (shortcuts, (GFunc) eswm_settings_reload_shortcut, model);
   xfce_shortcuts_free (shortcuts);
 }
 
 
 
 static void
-xfwm_settings_shortcut_added (XfceShortcutsProvider *provider,
+eswm_settings_shortcut_added (XfceShortcutsProvider *provider,
                               const gchar           *shortcut,
-                              XfwmSettings          *settings)
+                              EswmSettings          *settings)
 {
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   DBG ("Shortcut added signal: %s", shortcut);
 
-  xfwm_settings_reload_shortcuts (settings);
+  eswm_settings_reload_shortcuts (settings);
 }
 
 
 
 static void
-xfwm_settings_shortcut_removed (XfceShortcutsProvider *provider,
+eswm_settings_shortcut_removed (XfceShortcutsProvider *provider,
                                 const gchar           *shortcut,
-                                XfwmSettings          *settings)
+                                EswmSettings          *settings)
 {
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
 
   DBG ("Shortcut removed signal: %s", shortcut);
 
-  xfwm_settings_reload_shortcuts (settings);
+  eswm_settings_reload_shortcuts (settings);
 }
 
 
@@ -1783,8 +1783,8 @@ free_path (GtkTreePath *path, gpointer unused)
 
 
 static void
-xfwm_settings_shortcut_edit_clicked (GtkButton    *button,
-                                     XfwmSettings *settings)
+eswm_settings_shortcut_edit_clicked (GtkButton    *button,
+                                     EswmSettings *settings)
 {
   GtkTreeSelection *selection;
   GtkTreeModel     *model;
@@ -1794,7 +1794,7 @@ xfwm_settings_shortcut_edit_clicked (GtkButton    *button,
   GList            *iter;
   GList            *row_references = NULL;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (GTK_IS_BUILDER (settings->priv->builder));
   g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
@@ -1813,7 +1813,7 @@ xfwm_settings_shortcut_edit_clicked (GtkButton    *button,
       path = gtk_tree_row_reference_get_path (iter->data);
 
       /* Use the row-activated callback to manage the shortcut editing */
-      xfwm_settings_shortcut_row_activated (GTK_TREE_VIEW (view),
+      eswm_settings_shortcut_row_activated (GTK_TREE_VIEW (view),
                                             path, NULL,
                                             settings);
 
@@ -1832,8 +1832,8 @@ xfwm_settings_shortcut_edit_clicked (GtkButton    *button,
 
 
 static void
-xfwm_settings_shortcut_clear_clicked (GtkButton    *button,
-                                      XfwmSettings *settings)
+eswm_settings_shortcut_clear_clicked (GtkButton    *button,
+                                      EswmSettings *settings)
 {
   GtkTreeSelection *selection;
   GtkTreeModel     *model;
@@ -1845,7 +1845,7 @@ xfwm_settings_shortcut_clear_clicked (GtkButton    *button,
   GList            *row_references = NULL;
   gchar            *shortcut;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (GTK_IS_BUILDER (settings->priv->builder));
   g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
@@ -1900,12 +1900,12 @@ xfwm_settings_shortcut_clear_clicked (GtkButton    *button,
 
 
 static void
-xfwm_settings_shortcut_reset_clicked (GtkButton    *button,
-                                      XfwmSettings *settings)
+eswm_settings_shortcut_reset_clicked (GtkButton    *button,
+                                      EswmSettings *settings)
 {
   gint confirm;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
   confirm = xfce_dialog_confirm (NULL, "gtk-yes", NULL,
@@ -1920,7 +1920,7 @@ xfwm_settings_shortcut_reset_clicked (GtkButton    *button,
 
 
 static gboolean
-xfwm_settings_update_treeview_on_conflict_replace (GtkTreeModel *model,
+eswm_settings_update_treeview_on_conflict_replace (GtkTreeModel *model,
                                                    GtkTreePath  *path,
                                                    GtkTreeIter  *iter,
                                                    gpointer      shortcut_to_erase)
@@ -1949,9 +1949,9 @@ xfwm_settings_update_treeview_on_conflict_replace (GtkTreeModel *model,
 
 
 static gboolean
-xfwm_settings_validate_shortcut (XfceShortcutDialog  *dialog,
+eswm_settings_validate_shortcut (XfceShortcutDialog  *dialog,
                                  const gchar         *shortcut,
-                                 XfwmSettings        *settings)
+                                 EswmSettings        *settings)
 {
   XfceShortcutsProvider *other_provider = NULL;
   XfceShortcut          *other_shortcut = NULL;
@@ -1961,7 +1961,7 @@ xfwm_settings_validate_shortcut (XfceShortcutDialog  *dialog,
   gint                   response;
 
   g_return_val_if_fail (XFCE_IS_SHORTCUT_DIALOG (dialog), FALSE);
-  g_return_val_if_fail (XFWM_IS_SETTINGS (settings), FALSE);
+  g_return_val_if_fail (ESWM_IS_SETTINGS (settings), FALSE);
   g_return_val_if_fail (shortcut != NULL, FALSE);
 
   /* Ignore empty shortcuts */
@@ -2012,7 +2012,7 @@ xfwm_settings_validate_shortcut (XfceShortcutDialog  *dialog,
               /* We need to update the treeview to erase the shortcut value */
               view = gtk_builder_get_object (settings->priv->builder, "shortcuts_treeview");
               gtk_tree_model_foreach (gtk_tree_view_get_model (GTK_TREE_VIEW (view)),
-                                      xfwm_settings_update_treeview_on_conflict_replace,
+                                      eswm_settings_update_treeview_on_conflict_replace,
                                       (gpointer) shortcut);
             }
           else
@@ -2029,10 +2029,10 @@ xfwm_settings_validate_shortcut (XfceShortcutDialog  *dialog,
 
 
 static void
-xfwm_settings_shortcut_row_activated (GtkTreeView       *tree_view,
+eswm_settings_shortcut_row_activated (GtkTreeView       *tree_view,
                                       GtkTreePath       *path,
                                       GtkTreeViewColumn *column,
-                                      XfwmSettings      *settings)
+                                      EswmSettings      *settings)
 {
   GtkTreeModel *model;
   GtkTreeIter   iter;
@@ -2043,7 +2043,7 @@ xfwm_settings_shortcut_row_activated (GtkTreeView       *tree_view,
   gchar        *name;
   gint          response;
 
-  g_return_if_fail (XFWM_IS_SETTINGS (settings));
+  g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
   model = gtk_tree_view_get_model (tree_view);
@@ -2057,9 +2057,9 @@ xfwm_settings_shortcut_row_activated (GtkTreeView       *tree_view,
                           SHORTCUTS_SHORTCUT_COLUMN, &shortcut, -1);
 
       /* Request a new shortcut from the user */
-      dialog = xfce_shortcut_dialog_new ("xfwm4", name, feature);
+      dialog = xfce_shortcut_dialog_new ("eswm1", name, feature);
       g_signal_connect (dialog, "validate-shortcut",
-                        G_CALLBACK (xfwm_settings_validate_shortcut), settings);
+                        G_CALLBACK (eswm_settings_validate_shortcut), settings);
       response = xfce_shortcut_dialog_run (XFCE_SHORTCUT_DIALOG (dialog), gtk_widget_get_toplevel (GTK_WIDGET (tree_view)));
 
       if (G_LIKELY (response == GTK_RESPONSE_OK))

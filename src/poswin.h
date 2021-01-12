@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
           based on a patch from Joshua Blanton <jblanton@irg.cs.ohiou.edu>
  */
 

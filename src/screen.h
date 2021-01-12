@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -105,11 +105,11 @@ struct _ScreenInfo
     /* Theme pixmaps and other params, per screen */
     GdkRGBA title_colors[2];
     GdkRGBA title_shadow_colors[2];
-    xfwmPixmap buttons[BUTTON_COUNT][STATE_COUNT];
-    xfwmPixmap corners[CORNER_COUNT][2];
-    xfwmPixmap sides[SIDE_COUNT][2];
-    xfwmPixmap title[TITLE_COUNT][2];
-    xfwmPixmap top[TITLE_COUNT][2];
+    eswmPixmap buttons[BUTTON_COUNT][STATE_COUNT];
+    eswmPixmap corners[CORNER_COUNT][2];
+    eswmPixmap sides[SIDE_COUNT][2];
+    eswmPixmap title[TITLE_COUNT][2];
+    eswmPixmap top[TITLE_COUNT][2];
 
     /* Per screen graphic contexts */
     GC box_gc;
@@ -128,8 +128,8 @@ struct _ScreenInfo
     Visual *visual;
 
     GtkWidget *gtk_win;
-    xfwmWindow sidewalk[4];
-    Window xfwm4_win;
+    eswmWindow sidewalk[4];
+    Window eswm1_win;
     Window xroot;
     Window shape_win;
 
@@ -154,13 +154,13 @@ struct _ScreenInfo
     gulong button_handler_id;
 
     /* xfconf */
-    XfconfChannel *xfwm4_channel;
+    XfconfChannel *eswm1_channel;
 
     /* Shortcuts */
     XfceShortcutsProvider *shortcuts_provider;
 
     /* Per screen parameters */
-    XfwmParams *params;
+    EswmParams *params;
 
     /* show desktop flag */
     gboolean show_desktop;
@@ -288,7 +288,7 @@ unsigned int             myScreenUngrabPointer                  (ScreenInfo *,
 void                     myScreenGrabKeys                       (ScreenInfo *);
 void                     myScreenUngrabKeys                     (ScreenInfo *);
 gint                     myScreenGetKeyPressed                  (ScreenInfo *,
-                                                                 XfwmEventKey *);
+                                                                 EswmEventKey *);
 int                      myScreenGetModifierPressed             (ScreenInfo *);
 Client                  *myScreenGetClientFromWindow            (ScreenInfo *,
                                                                  Window,

@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2015 Olivier Fourdan
+        eswm1    - (c) 2002-2015 Olivier Fourdan
 
  */
 
@@ -50,7 +50,7 @@
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
 #include "icons.h"
 #include "focus.h"
@@ -58,10 +58,10 @@
 #include "settings.h"
 #include "compositor.h"
 
-#define XFWM_TABWIN_NAME "xfwm-tabwin"
+#define ESWM_TABWIN_NAME "eswm-tabwin"
 
-static const gchar *xfwm_tabwin_default_css =
-"#" XFWM_TABWIN_NAME " {"
+static const gchar *eswm_tabwin_default_css =
+"#" ESWM_TABWIN_NAME " {"
 "  padding: 4px;"
 "  border-radius: 10px;"
 "  border: 1px solid @theme_selected_bg_color;"
@@ -91,7 +91,7 @@ tabwin_widget_get_type (void)
             NULL,
         };
 
-        type = g_type_register_static (GTK_TYPE_WINDOW, "XfwmTabwinWidget", &info, 0);
+        type = g_type_register_static (GTK_TYPE_WINDOW, "EswmTabwinWidget", &info, 0);
     }
 
     return type;
@@ -167,11 +167,11 @@ apply_default_theme (TabwinWidget *tabwin_widget, ScreenInfo *screen_info)
         g_return_if_fail (provider != NULL);
 
         css = gtk_css_provider_to_string (provider);
-        if (g_strrstr (css, "#" XFWM_TABWIN_NAME) == NULL)
+        if (g_strrstr (css, "#" ESWM_TABWIN_NAME) == NULL)
         {
             /* apply default css style */
             provider = gtk_css_provider_new ();
-            gtk_css_provider_load_from_data (provider, xfwm_tabwin_default_css, -1, NULL);
+            gtk_css_provider_load_from_data (provider, eswm_tabwin_default_css, -1, NULL);
             screen_info->tabwin_provider = provider;
         }
         g_free (css);
@@ -328,7 +328,7 @@ createWindowIcon (GdkScreen *screen, GdkPixbuf *icon_pixbuf, gint size, gint sca
     if (icon_pixbuf == NULL)
     {
         icon_theme = gtk_icon_theme_get_for_screen (screen);
-        icon_pixbuf = gtk_icon_theme_load_icon (icon_theme, "xfwm4-default",
+        icon_pixbuf = gtk_icon_theme_load_icon (icon_theme, "eswm1-default",
                                                 size * scale, 0, NULL);
     }
 
@@ -348,7 +348,7 @@ getMinMonitorWidth (ScreenInfo *screen_info)
     for (min_width = i = 0; i < num_monitors; i++)
     {
         GdkRectangle monitor;
-        xfwm_get_monitor_geometry (screen_info->gscr, i, &monitor, FALSE);
+        eswm_get_monitor_geometry (screen_info->gscr, i, &monitor, FALSE);
         if (min_width == 0 || monitor.width < min_width)
             min_width = monitor.width;
     }
@@ -362,7 +362,7 @@ getMinMonitorHeight (ScreenInfo *screen_info)
     for (min_height = i = 0; i < num_monitors; i++)
     {
         GdkRectangle monitor;
-        xfwm_get_monitor_geometry (screen_info->gscr, i, &monitor, FALSE);
+        eswm_get_monitor_geometry (screen_info->gscr, i, &monitor, FALSE);
         if (min_height == 0 || monitor.height < min_height)
         {
             min_height = monitor.height;
@@ -596,7 +596,7 @@ tabwinConfigure (TabwinWidget *tabwin_widget, GdkEventConfigure *event)
         return FALSE;
     }
 
-    xfwm_get_monitor_geometry (gtk_widget_get_screen (GTK_WIDGET (tabwin_widget)),
+    eswm_get_monitor_geometry (gtk_widget_get_screen (GTK_WIDGET (tabwin_widget)),
                                tabwin_widget->monitor_num, &monitor, FALSE);
     x = monitor.x + (monitor.width - event->width) / 2;
     y = monitor.y + (monitor.height - event->height) / 2;
@@ -780,7 +780,7 @@ tabwinCreateWidget (Tabwin *tabwin, ScreenInfo *screen_info, gint monitor_num)
 
     gtk_window_set_screen (GTK_WINDOW (tabwin_widget), screen_info->gscr);
     gtk_window_set_default_size (GTK_WINDOW (tabwin_widget), 0, 0);
-    gtk_widget_set_name (GTK_WIDGET (tabwin_widget), XFWM_TABWIN_NAME);
+    gtk_widget_set_name (GTK_WIDGET (tabwin_widget), ESWM_TABWIN_NAME);
     apply_default_theme (tabwin_widget, screen_info);
 
     /* Check for compositing and set visual for it */
@@ -810,7 +810,7 @@ tabwinCreateWidget (Tabwin *tabwin, ScreenInfo *screen_info, gint monitor_num)
                                     MAX (border.left, MAX (border.top, (MAX (border.right, border.bottom)))) +
                                     MAX (padding.left, MAX (padding.top, (MAX (padding.right, padding.bottom)))));
     gtk_window_set_position (GTK_WINDOW (tabwin_widget), GTK_WIN_POS_NONE);
-    xfwm_get_monitor_geometry (screen_info->gscr, tabwin_widget->monitor_num, &monitor, FALSE);
+    eswm_get_monitor_geometry (screen_info->gscr, tabwin_widget->monitor_num, &monitor, FALSE);
     gtk_window_move (GTK_WINDOW (tabwin_widget), monitor.x + monitor.width / 2,
                                       monitor.y + monitor.height / 2);
 
@@ -933,7 +933,7 @@ tabwinCreate (GList **client_list, GList *selected, gboolean display_workspace)
         monitor_index = myScreenGetMonitorIndex (screen_info, i);
 
         if (has_primary &&
-            !xfwm_monitor_is_primary (screen_info->gscr, monitor_index))
+            !eswm_monitor_is_primary (screen_info->gscr, monitor_index))
         {
             continue;
         }

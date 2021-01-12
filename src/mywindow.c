@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -36,7 +36,7 @@
 #include "screen.h"
 
 static void
-xfwmWindowSetVisual (xfwmWindow * win, Visual *visual, gint depth)
+eswmWindowSetVisual (eswmWindow * win, Visual *visual, gint depth)
 {
     g_return_if_fail (win->screen_info != NULL);
 
@@ -60,7 +60,7 @@ xfwmWindowSetVisual (xfwmWindow * win, Visual *visual, gint depth)
 }
 
 void
-xfwmWindowInit (xfwmWindow * win)
+eswmWindowInit (eswmWindow * win)
 {
     g_return_if_fail (win != NULL);
 
@@ -78,7 +78,7 @@ xfwmWindowInit (xfwmWindow * win)
 }
 
 void
-xfwmWindowSetCursor (xfwmWindow * win, Cursor cursor)
+eswmWindowSetCursor (eswmWindow * win, Cursor cursor)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -97,8 +97,8 @@ xfwmWindowSetCursor (xfwmWindow * win, Cursor cursor)
 }
 
 void
-xfwmWindowCreate (ScreenInfo * screen_info, Visual *visual, gint depth, Window parent,
-                  xfwmWindow * win, long eventmask, Cursor cursor)
+eswmWindowCreate (ScreenInfo * screen_info, Visual *visual, gint depth, Window parent,
+                  eswmWindow * win, long eventmask, Cursor cursor)
 {
     XSetWindowAttributes attributes;
     unsigned long valuemask;
@@ -127,20 +127,20 @@ xfwmWindowCreate (ScreenInfo * screen_info, Visual *visual, gint depth, Window p
     win->y = 0;
     win->width = 1;
     win->height = 1;
-    xfwmWindowSetVisual (win, visual, depth);
-    xfwmWindowSetCursor (win, cursor);
+    eswmWindowSetVisual (win, visual, depth);
+    eswmWindowSetCursor (win, cursor);
 #ifdef HAVE_RENDER
     win->pict_format = XRenderFindVisualFormat (myScreenGetXDisplay (screen_info), win->visual);
 #endif
 #ifdef HAVE_XI2
-    xfwm_device_configure_xi2_event_mask (screen_info->display_info->devices,
+    eswm_device_configure_xi2_event_mask (screen_info->display_info->devices,
                                           screen_info->display_info->dpy,
                                           win->window, eventmask);
 #endif
 }
 
 void
-xfwmWindowDelete (xfwmWindow * win)
+eswmWindowDelete (eswmWindow * win)
 {
     TRACE ("win %p (0x%lx)", win, win->window);
 
@@ -154,7 +154,7 @@ xfwmWindowDelete (xfwmWindow * win)
 }
 
 void
-xfwmWindowShow (xfwmWindow * win, int x, int y, int width, int height,
+eswmWindowShow (eswmWindow * win, int x, int y, int width, int height,
     gboolean refresh)
 {
     ScreenInfo *screen_info;
@@ -168,7 +168,7 @@ xfwmWindowShow (xfwmWindow * win, int x, int y, int width, int height,
     }
     if ((width < 1) || (height < 1))
     {
-        xfwmWindowHide (win);
+        eswmWindowHide (win);
         return;
     }
 
@@ -226,7 +226,7 @@ xfwmWindowShow (xfwmWindow * win, int x, int y, int width, int height,
 }
 
 void
-xfwmWindowHide (xfwmWindow * win)
+eswmWindowHide (eswmWindow * win)
 {
     TRACE ("win %p (0x%lx)", win, win->window);
 
@@ -239,7 +239,7 @@ xfwmWindowHide (xfwmWindow * win)
 }
 
 gboolean
-xfwmWindowVisible (xfwmWindow *win)
+eswmWindowVisible (eswmWindow *win)
 {
     g_return_val_if_fail (win, FALSE);
 
@@ -247,7 +247,7 @@ xfwmWindowVisible (xfwmWindow *win)
 }
 
 gboolean
-xfwmWindowDeleted (xfwmWindow *win)
+eswmWindowDeleted (eswmWindow *win)
 {
     g_return_val_if_fail (win, TRUE);
 
@@ -255,9 +255,9 @@ xfwmWindowDeleted (xfwmWindow *win)
 }
 
 void
-xfwmWindowTemp (ScreenInfo *screen_info, Visual *visual,
+eswmWindowTemp (ScreenInfo *screen_info, Visual *visual,
                 gint depth, Window parent,
-                xfwmWindow * win,
+                eswmWindow * win,
                 int x, int y, int width, int height,
                 long eventmask,
                 gboolean bottom)
@@ -291,9 +291,9 @@ xfwmWindowTemp (ScreenInfo *screen_info, Visual *visual,
     win->y = y;
     win->width = width;
     win->height = height;
-    xfwmWindowSetVisual (win, visual, depth);
+    eswmWindowSetVisual (win, visual, depth);
 #ifdef HAVE_XI2
-    xfwm_device_configure_xi2_event_mask (screen_info->display_info->devices,
+    eswm_device_configure_xi2_event_mask (screen_info->display_info->devices,
                                           screen_info->display_info->dpy,
                                           win->window, eventmask);
 #endif
@@ -302,7 +302,7 @@ xfwmWindowTemp (ScreenInfo *screen_info, Visual *visual,
 
 #ifdef HAVE_RENDER
 static gboolean
-xfwmWindowCopyComposite (xfwmWindow * win, xfwmPixmap * pix)
+eswmWindowCopyComposite (eswmWindow * win, eswmPixmap * pix)
 {
     if (myDisplayHaveRender (win->screen_info->display_info))
     {
@@ -353,7 +353,7 @@ xfwmWindowCopyComposite (xfwmWindow * win, xfwmPixmap * pix)
 #endif
 
 void
-xfwmWindowSetBG (xfwmWindow * win, xfwmPixmap * pix)
+eswmWindowSetBG (eswmWindow * win, eswmPixmap * pix)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -374,7 +374,7 @@ xfwmWindowSetBG (xfwmWindow * win, xfwmPixmap * pix)
         (win->depth  != screen_info->depth))
     {
         /* Try to use Render */
-        done = xfwmWindowCopyComposite (win, pix);
+        done = eswmWindowCopyComposite (win, pix);
     }
 #endif
 

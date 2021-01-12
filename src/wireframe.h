@@ -17,7 +17,7 @@
 
 
         metacity - (c) 2001 Anders Carlsson, Havoc Pennington
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 

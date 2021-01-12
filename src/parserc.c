@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -218,7 +218,7 @@ setStringValue (const gchar * lvalue, const gchar *value, Settings *rc)
 gchar *
 getSystemThemeDir (void)
 {
-    return g_build_filename (DATADIR, "themes", DEFAULT_THEME, "xfwm4", NULL);
+    return g_build_filename (DATADIR, "themes", DEFAULT_THEME, "eswm1", NULL);
 }
 
 gchar *
@@ -226,7 +226,7 @@ getThemeDir (const gchar * theme, const gchar * file)
 {
     if (!theme)
     {
-        return g_build_filename (DATADIR, "themes", DEFAULT_THEME, "xfwm4",
+        return g_build_filename (DATADIR, "themes", DEFAULT_THEME, "eswm1",
                                  NULL);
     }
     else if (g_path_is_absolute (theme))
@@ -244,7 +244,7 @@ getThemeDir (const gchar * theme, const gchar * file)
     {
         gchar *test_file, *path;
 
-        path = g_build_filename (theme, "xfwm4", file, NULL);
+        path = g_build_filename (theme, "eswm1", file, NULL);
 
         xfce_resource_push_path (XFCE_RESOURCE_THEMES,
                                  DATADIR G_DIR_SEPARATOR_S "themes");

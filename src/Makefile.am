@@ -1,6 +1,6 @@
-bin_PROGRAMS = xfwm4
+bin_PROGRAMS = eswm1
 
-xfwm4_SOURCES =								\
+eswm1_SOURCES =								\
 	client.c							\
 	client.h							\
 	compositor.c							\
@@ -72,7 +72,7 @@ xfwm4_SOURCES =								\
 	xsync.h								\
 	xpm-color-table.h
 
-xfwm4_CFLAGS =								\
+eswm1_CFLAGS =								\
 	$(GLIB_CFLAGS) 							\
 	$(GTK_CFLAGS) 							\
 	$(COMPOSITOR_CFLAGS)						\
@@ -91,10 +91,10 @@ xfwm4_CFLAGS =								\
 	-DDATADIR=\"$(datadir)\"					\
 	-DHELPERDIR=\"$(HELPER_PATH_PREFIX)\"				\
 	-DPACKAGE_DATADIR=\"$(pkgdatadir)\"				\
-	-DG_LOG_DOMAIN=\"xfwm4\"
+	-DG_LOG_DOMAIN=\"eswm1\"
 
-xfwm4_LDADD =								\
-	$(top_builddir)/common/libxfwm-common.la 			\
+eswm1_LDADD =								\
+	$(top_builddir)/common/libeswm-common.la 			\
 	$(GLIB_LIBS) 							\
 	$(GTK_LIBS) 							\
 	$(COMPOSITOR_LIBS)						\

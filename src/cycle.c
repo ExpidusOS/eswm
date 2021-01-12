@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -209,7 +209,7 @@ clientCycleActivate (Client *c)
         /* We might be able to avoid this if we are about to switch workspace */
         clientAdjustFullscreenLayer (focused, FALSE);
     }
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_WAS_SHOWN))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_WAS_SHOWN))
     {
         /* We are explicitely activating a window that was shown before show-desktop */
         clientClearAllShowDesktop (screen_info);
@@ -241,7 +241,7 @@ clientCycleUpdateWireframe (Client *c, ClientCycleData *passdata)
 }
 
 static eventFilterStatus
-clientCycleEventFilter (XfwmEvent *event, gpointer data)
+clientCycleEventFilter (EswmEvent *event, gpointer data)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -281,7 +281,7 @@ clientCycleEventFilter (XfwmEvent *event, gpointer data)
 
     switch (event->meta.type)
     {
-        case XFWM_EVENT_KEY:
+        case ESWM_EVENT_KEY:
             if (event->key.pressed)
             {
                 key = myScreenGetKeyPressed (screen_info, &event->key);
@@ -346,7 +346,7 @@ clientCycleEventFilter (XfwmEvent *event, gpointer data)
             }
             status = EVENT_FILTER_STOP;
             break;
-        case XFWM_EVENT_BUTTON:
+        case ESWM_EVENT_BUTTON:
             if (event->button.pressed)
             {
                 status = EVENT_FILTER_CONTINUE;
@@ -389,9 +389,9 @@ clientCycleEventFilter (XfwmEvent *event, gpointer data)
                 }
             }
             break;
-        case XFWM_EVENT_MOTION:
+        case ESWM_EVENT_MOTION:
             break;
-        case XFWM_EVENT_CROSSING:
+        case ESWM_EVENT_CROSSING:
             /* Track whether the pointer is inside one of the tab-windows */
             for (li = passdata->tabwin->tabwin_list; li != NULL; li = li->next)
             {
@@ -402,7 +402,7 @@ clientCycleEventFilter (XfwmEvent *event, gpointer data)
             }
             status = EVENT_FILTER_STOP;
             break;
-        case XFWM_EVENT_XEVENT:
+        case ESWM_EVENT_XEVENT:
             switch (event->meta.xevent->type)
             {
                 case DestroyNotify:
@@ -444,14 +444,14 @@ clientCycleEventFilter (XfwmEvent *event, gpointer data)
 }
 
 static eventFilterStatus
-clientCycleFlushEventFilter (XfwmEvent *event, gpointer data)
+clientCycleFlushEventFilter (EswmEvent *event, gpointer data)
 {
     DisplayInfo *display_info = (DisplayInfo *) data;
 
     /* Update the display time */
     myDisplayUpdateCurrentTime (display_info, event);
 
-    if (event->meta.type == XFWM_EVENT_CROSSING && event->crossing.enter)
+    if (event->meta.type == ESWM_EVENT_CROSSING && event->crossing.enter)
     {
         gtk_main_quit ();
         return EVENT_FILTER_STOP;
@@ -460,7 +460,7 @@ clientCycleFlushEventFilter (XfwmEvent *event, gpointer data)
 }
 
 void
-clientCycle (Client * c, XfwmEventKey *event)
+clientCycle (Client * c, EswmEventKey *event)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;

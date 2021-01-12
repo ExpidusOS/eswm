@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -45,9 +45,9 @@ void                     clientMoveWarp                         (Client *,
                                                                  int *,
                                                                  guint32);
 void                     clientMove                             (Client *,
-                                                                 XfwmEventButton *);
+                                                                 EswmEventButton *);
 void                     clientResize                           (Client *,
                                                                  int,
-                                                                 XfwmEventButton *);
+                                                                 EswmEventButton *);
 
 #endif /* INC_MOVERESIZE_H */

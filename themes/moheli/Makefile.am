@@ -1,4 +1,4 @@
-themedir = $(datadir)/themes/Moheli/xfwm4
+themedir = $(datadir)/themes/Moheli/eswm1
 theme_DATA = 								\
 	README								\
 	themerc								\

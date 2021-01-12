@@ -1,4 +1,4 @@
-themedir = $(datadir)/themes/Kokodi/xfwm4
+themedir = $(datadir)/themes/Kokodi/eswm1
 
 PNG_FILES = 								\
 	bottom-active.png						\

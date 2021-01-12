@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -85,12 +85,12 @@
 #ifdef HAVE_COMPOSITOR
 static gboolean compositor = TRUE;
 static vblankMode vblank_mode = VBLANK_AUTO;
-#define XFWM4_ERROR      (xfwm4_error_quark ())
+#define ESWM4_ERROR      (eswm1_error_quark ())
 
 static GQuark
-xfwm4_error_quark (void)
+eswm1_error_quark (void)
 {
-  return g_quark_from_static_string ("xfwm4-error-quark");
+  return g_quark_from_static_string ("eswm1-error-quark");
 }
 #endif /* HAVE_COMPOSITOR */
 
@@ -104,14 +104,14 @@ setupLog (gboolean debug)
 
     if (debug)
     {
-        str = g_getenv ("XFWM4_LOG_FILE");
+        str = g_getenv ("ESWM4_LOG_FILE");
         if (str)
         {
             logfile = g_strdup (str);
         }
         else
         {
-            logfile = g_strdup_printf ("xfwm4-debug-%d.log", (int) getpid ());
+            logfile = g_strdup_printf ("eswm1-debug-%d.log", (int) getpid ());
         }
     }
     else
@@ -230,7 +230,7 @@ ensure_basedir_spec (void)
     /* test if new directory is there */
 
     new = xfce_resource_save_location (XFCE_RESOURCE_CONFIG,
-                                       "xfce4" G_DIR_SEPARATOR_S "xfwm4",
+                                       "xfce4" G_DIR_SEPARATOR_S "eswm1",
                                        FALSE);
 
     if (g_file_test (new, G_FILE_TEST_IS_DIR))
@@ -250,15 +250,15 @@ ensure_basedir_spec (void)
 
     g_free (new);
 
-    /* copy xfwm4rc */
+    /* copy eswm1rc */
 
-    old = xfce_get_userfile ("xfwm4rc", NULL);
+    old = xfce_get_userfile ("eswm1rc", NULL);
 
     if (g_file_test (old, G_FILE_TEST_EXISTS))
     {
         FILE *r, *w;
 
-        g_strlcpy (path, "xfce4/xfwm4/xfwm4rc", PATH_MAX);
+        g_strlcpy (path, "xfce4/eswm1/eswm1rc", PATH_MAX);
         new = xfce_resource_save_location (XFCE_RESOURCE_CONFIG, path, FALSE);
 
         r = fopen (old, "r");
@@ -436,7 +436,7 @@ compositor_callback (const gchar  *name,
     }
     else
     {
-        g_set_error (error, XFWM4_ERROR, 0, "Unrecognized compositor option \"%s\"", value);
+        g_set_error (error, ESWM4_ERROR, 0, "Unrecognized compositor option \"%s\"", value);
         succeed = FALSE;
     }
 
@@ -473,7 +473,7 @@ vblank_callback (const gchar  *name,
     }
     else
     {
-        g_set_error (error, XFWM4_ERROR, 0, "Unrecognized compositor option \"%s\"", value);
+        g_set_error (error, ESWM4_ERROR, 0, "Unrecognized compositor option \"%s\"", value);
         succeed = FALSE;
     }
 
@@ -493,28 +493,28 @@ init_compositor_screen (ScreenInfo *screen_info)
 
     if (display_info->enable_compositor)
     {
-        gboolean xfwm4_compositor;
+        gboolean eswm1_compositor;
 
-        xfwm4_compositor = TRUE;
+        eswm1_compositor = TRUE;
         if (screen_info->params->use_compositing)
         {
             /* Enable compositor if "use compositing" is enabled */
-            xfwm4_compositor = compositorManageScreen (screen_info);
+            eswm1_compositor = compositorManageScreen (screen_info);
         }
         /*
            The user may want to use the manual compositing, but the installed
            system may not support it, so we need to double check, to see if
            initialization of the compositor was successful.
           */
-        if (xfwm4_compositor)
+        if (eswm1_compositor)
         {
             /*
-               Acquire selection on XFWM4_COMPOSITING_MANAGER to advertise our own
+               Acquire selection on ESWM4_COMPOSITING_MANAGER to advertise our own
                compositing manager (used by WM tweaks to determine whether or not
                show the "compositor" tab.
              */
-            setAtomIdManagerOwner (display_info, XFWM4_COMPOSITING_MANAGER,
-                                   screen_info->xroot, screen_info->xfwm4_win);
+            setAtomIdManagerOwner (display_info, ESWM4_COMPOSITING_MANAGER,
+                                   screen_info->xroot, screen_info->eswm1_win);
         }
     }
 }
@@ -526,7 +526,7 @@ initialize (gboolean replace_wm)
     DisplayInfo *display_info;
     gint i, nscreens, default_screen;
 
-    DBG ("xfwm4 starting, using GTK+-%d.%d.%d", gtk_major_version,
+    DBG ("eswm1 starting, using GTK+-%d.%d.%d", gtk_major_version,
          gtk_minor_version, gtk_micro_version);
 
     ensure_basedir_spec ();
@@ -602,13 +602,13 @@ initialize (gboolean replace_wm)
         sn_init_display (screen_info);
         myDisplayAddScreen (display_info, screen_info);
         screen_info->current_ws = getNetCurrentDesktop (display_info, screen_info->xroot);
-        setUTF8StringHint (display_info, screen_info->xfwm4_win, NET_WM_NAME, "Xfwm4");
-        setNetSupportedHint (display_info, screen_info->xroot, screen_info->xfwm4_win);
+        setUTF8StringHint (display_info, screen_info->eswm1_win, NET_WM_NAME, "Eswm4");
+        setNetSupportedHint (display_info, screen_info->xroot, screen_info->eswm1_win);
         setNetDesktopInfo (display_info, screen_info->xroot, screen_info->current_ws,
                                    screen_info->width,
                                    screen_info->height);
         workspaceUpdateArea (screen_info);
-        XSetInputFocus (display_info->dpy, screen_info->xfwm4_win, RevertToPointerRoot, CurrentTime);
+        XSetInputFocus (display_info->dpy, screen_info->eswm1_win, RevertToPointerRoot, CurrentTime);
 
         clientFrameAll (screen_info);
 
@@ -623,7 +623,7 @@ initialize (gboolean replace_wm)
         return -1;
     }
     display_info->xfilter = eventFilterInit (display_info->devices, (gpointer) display_info);
-    eventFilterPush (display_info->xfilter, xfwm4_event_filter, (gpointer) display_info);
+    eventFilterPush (display_info->xfilter, eswm1_event_filter, (gpointer) display_info);
     initPerDisplayCallbacks (display_info);
 
     return sessionStart (display_info);
@@ -692,7 +692,7 @@ main (int argc, char **argv)
      *
      * To avoid that, our compositor was issuing a `glXWaitGL()` immediately
      * after the call to `glXSwapBuffers()` but that translates as a busy
-     * wait, hence dramatically increasing CPU usage of xfwm4 with the
+     * wait, hence dramatically increasing CPU usage of eswm1 with the
      * NVIDIA proprietary/closed source driver.
      *
      * Instruct the NVIDIA proprietary/closed source driver to allow only
@@ -709,7 +709,7 @@ main (int argc, char **argv)
 
     xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
-    /* xfwm4 is an X11 window manager, no point in trying to connect to
+    /* eswm1 is an X11 window manager, no point in trying to connect to
      * any other display server (like when running nested within a
      * Wayland compositor).
      */
@@ -738,7 +738,7 @@ main (int argc, char **argv)
 #ifdef DEBUG
     setupLog (debug);
 #endif /* DEBUG */
-    DBG ("xfwm4 starting");
+    DBG ("eswm1 starting");
 
     gtk_init (&argc, &argv);
 
@@ -776,6 +776,6 @@ main (int argc, char **argv)
             break;
     }
     cleanUp ();
-    DBG ("xfwm4 terminated");
+    DBG ("eswm1 terminated");
     return 0;
 }

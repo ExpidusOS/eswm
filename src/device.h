@@ -32,35 +32,35 @@
 
 typedef enum
 {
-    XFWM_EVENT_XEVENT,
-    XFWM_EVENT_KEY,
-    XFWM_EVENT_BUTTON,
-    XFWM_EVENT_MOTION,
-    XFWM_EVENT_CROSSING
-} XfwmEventType;
+    ESWM_EVENT_XEVENT,
+    ESWM_EVENT_KEY,
+    ESWM_EVENT_BUTTON,
+    ESWM_EVENT_MOTION,
+    ESWM_EVENT_CROSSING
+} EswmEventType;
 
 typedef struct
 {
-    XfwmEventType type;
+    EswmEventType type;
     Window window;
     gint device;
     XEvent *xevent;
-} XfwmEventMeta;
+} EswmEventMeta;
 
 typedef struct
 {
-    XfwmEventMeta meta;
+    EswmEventMeta meta;
 
     Window root;
     gboolean pressed;
     guint keycode;
     guint state;
     Time time;
-} XfwmEventKey;
+} EswmEventKey;
 
 typedef struct
 {
-    XfwmEventMeta meta;
+    EswmEventMeta meta;
 
     Window root;
     Window subwindow;
@@ -72,22 +72,22 @@ typedef struct
     gint x_root;
     gint y_root;
     Time time;
-} XfwmEventButton;
+} EswmEventButton;
 
 typedef struct
 {
-    XfwmEventMeta meta;
+    EswmEventMeta meta;
 
     gint x;
     gint y;
     gint x_root;
     gint y_root;
     Time time;
-} XfwmEventMotion;
+} EswmEventMotion;
 
 typedef struct
 {
-    XfwmEventMeta meta;
+    EswmEventMeta meta;
 
     Window root;
     gboolean enter;
@@ -96,45 +96,45 @@ typedef struct
     gint x_root;
     gint y_root;
     Time time;
-} XfwmEventCrossing;
+} EswmEventCrossing;
 
 typedef union
 {
-    XfwmEventMeta meta;
-    XfwmEventKey key;
-    XfwmEventButton button;
-    XfwmEventMotion motion;
-    XfwmEventCrossing crossing;
-} XfwmEvent;
+    EswmEventMeta meta;
+    EswmEventKey key;
+    EswmEventButton button;
+    EswmEventMotion motion;
+    EswmEventCrossing crossing;
+} EswmEvent;
 
 typedef struct
 {
     gboolean keyboard;
     gint xi2_device;
-} XfwmDevice;
+} EswmDevice;
 
 typedef struct {
-    XfwmDevice pointer;
-    XfwmDevice keyboard;
+    EswmDevice pointer;
+    EswmDevice keyboard;
 
     gboolean xi2_available;
     gint xi2_opcode;
-} XfwmDevices;
+} EswmDevices;
 
-XfwmEvent               *xfwm_device_translate_event            (XfwmDevices *,
+EswmEvent               *eswm_device_translate_event            (EswmDevices *,
                                                                  XEvent *,
-                                                                 XfwmEvent *);
-void                     xfwm_device_free_event                 (XfwmEvent *);
-void                     xfwm_device_button_update_window       (XfwmEventButton *,
+                                                                 EswmEvent *);
+void                     eswm_device_free_event                 (EswmEvent *);
+void                     eswm_device_button_update_window       (EswmEventButton *,
                                                                  Window);
 #ifdef HAVE_XI2
-void                     xfwm_device_configure_xi2_event_mask   (XfwmDevices *,
+void                     eswm_device_configure_xi2_event_mask   (EswmDevices *,
                                                                  Display *,
                                                                  Window,
                                                                  gulong);
 #endif
-gboolean                 xfwm_device_grab                       (XfwmDevices *,
-                                                                 XfwmDevice *,
+gboolean                 eswm_device_grab                       (EswmDevices *,
+                                                                 EswmDevice *,
                                                                  Display *,
                                                                  Window,
                                                                  gboolean,
@@ -143,11 +143,11 @@ gboolean                 xfwm_device_grab                       (XfwmDevices *,
                                                                  Window,
                                                                  Cursor,
                                                                  Time);
-void                     xfwm_device_ungrab                     (XfwmDevices *,
-                                                                 XfwmDevice *,
+void                     eswm_device_ungrab                     (EswmDevices *,
+                                                                 EswmDevice *,
                                                                  Display *,
                                                                  Time);
-gboolean                 xfwm_device_grab_button                (XfwmDevices *,
+gboolean                 eswm_device_grab_button                (EswmDevices *,
                                                                  Display *,
                                                                  guint,
                                                                  guint,
@@ -158,12 +158,12 @@ gboolean                 xfwm_device_grab_button                (XfwmDevices *,
                                                                  gint,
                                                                  Window,
                                                                  Cursor);
-void                     xfwm_device_ungrab_button              (XfwmDevices *,
+void                     eswm_device_ungrab_button              (EswmDevices *,
                                                                  Display *,
                                                                  guint,
                                                                  guint,
                                                                  Window);
-gboolean                 xfwm_device_grab_keycode               (XfwmDevices *,
+gboolean                 eswm_device_grab_keycode               (EswmDevices *,
                                                                  Display *,
                                                                  gint,
                                                                  guint,
@@ -172,15 +172,15 @@ gboolean                 xfwm_device_grab_keycode               (XfwmDevices *,
                                                                  guint,
                                                                  gint,
                                                                  gint);
-void                     xfwm_device_ungrab_keycode             (XfwmDevices *,
+void                     eswm_device_ungrab_keycode             (EswmDevices *,
                                                                  Display *,
                                                                  gint,
                                                                  guint,
                                                                  Window);
-gboolean                 xfwm_device_check_mask_event           (XfwmDevices *,
+gboolean                 eswm_device_check_mask_event           (EswmDevices *,
                                                                  Display *,
                                                                  guint,
-                                                                 XfwmEvent *);
-XfwmDevices             *xfwm_devices_new                       (GdkDisplay *);
+                                                                 EswmEvent *);
+EswmDevices             *eswm_devices_new                       (GdkDisplay *);
 
 #endif /* INC_DEVICE_H */

@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2020 Olivier Fourdan
+        eswm1    - (c) 2002-2020 Olivier Fourdan
 
  */
 
@@ -42,7 +42,7 @@
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
 #include "client.h"
 #include "compositor.h"
@@ -362,7 +362,7 @@ clientUngrabButtons (Client *c)
 {
     g_return_if_fail (c != NULL);
     TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
-    xfwm_device_ungrab_button (c->screen_info->display_info->devices, clientGetXDisplay (c),
+    eswm_device_ungrab_button (c->screen_info->display_info->devices, clientGetXDisplay (c),
                                AnyButton, AnyModifier, c->window);
 }
 
@@ -387,9 +387,9 @@ urgent_cb (gpointer data)
          */
         if (!screen_info->params->urgent_blink)
         {
-            if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_SEEN_ACTIVE))
+            if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_SEEN_ACTIVE))
             {
-                FLAG_TOGGLE (c->xfwm_flags, XFWM_FLAG_SEEN_ACTIVE);
+                FLAG_TOGGLE (c->eswm_flags, ESWM_FLAG_SEEN_ACTIVE);
                 frameQueueDraw (c, FALSE);
             }
 
@@ -406,7 +406,7 @@ urgent_cb (gpointer data)
         if (c->blink_iterations < (2 * MAX_BLINK_ITERATIONS))
         {
             c->blink_iterations++;
-            FLAG_TOGGLE (c->xfwm_flags, XFWM_FLAG_SEEN_ACTIVE);
+            FLAG_TOGGLE (c->eswm_flags, ESWM_FLAG_SEEN_ACTIVE);
             frameQueueDraw (c, FALSE);
             return TRUE;
         }
@@ -417,7 +417,7 @@ urgent_cb (gpointer data)
          */
         if (screen_info->params->repeat_urgent_blink)
         {
-            FLAG_TOGGLE (c->xfwm_flags, XFWM_FLAG_SEEN_ACTIVE);
+            FLAG_TOGGLE (c->eswm_flags, ESWM_FLAG_SEEN_ACTIVE);
             frameQueueDraw (c, FALSE);
             c->blink_iterations = 1;
             return TRUE;
@@ -436,7 +436,7 @@ clientUpdateUrgency (Client *c)
     g_return_if_fail (c != NULL);
     TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
 
-    FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_SEEN_ACTIVE);
+    FLAG_UNSET (c->eswm_flags, ESWM_FLAG_SEEN_ACTIVE);
     if (c->blink_timeout_id)
     {
         g_source_remove (c->blink_timeout_id);
@@ -449,7 +449,7 @@ clientUpdateUrgency (Client *c)
     if ((c->wmhints) && (c->wmhints->flags & XUrgencyHint))
     {
         FLAG_SET (c->wm_flags, WM_FLAG_URGENT);
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
         {
             c->blink_timeout_id =
                 g_timeout_add_full (G_PRIORITY_DEFAULT,
@@ -457,11 +457,11 @@ clientUpdateUrgency (Client *c)
                                     urgent_cb, c, NULL);
         }
     }
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_SEEN_ACTIVE)
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_SEEN_ACTIVE)
         && !FLAG_TEST (c->wm_flags, WM_FLAG_URGENT)
         && (c != clientGetFocus ()))
     {
-        FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_SEEN_ACTIVE);
+        FLAG_UNSET (c->eswm_flags, ESWM_FLAG_SEEN_ACTIVE);
         frameQueueDraw (c, FALSE);
     }
 }
@@ -733,14 +733,14 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
 
     if (mask & CWX)
     {
-        if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING))
+        if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
         {
             c->x = wc->x;
         }
     }
     if (mask & CWY)
     {
-        if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING))
+        if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
         {
             c->y = wc->y;
         }
@@ -935,7 +935,7 @@ clientMoveResizeWindow (Client *c, XWindowChanges * wc, unsigned long mask)
     if (mask & (CWX | CWY | CWWidth | CWHeight))
     {
         /* Clear any previously saved pos flag from screen resize */
-        FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_SAVED_POS);
+        FLAG_UNSET (c->eswm_flags, ESWM_FLAG_SAVED_POS);
 
         if (FLAG_TEST (c->flags, CLIENT_FLAG_MAXIMIZED))
         {
@@ -1025,27 +1025,27 @@ clientApplyMWMHints (Client *c, gboolean update)
             {
                 if (c->mwm_hints->decorations & MWM_DECOR_ALL)
                 {
-                    FLAG_SET (c->xfwm_flags, XFWM_FLAG_HAS_BORDER | XFWM_FLAG_HAS_MENU);
+                    FLAG_SET (c->eswm_flags, ESWM_FLAG_HAS_BORDER | ESWM_FLAG_HAS_MENU);
                 }
                 else
                 {
-                    FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_HAS_BORDER | XFWM_FLAG_HAS_MENU);
+                    FLAG_UNSET (c->eswm_flags, ESWM_FLAG_HAS_BORDER | ESWM_FLAG_HAS_MENU);
 
                     if (c->mwm_hints-> decorations & (MWM_DECOR_TITLE | MWM_DECOR_BORDER))
                     {
-                        FLAG_SET (c->xfwm_flags,  XFWM_FLAG_HAS_BORDER);
+                        FLAG_SET (c->eswm_flags,  ESWM_FLAG_HAS_BORDER);
                     }
                     if (c->mwm_hints->decorations & MWM_DECOR_MENU)
                     {
-                        FLAG_SET (c->xfwm_flags, XFWM_FLAG_HAS_MENU);
+                        FLAG_SET (c->eswm_flags, ESWM_FLAG_HAS_MENU);
                     }
                     if (c->mwm_hints->decorations & MWM_DECOR_MINIMIZE)
                     {
-                        FLAG_SET (c->xfwm_flags, XFWM_FLAG_HAS_HIDE);
+                        FLAG_SET (c->eswm_flags, ESWM_FLAG_HAS_HIDE);
                     }
                     if (c->mwm_hints->decorations & MWM_DECOR_MAXIMIZE)
                     {
-                        FLAG_SET (c->xfwm_flags, XFWM_FLAG_HAS_MAXIMIZE);
+                        FLAG_SET (c->eswm_flags, ESWM_FLAG_HAS_MAXIMIZE);
                     }
                 }
             }
@@ -1055,38 +1055,38 @@ clientApplyMWMHints (Client *c, gboolean update)
         {
             if (!(c->mwm_hints->functions & MWM_FUNC_ALL))
             {
-                FLAG_UNSET (c->xfwm_flags,
-                    XFWM_FLAG_HAS_CLOSE | XFWM_FLAG_HAS_HIDE |
-                    XFWM_FLAG_HAS_MAXIMIZE | XFWM_FLAG_HAS_MOVE |
-                    XFWM_FLAG_HAS_RESIZE);
+                FLAG_UNSET (c->eswm_flags,
+                    ESWM_FLAG_HAS_CLOSE | ESWM_FLAG_HAS_HIDE |
+                    ESWM_FLAG_HAS_MAXIMIZE | ESWM_FLAG_HAS_MOVE |
+                    ESWM_FLAG_HAS_RESIZE);
             }
             else
             {
-                FLAG_SET (c->xfwm_flags,
-                    XFWM_FLAG_HAS_CLOSE | XFWM_FLAG_HAS_HIDE |
-                    XFWM_FLAG_HAS_MAXIMIZE | XFWM_FLAG_HAS_MOVE |
-                    XFWM_FLAG_HAS_RESIZE);
+                FLAG_SET (c->eswm_flags,
+                    ESWM_FLAG_HAS_CLOSE | ESWM_FLAG_HAS_HIDE |
+                    ESWM_FLAG_HAS_MAXIMIZE | ESWM_FLAG_HAS_MOVE |
+                    ESWM_FLAG_HAS_RESIZE);
             }
 
             if (c->mwm_hints->functions & MWM_FUNC_CLOSE)
             {
-                FLAG_TOGGLE (c->xfwm_flags, XFWM_FLAG_HAS_CLOSE);
+                FLAG_TOGGLE (c->eswm_flags, ESWM_FLAG_HAS_CLOSE);
             }
             if (c->mwm_hints->functions & MWM_FUNC_MINIMIZE)
             {
-                FLAG_TOGGLE (c->xfwm_flags, XFWM_FLAG_HAS_HIDE);
+                FLAG_TOGGLE (c->eswm_flags, ESWM_FLAG_HAS_HIDE);
             }
             if (c->mwm_hints->functions & MWM_FUNC_MAXIMIZE)
             {
-                FLAG_TOGGLE (c->xfwm_flags, XFWM_FLAG_HAS_MAXIMIZE);
+                FLAG_TOGGLE (c->eswm_flags, ESWM_FLAG_HAS_MAXIMIZE);
             }
             if (c->mwm_hints->functions & MWM_FUNC_RESIZE)
             {
-                FLAG_TOGGLE (c->xfwm_flags, XFWM_FLAG_HAS_RESIZE);
+                FLAG_TOGGLE (c->eswm_flags, ESWM_FLAG_HAS_RESIZE);
             }
             if (c->mwm_hints->functions & MWM_FUNC_MOVE)
             {
-                FLAG_TOGGLE (c->xfwm_flags, XFWM_FLAG_HAS_MOVE);
+                FLAG_TOGGLE (c->eswm_flags, ESWM_FLAG_HAS_MOVE);
             }
         }
     }
@@ -1160,8 +1160,8 @@ clientGetWMNormalHints (Client *c, gboolean update)
     /* Set/update gravity */
     c->gravity = c->size->flags & PWinGravity ? c->size->win_gravity : NorthWestGravity;
 
-    previous_value = FLAG_TEST (c->xfwm_flags, XFWM_FLAG_IS_RESIZABLE);
-    FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_IS_RESIZABLE);
+    previous_value = FLAG_TEST (c->eswm_flags, ESWM_FLAG_IS_RESIZABLE);
+    FLAG_UNSET (c->eswm_flags, ESWM_FLAG_IS_RESIZABLE);
 
     wc.x = c->x;
     wc.y = c->y;
@@ -1276,7 +1276,7 @@ clientGetWMNormalHints (Client *c, gboolean update)
     if ((c->size->min_width < c->size->max_width) ||
         (c->size->min_height < c->size->max_height))
     {
-        FLAG_SET (c->xfwm_flags, XFWM_FLAG_IS_RESIZABLE);
+        FLAG_SET (c->eswm_flags, ESWM_FLAG_IS_RESIZABLE);
     }
 
     if (update)
@@ -1289,7 +1289,7 @@ clientGetWMNormalHints (Client *c, gboolean update)
             }
             clientConfigure (c, &wc, CWX | CWY | CWWidth | CWHeight, CFG_CONSTRAINED | CFG_FORCE_REDRAW);
         }
-        else if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_IS_RESIZABLE) != previous_value)
+        else if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_IS_RESIZABLE) != previous_value)
         {
             frameQueueDraw (c, FALSE);
         }
@@ -1432,7 +1432,7 @@ clientApplyInitialState (Client *c)
     /* We check that afterwards to make sure all states are now known */
     if (FLAG_TEST (c->flags, CLIENT_FLAG_MAXIMIZED))
     {
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_MAXIMIZE))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_MAXIMIZE))
         {
             unsigned long mode = 0L;
 
@@ -1460,7 +1460,7 @@ clientApplyInitialState (Client *c)
         clientUpdateLayerState (c);
     }
     if (FLAG_TEST (c->flags, CLIENT_FLAG_STICKY) &&
-        FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_STICK))
+        FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_STICK))
     {
         TRACE ("applying client's initial state: sticky");
         clientStick (c, TRUE);
@@ -1513,10 +1513,10 @@ clientUpdateIconPix (Client *c)
     screen_info = c->screen_info;
     for (i = 0; i < STATE_TOGGLED; i++)
     {
-        xfwmPixmapFree (&c->appmenu[i]);
+        eswmPixmapFree (&c->appmenu[i]);
     }
 
-    if (xfwmPixmapNone(&screen_info->buttons[MENU_BUTTON][ACTIVE]))
+    if (eswmPixmapNone(&screen_info->buttons[MENU_BUTTON][ACTIVE]))
     {
         /* The current theme has no menu button */
         return;
@@ -1524,9 +1524,9 @@ clientUpdateIconPix (Client *c)
 
     for (i = 0; i < STATE_TOGGLED; i++)
     {
-        if (!xfwmPixmapNone(&screen_info->buttons[MENU_BUTTON][i]))
+        if (!eswmPixmapNone(&screen_info->buttons[MENU_BUTTON][i]))
         {
-            xfwmPixmapDuplicate (&screen_info->buttons[MENU_BUTTON][i], &c->appmenu[i]);
+            eswmPixmapDuplicate (&screen_info->buttons[MENU_BUTTON][i], &c->appmenu[i]);
         }
     }
     size = MIN (screen_info->buttons[MENU_BUTTON][ACTIVE].width,
@@ -1539,9 +1539,9 @@ clientUpdateIconPix (Client *c)
         {
             for (i = 0; i < STATE_TOGGLED; i++)
             {
-                if (!xfwmPixmapNone(&c->appmenu[i]))
+                if (!eswmPixmapNone(&c->appmenu[i]))
                 {
-                    xfwmPixmapRenderGdkPixbuf (&c->appmenu[i], icon);
+                    eswmPixmapRenderGdkPixbuf (&c->appmenu[i], icon);
                 }
             }
             g_object_unref (icon);
@@ -1559,7 +1559,7 @@ update_icon_idle_cb (gpointer data)
     TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
 
     clientUpdateIconPix (c);
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
     {
         frameQueueDraw (c, FALSE);
     }
@@ -1646,7 +1646,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
         goto out;
     }
 
-    if (w == screen_info->xfwm4_win)
+    if (w == screen_info->eswm1_win)
     {
         TRACE ("not managing our own event window");
         compositorAddWindow (display_info, w, NULL);
@@ -1699,7 +1699,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
     c->size = NULL;
     c->flags = 0L;
     c->wm_flags = 0L;
-    c->xfwm_flags = XFWM_FLAG_INITIAL_VALUES;
+    c->eswm_flags = ESWM_FLAG_INITIAL_VALUES;
     c->x = attr.x;
     c->y = attr.y;
     c->width = attr.width;
@@ -1728,7 +1728,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
     shaped = clientCheckShape(c);
     if (shaped)
     {
-        FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_HAS_BORDER);
+        FLAG_UNSET (c->eswm_flags, ESWM_FLAG_HAS_BORDER);
         FLAG_SET (c->flags, CLIENT_FLAG_HAS_SHAPE);
     }
 
@@ -1738,7 +1738,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
             && ((c->size->min_width < c->size->max_width)
                 || (c->size->min_height < c->size->max_height))))
     {
-        FLAG_SET (c->xfwm_flags, XFWM_FLAG_IS_RESIZABLE);
+        FLAG_SET (c->eswm_flags, ESWM_FLAG_IS_RESIZABLE);
     }
 
     for (i = 0; i < BUTTON_COUNT; i++)
@@ -1767,7 +1767,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
 
     if (getOpacityLock (display_info, c->window))
     {
-        FLAG_SET (c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED);
+        FLAG_SET (c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED);
     }
 
     /* Timout for asynchronous icon update */
@@ -1807,7 +1807,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
     if (attr.map_state != IsUnmapped)
     {
         /* Reparent will send us unmap/map events */
-        FLAG_SET (c->xfwm_flags, XFWM_FLAG_MAP_PENDING);
+        FLAG_SET (c->eswm_flags, ESWM_FLAG_MAP_PENDING);
     }
     c->ignore_unmap = 0;
     c->type = UNSET;
@@ -1836,7 +1836,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
     /* Reload from session */
     if (sessionMatchWinToSM (c))
     {
-        FLAG_SET (c->xfwm_flags, XFWM_FLAG_SESSION_MANAGED);
+        FLAG_SET (c->eswm_flags, ESWM_FLAG_SESSION_MANAGED);
     }
 
     /* Beware, order of calls is important here ! */
@@ -1851,7 +1851,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
     clientGetGtkHideTitlebar(c);
 
     /* Once we know the type of window, we can initialize window position */
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_SESSION_MANAGED))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_SESSION_MANAGED))
     {
         clientCoordGravitate (c, c->gravity, APPLY, &c->x, &c->y);
         if (attr.map_state == IsUnmapped)
@@ -1916,7 +1916,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
         XCreateWindow (display_info->dpy, screen_info->xroot, 0, 0, 1, 1, 0,
         c->depth, InputOutput, c->visual, valuemask, &attributes);
 #ifdef HAVE_XI2
-    xfwm_device_configure_xi2_event_mask (display_info->devices, display_info->dpy,
+    eswm_device_configure_xi2_event_mask (display_info->devices, display_info->dpy,
                                           c->frame, attributes.event_mask);
 #endif
 
@@ -1955,7 +1955,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
 
     for (i = 0; i < STATE_TOGGLED; i++)
     {
-        xfwmPixmapInit (screen_info, &c->appmenu[i]);
+        eswmPixmapInit (screen_info, &c->appmenu[i]);
     }
 
     for (i = 0; i < SIDE_COUNT; i++)
@@ -1963,31 +1963,31 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
         if (i == SIDE_TOP)
             continue;  /* Keep SIDE_TOP for later */
 
-        xfwmWindowCreate (screen_info, c->visual, c->depth, c->frame,
+        eswmWindowCreate (screen_info, c->visual, c->depth, c->frame,
             &c->sides[i], NoEventMask,
             myDisplayGetCursorResize(screen_info->display_info, CORNER_COUNT + i));
     }
 
     for (i = 0; i < CORNER_COUNT; i++)
     {
-        xfwmWindowCreate (screen_info, c->visual, c->depth, c->frame,
+        eswmWindowCreate (screen_info, c->visual, c->depth, c->frame,
             &c->corners[i], NoEventMask,
             myDisplayGetCursorResize(screen_info->display_info, i));
     }
 
-    xfwmWindowCreate (screen_info, c->visual, c->depth, c->frame,
+    eswmWindowCreate (screen_info, c->visual, c->depth, c->frame,
         &c->title, NoEventMask, None);
 
     /*create the top side window AFTER the title window since they overlap
        and the top side window should be on top */
 
-    xfwmWindowCreate (screen_info, c->visual, c->depth, c->frame,
+    eswmWindowCreate (screen_info, c->visual, c->depth, c->frame,
         &c->sides[SIDE_TOP], NoEventMask,
         myDisplayGetCursorResize(screen_info->display_info, CORNER_COUNT + SIDE_TOP));
 
     for (i = 0; i < BUTTON_COUNT; i++)
     {
-        xfwmWindowCreate (screen_info, c->visual, c->depth, c->frame,
+        eswmWindowCreate (screen_info, c->visual, c->depth, c->frame,
             &c->buttons[i], BUTTON_EVENT_MASK, None);
     }
     clientUpdateIconPix (c);
@@ -2123,23 +2123,23 @@ clientUnframe (Client *c, gboolean remap)
                          display_info->atoms[NET_WM_ALLOWED_ACTIONS]);
     }
 
-    xfwmWindowDelete (&c->title);
+    eswmWindowDelete (&c->title);
 
     for (i = 0; i < SIDE_COUNT; i++)
     {
-        xfwmWindowDelete (&c->sides[i]);
+        eswmWindowDelete (&c->sides[i]);
     }
     for (i = 0; i < CORNER_COUNT; i++)
     {
-        xfwmWindowDelete (&c->corners[i]);
+        eswmWindowDelete (&c->corners[i]);
     }
     for (i = 0; i < STATE_TOGGLED; i++)
     {
-        xfwmPixmapFree (&c->appmenu[i]);
+        eswmPixmapFree (&c->appmenu[i]);
     }
     for (i = 0; i < BUTTON_COUNT; i++)
     {
-        xfwmWindowDelete (&c->buttons[i]);
+        eswmWindowDelete (&c->buttons[i]);
     }
     if (FLAG_TEST (c->flags, CLIENT_FLAG_HAS_STRUT))
     {
@@ -2157,7 +2157,7 @@ clientFrameAll (ScreenInfo *screen_info)
 {
     DisplayInfo *display_info;
     XWindowAttributes attr;
-    xfwmWindow shield;
+    eswmWindow shield;
     Window w1, w2, *wins;
     unsigned int count, i;
 
@@ -2165,7 +2165,7 @@ clientFrameAll (ScreenInfo *screen_info)
 
     display_info = screen_info->display_info;
     clientSetFocus (screen_info, NULL, myDisplayGetCurrentTime (display_info), NO_FOCUS_FLAG);
-    xfwmWindowTemp (screen_info,
+    eswmWindowTemp (screen_info,
                     NULL, 0,
                     screen_info->xroot,
                     &shield,
@@ -2199,7 +2199,7 @@ clientFrameAll (ScreenInfo *screen_info)
         XFree (wins);
     }
     clientFocusTop (screen_info, WIN_LAYER_FULLSCREEN, myDisplayGetCurrentTime (display_info));
-    xfwmWindowDelete (&shield);
+    eswmWindowDelete (&shield);
     myDisplayUngrabServer (display_info);
     XSync (display_info->dpy, FALSE);
 }
@@ -2319,7 +2319,7 @@ clientSetWorkspaceSingle (Client *c, guint ws)
             setHint (display_info, c->window, NET_WM_DESKTOP, (unsigned long) ws);
         }
     }
-    FLAG_SET (c->xfwm_flags, XFWM_FLAG_WORKSPACE_SET);
+    FLAG_SET (c->eswm_flags, ESWM_FLAG_WORKSPACE_SET);
 }
 
 void
@@ -2375,7 +2375,7 @@ clientShowSingle (Client *c, gboolean deiconify)
 
     g_return_if_fail (c != NULL);
 
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
     {
         /* Should we map the window if it is visible? */
         return;
@@ -2387,7 +2387,7 @@ clientShowSingle (Client *c, gboolean deiconify)
     if ((c->win_workspace == screen_info->current_ws) || FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
     {
         TRACE ("showing client \"%s\" (0x%lx)", c->name, c->window);
-        FLAG_SET (c->xfwm_flags, XFWM_FLAG_VISIBLE);
+        FLAG_SET (c->eswm_flags, ESWM_FLAG_VISIBLE);
         myDisplayErrorTrapPush (display_info);
         XMapWindow (display_info->dpy, c->frame);
         if (!FLAG_TEST (c->flags, CLIENT_FLAG_SHADED))
@@ -2423,7 +2423,7 @@ clientShow (Client *c, gboolean deiconify)
         c2 = (Client *) list->data;
         clientSetWorkspaceSingle (c2, c->win_workspace);
         /* Ignore request before if the window is not yet managed */
-        if (!FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_MANAGED))
+        if (!FLAG_TEST (c2->eswm_flags, ESWM_FLAG_MANAGED))
         {
             continue;
         }
@@ -2448,9 +2448,9 @@ clientWithdrawSingle (Client *c, GList *exclude_list, gboolean iconify)
     display_info = screen_info->display_info;
 
     clientPassFocus(c->screen_info, c, exclude_list);
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
     {
-        FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_VISIBLE);
+        FLAG_UNSET (c->eswm_flags, ESWM_FLAG_VISIBLE);
         c->ignore_unmap++;
         /* Adjust to urgency state as the window is not visible */
         clientUpdateUrgency (c);
@@ -2490,7 +2490,7 @@ clientWithdraw (Client *c, guint ws, gboolean iconify)
         c2 = (Client *) list->data;
 
         /* Ignore request before if the window is not yet managed */
-        if (!FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_MANAGED))
+        if (!FLAG_TEST (c2->eswm_flags, ESWM_FLAG_MANAGED))
         {
             continue;
         }
@@ -2570,7 +2570,7 @@ clientClearAllShowDesktop (ScreenInfo *screen_info)
         for (list = screen_info->windows_stack; list; list = g_list_next (list))
         {
             Client *c = (Client *) list->data;
-            FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_WAS_SHOWN);
+            FLAG_UNSET (c->eswm_flags, ESWM_FLAG_WAS_SHOWN);
         }
         screen_info->show_desktop = FALSE;
         sendRootMessage (screen_info, NET_SHOWING_DESKTOP, screen_info->show_desktop,
@@ -2596,7 +2596,7 @@ clientToggleShowDesktop (ScreenInfo *screen_info)
             if ((c->type & WINDOW_REGULAR_FOCUSABLE)
                 && !FLAG_TEST (c->flags, CLIENT_FLAG_ICONIFIED | CLIENT_FLAG_SKIP_TASKBAR))
             {
-                FLAG_SET (c->xfwm_flags, XFWM_FLAG_WAS_SHOWN);
+                FLAG_SET (c->eswm_flags, ESWM_FLAG_WAS_SHOWN);
                 clientWithdraw (c, c->win_workspace, TRUE);
             }
         }
@@ -2607,11 +2607,11 @@ clientToggleShowDesktop (ScreenInfo *screen_info)
         for (list = g_list_last(screen_info->windows_stack); list; list = g_list_previous (list))
         {
             Client *c = (Client *) list->data;
-            if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_WAS_SHOWN))
+            if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_WAS_SHOWN))
             {
                 clientShow (c, TRUE);
             }
-            FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_WAS_SHOWN);
+            FLAG_UNSET (c->eswm_flags, ESWM_FLAG_WAS_SHOWN);
         }
         clientFocusTop (screen_info, WIN_LAYER_FULLSCREEN, myDisplayGetCurrentTime (screen_info->display_info));
     }
@@ -2638,7 +2638,7 @@ clientActivate (Client *c, guint32 timestamp, gboolean source_is_application)
             /* We might be able to avoid this if we are about to switch workspace */
             clientAdjustFullscreenLayer (focused, FALSE);
         }
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_WAS_SHOWN))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_WAS_SHOWN))
         {
             /* We are explicitely activating a window that was shown before show-desktop */
             clientClearAllShowDesktop (screen_info);
@@ -2840,7 +2840,7 @@ clientShade (Client *c)
     display_info = screen_info->display_info;
 
     FLAG_SET (c->flags, CLIENT_FLAG_SHADED);
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MANAGED))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MANAGED))
     {
         mask = (CWWidth | CWHeight);
         if (clientConstrainPos (c, FALSE))
@@ -2850,7 +2850,7 @@ clientShade (Client *c)
             mask |= (CWX | CWY);
         }
 
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
         {
             c->ignore_unmap++;
         }
@@ -2895,9 +2895,9 @@ clientUnshade (Client *c)
     display_info = screen_info->display_info;
 
     FLAG_UNSET (c->flags, CLIENT_FLAG_SHADED);
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MANAGED))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MANAGED))
     {
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
         {
             myDisplayErrorTrapPush (display_info);
             XMapWindow (display_info->dpy, c->window);
@@ -3071,7 +3071,7 @@ clientUpdateFullscreenSize (Client *c)
         wc.height = c->pre_fullscreen_geometry.height;
     }
 
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MANAGED))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MANAGED))
     {
         clientConfigure (c, &wc, CWX | CWY | CWWidth | CWHeight, CFG_FORCE_REDRAW);
     }
@@ -3125,7 +3125,7 @@ void clientSetFullscreenMonitor (Client *c, gint top, gint bottom, gint left, gi
     screen_info = c->screen_info;
     display_info = screen_info->display_info;
 
-    num_monitors = xfwm_get_n_monitors (screen_info->gscr);
+    num_monitors = eswm_get_n_monitors (screen_info->gscr);
     if ((top >= 0)    && (top < num_monitors)    &&
         (bottom >= 0) && (bottom < num_monitors) &&
         (left >= 0)   && (left < num_monitors)   &&
@@ -3304,11 +3304,11 @@ clientNewTileSize (Client *c, XWindowChanges *wc, GdkRectangle *rect, tilePositi
 
     screen_info = c->screen_info;
 
-    full_x = MAX (screen_info->params->xfwm_margins[STRUTS_LEFT], rect->x);
-    full_y = MAX (screen_info->params->xfwm_margins[STRUTS_TOP], rect->y);
-    full_w = MIN (screen_info->width - screen_info->params->xfwm_margins[STRUTS_RIGHT],
+    full_x = MAX (screen_info->params->eswm_margins[STRUTS_LEFT], rect->x);
+    full_y = MAX (screen_info->params->eswm_margins[STRUTS_TOP], rect->y);
+    full_w = MIN (screen_info->width - screen_info->params->eswm_margins[STRUTS_RIGHT],
                   rect->x + rect->width) - full_x;
-    full_h = MIN (screen_info->height - screen_info->params->xfwm_margins[STRUTS_BOTTOM],
+    full_h = MIN (screen_info->height - screen_info->params->eswm_margins[STRUTS_BOTTOM],
                   rect->y + rect->height) - full_y;
     clientMaxSpace (screen_info, &full_x, &full_y, &full_w, &full_h);
 
@@ -3378,11 +3378,11 @@ clientNewMaxSize (Client *c, XWindowChanges *wc, GdkRectangle *rect)
 
     screen_info = c->screen_info;
 
-    full_x = MAX (screen_info->params->xfwm_margins[STRUTS_LEFT], rect->x);
-    full_y = MAX (screen_info->params->xfwm_margins[STRUTS_TOP], rect->y);
-    full_w = MIN (screen_info->width - screen_info->params->xfwm_margins[STRUTS_RIGHT],
+    full_x = MAX (screen_info->params->eswm_margins[STRUTS_LEFT], rect->x);
+    full_y = MAX (screen_info->params->eswm_margins[STRUTS_TOP], rect->y);
+    full_w = MIN (screen_info->width - screen_info->params->eswm_margins[STRUTS_RIGHT],
                   rect->x + rect->width) - full_x;
-    full_h = MIN (screen_info->height - screen_info->params->xfwm_margins[STRUTS_BOTTOM],
+    full_h = MIN (screen_info->height - screen_info->params->eswm_margins[STRUTS_BOTTOM],
                   rect->y + rect->height) - full_y;
     clientMaxSpace (screen_info, &full_x, &full_y, &full_w, &full_h);
 
@@ -3486,7 +3486,7 @@ clientToggleMaximizedAtPoint (Client *c, gint cx, gint cy, int mode, gboolean re
 
     /* Maximized windows w/out border cannot be resized, update allowed actions */
     clientSetNetActions (c);
-    if (restore_position && FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MANAGED))
+    if (restore_position && FLAG_TEST (c->eswm_flags, ESWM_FLAG_MANAGED))
     {
         if (FLAG_TEST (c->flags, CLIENT_FLAG_SHADED))
         {
@@ -3496,7 +3496,7 @@ clientToggleMaximizedAtPoint (Client *c, gint cx, gint cy, int mode, gboolean re
         clientConfigure (c, &wc, CWWidth | CWHeight | CWX | CWY, CFG_FORCE_REDRAW);
     }
     /* Do not update the state while moving/resizing, CSD windows may resize */
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
     {
         clientSetNetState (c);
     }
@@ -3563,7 +3563,7 @@ clientTile (Client *c, gint cx, gint cy, tilePositionType tile, gboolean send_co
         clientReconfigure (c, CFG_FORCE_REDRAW);
     }
     /* Do not update the state while moving/resizing, CSD windows may resize */
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
     {
         clientSetNetState (c);
     }
@@ -3724,7 +3724,7 @@ clientSetOpacity (Client *c, guint32 opacity, guint32 clear, guint32 xor)
 
     c->opacity_flags = (c->opacity_flags & ~clear) ^ xor;
 
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED))
     {
         applied = c->opacity;
     }
@@ -3774,7 +3774,7 @@ clientDecOpacity (Client *c)
         return;
     }
 
-    if ((c->opacity > OPACITY_SET_MIN) && !(FLAG_TEST (c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED)))
+    if ((c->opacity > OPACITY_SET_MIN) && !(FLAG_TEST (c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED)))
     {
          clientSetOpacity (c, c->opacity - OPACITY_SET_STEP, 0, 0);
     }
@@ -3794,7 +3794,7 @@ clientIncOpacity (Client *c)
         return;
     }
 
-    if ((c->opacity < NET_WM_OPAQUE) && !(FLAG_TEST (c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED)))
+    if ((c->opacity < NET_WM_OPAQUE) && !(FLAG_TEST (c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED)))
     {
          guint opacity = c->opacity + OPACITY_SET_STEP;
 
@@ -3859,14 +3859,14 @@ clientScreenResize(ScreenInfo *screen_info, gboolean fully_visible)
             {
                 configure_flags |= CFG_KEEP_VISIBLE;
             }
-            if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_SAVED_POS))
+            if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_SAVED_POS))
             {
                 wc.x = c->pre_relayout_x;
                 wc.y = c->pre_relayout_y;
             }
             else
             {
-                FLAG_SET (c->xfwm_flags, XFWM_FLAG_SAVED_POS);
+                FLAG_SET (c->eswm_flags, ESWM_FLAG_SAVED_POS);
 
                 c->pre_relayout_x = c->x;
                 c->pre_relayout_y = c->y;
@@ -3896,13 +3896,13 @@ clientUpdateCursor (Client *c)
 
     for (i = 0; i < SIDE_COUNT; i++)
     {
-        xfwmWindowSetCursor (&c->sides[i],
+        eswmWindowSetCursor (&c->sides[i],
             myDisplayGetCursorResize(display_info, CORNER_COUNT + i));
     }
 
     for (i = 0; i < CORNER_COUNT; i++)
     {
-        xfwmWindowSetCursor (&c->corners[i],
+        eswmWindowSetCursor (&c->corners[i],
             myDisplayGetCursorResize(display_info, i));
     }
 }
@@ -3922,7 +3922,7 @@ clientUpdateAllCursor (ScreenInfo *screen_info)
 }
 
 static eventFilterStatus
-clientButtonPressEventFilter (XfwmEvent *event, gpointer data)
+clientButtonPressEventFilter (EswmEvent *event, gpointer data)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -3947,13 +3947,13 @@ clientButtonPressEventFilter (XfwmEvent *event, gpointer data)
 
     switch (event->meta.type)
     {
-        case XFWM_EVENT_BUTTON:
+        case ESWM_EVENT_BUTTON:
             if (!event->button.pressed)
             {
                 pressed = FALSE;
             }
             break;
-        case XFWM_EVENT_CROSSING:
+        case ESWM_EVENT_CROSSING:
             if ((event->crossing.mode == NotifyGrab) ||
                 (event->crossing.mode == NotifyUngrab) ||
                 (event->meta.window != MYWINDOW_XWINDOW (c->buttons[b])))
@@ -3971,7 +3971,7 @@ clientButtonPressEventFilter (XfwmEvent *event, gpointer data)
                 frameQueueDraw (c, FALSE);
             }
             break;
-        case XFWM_EVENT_XEVENT:
+        case ESWM_EVENT_XEVENT:
             if ((event->meta.xevent->type == UnmapNotify) && (event->meta.window == c->window))
             {
                 pressed = FALSE;
@@ -3996,7 +3996,7 @@ clientButtonPressEventFilter (XfwmEvent *event, gpointer data)
 }
 
 void
-clientButtonPress (Client *c, Window w, XfwmEventButton *event)
+clientButtonPress (Client *c, Window w, EswmEventButton *event)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -4019,7 +4019,7 @@ clientButtonPress (Client *c, Window w, XfwmEventButton *event)
     display_info = screen_info->display_info;
 
     myDisplayErrorTrapPush (display_info);
-    g1 = xfwm_device_grab (display_info->devices, &display_info->devices->pointer,
+    g1 = eswm_device_grab (display_info->devices, &display_info->devices->pointer,
                            display_info->dpy, w, FALSE,
                            ButtonReleaseMask | EnterWindowMask | LeaveWindowMask,
                            GrabModeAsync, screen_info->xroot, None,
@@ -4046,7 +4046,7 @@ clientButtonPress (Client *c, Window w, XfwmEventButton *event)
     TRACE ("leaving button press loop");
 
     myDisplayErrorTrapPush (display_info);
-    xfwm_device_ungrab (display_info->devices, &display_info->devices->pointer,
+    eswm_device_ungrab (display_info->devices, &display_info->devices->pointer,
                         display_info->dpy, myDisplayGetCurrentTime (display_info));
     myDisplayErrorTrapPopIgnored (display_info);
 
@@ -4056,7 +4056,7 @@ clientButtonPress (Client *c, Window w, XfwmEventButton *event)
          * Button was pressed at the time, means the pointer was still within
          * the button, so return to prelight if available, normal otherwise.
          */
-        if (!xfwmPixmapNone(clientGetButtonPixmap(c, b, PRELIGHT)))
+        if (!eswmPixmapNone(clientGetButtonPixmap(c, b, PRELIGHT)))
         {
             c->button_status[b] = BUTTON_STATE_PRELIGHT;
         }
@@ -4106,7 +4106,7 @@ clientButtonPress (Client *c, Window w, XfwmEventButton *event)
     }
 }
 
-xfwmPixmap *
+eswmPixmap *
 clientGetButtonPixmap (Client *c, int button, int state)
 {
     ScreenInfo *screen_info;
@@ -4117,14 +4117,14 @@ clientGetButtonPixmap (Client *c, int button, int state)
     {
         case MENU_BUTTON:
             if ((screen_info->params->show_app_icon)
-                && (!xfwmPixmapNone(&c->appmenu[state])))
+                && (!eswmPixmapNone(&c->appmenu[state])))
             {
                 return &c->appmenu[state];
             }
             break;
         case SHADE_BUTTON:
             if (FLAG_TEST (c->flags, CLIENT_FLAG_SHADED)
-                && (!xfwmPixmapNone(&screen_info->buttons[SHADE_BUTTON][state + STATE_TOGGLED])))
+                && (!eswmPixmapNone(&screen_info->buttons[SHADE_BUTTON][state + STATE_TOGGLED])))
             {
                 return &screen_info->buttons[SHADE_BUTTON][state + STATE_TOGGLED];
             }
@@ -4132,7 +4132,7 @@ clientGetButtonPixmap (Client *c, int button, int state)
             break;
         case STICK_BUTTON:
             if (FLAG_TEST (c->flags, CLIENT_FLAG_STICKY)
-                && (!xfwmPixmapNone(&screen_info->buttons[STICK_BUTTON][state + STATE_TOGGLED])))
+                && (!eswmPixmapNone(&screen_info->buttons[STICK_BUTTON][state + STATE_TOGGLED])))
             {
                 return &screen_info->buttons[STICK_BUTTON][state + STATE_TOGGLED];
             }
@@ -4140,7 +4140,7 @@ clientGetButtonPixmap (Client *c, int button, int state)
             break;
         case MAXIMIZE_BUTTON:
             if (FLAG_TEST (c->flags, CLIENT_FLAG_MAXIMIZED)
-                && (!xfwmPixmapNone(&screen_info->buttons[MAXIMIZE_BUTTON][state + STATE_TOGGLED])))
+                && (!eswmPixmapNone(&screen_info->buttons[MAXIMIZE_BUTTON][state + STATE_TOGGLED])))
             {
                 return &screen_info->buttons[MAXIMIZE_BUTTON][state + STATE_TOGGLED];
             }

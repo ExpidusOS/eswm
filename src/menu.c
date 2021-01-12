@@ -17,7 +17,7 @@
 
 
         Metacity - (c) 2001 Havoc Pennington
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -34,7 +34,7 @@
 #include <string.h>
 #include <libxfce4util/libxfce4util.h>
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
 #include "event_filter.h"
 #include "menu.h"
@@ -80,16 +80,16 @@ static MenuItem menuitems[] = {
 };
 
 static eventFilterStatus
-menu_filter (XfwmEvent *event, gpointer data)
+menu_filter (EswmEvent *event, gpointer data)
 {
     switch (event->meta.type)
     {
-        case XFWM_EVENT_KEY:
-        case XFWM_EVENT_BUTTON:
-        case XFWM_EVENT_MOTION:
-        case XFWM_EVENT_CROSSING:
+        case ESWM_EVENT_KEY:
+        case ESWM_EVENT_BUTTON:
+        case ESWM_EVENT_MOTION:
+        case ESWM_EVENT_CROSSING:
             return EVENT_FILTER_STOP;
-        case XFWM_EVENT_XEVENT:
+        case ESWM_EVENT_XEVENT:
             break;
     }
     return EVENT_FILTER_CONTINUE;

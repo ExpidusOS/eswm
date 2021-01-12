@@ -18,7 +18,7 @@
 
         Metacity - (c) 2001 Havoc Pennington
         libwnck  - (c) 2001 Havoc Pennington
-        xfwm4    - (c) 2002-2015 Olivier Fourdan
+        eswm1    - (c) 2002-2015 Olivier Fourdan
  */
 
 #ifdef HAVE_CONFIG_H
@@ -89,7 +89,7 @@ default_icon_at_size (GdkScreen *screen, guint width, guint height)
         height = 160;
     }
 
-    base = gtk_icon_theme_load_icon (icon_theme, "xfwm4-default",
+    base = gtk_icon_theme_load_icon (icon_theme, "eswm1-default",
                                      MAX (width, height), 0, NULL);
 
     if (base != NULL && width != height)

@@ -46,11 +46,11 @@ static const struct
 };
 #endif
 
-#define xfwm_device_fill_meta(evtype, evwindow, evdevice) \
+#define eswm_device_fill_meta(evtype, evwindow, evdevice) \
 { \
     if (event == NULL) \
     { \
-        event = g_new0 (XfwmEvent, 1); \
+        event = g_new0 (EswmEvent, 1); \
     } \
     event->meta.type = evtype; \
     event->meta.window = evwindow; \
@@ -60,7 +60,7 @@ static const struct
 
 #ifdef HAVE_XI2
 static guint
-xfwm_device_obtain_state_xi2 (XIButtonState *buttons, XIModifierState *mods, XIGroupState *group)
+eswm_device_obtain_state_xi2 (XIButtonState *buttons, XIModifierState *mods, XIGroupState *group)
 {
     guint result;
     gint i, count;
@@ -80,10 +80,10 @@ xfwm_device_obtain_state_xi2 (XIButtonState *buttons, XIModifierState *mods, XIG
 }
 #endif
 
-static XfwmEvent *
-xfwm_device_translate_event_key_core (XEvent *xevent, XfwmEvent *event)
+static EswmEvent *
+eswm_device_translate_event_key_core (XEvent *xevent, EswmEvent *event)
 {
-    xfwm_device_fill_meta (XFWM_EVENT_KEY, xevent->xany.window, None);
+    eswm_device_fill_meta (ESWM_EVENT_KEY, xevent->xany.window, None);
 
     event->key.root = xevent->xkey.root;
     event->key.pressed = xevent->type == KeyPress;
@@ -91,31 +91,31 @@ xfwm_device_translate_event_key_core (XEvent *xevent, XfwmEvent *event)
     event->key.state = xevent->xkey.state;
     event->key.time = xevent->xkey.time;
 
-    return (XfwmEvent *)event;
+    return (EswmEvent *)event;
 }
 
 #ifdef HAVE_XI2
-static XfwmEvent *
-xfwm_device_translate_event_key_xi2 (XEvent *xevent, XIDeviceEvent *xievent, XfwmEvent *event)
+static EswmEvent *
+eswm_device_translate_event_key_xi2 (XEvent *xevent, XIDeviceEvent *xievent, EswmEvent *event)
 {
-    xfwm_device_fill_meta (XFWM_EVENT_KEY, xievent->event, xievent->deviceid);
+    eswm_device_fill_meta (ESWM_EVENT_KEY, xievent->event, xievent->deviceid);
 
     event->key.root = xievent->root;
     event->key.pressed = xievent->evtype == XI_KeyPress;
     event->key.keycode = xievent->detail;
-    event->key.state = xfwm_device_obtain_state_xi2 (&xievent->buttons,
+    event->key.state = eswm_device_obtain_state_xi2 (&xievent->buttons,
                                                      &xievent->mods,
                                                      &xievent->group);
     event->key.time = xievent->time;
 
-    return (XfwmEvent *)event;
+    return (EswmEvent *)event;
 }
 #endif
 
-static XfwmEvent *
-xfwm_device_translate_event_button_core (XEvent *xevent, XfwmEvent *event)
+static EswmEvent *
+eswm_device_translate_event_button_core (XEvent *xevent, EswmEvent *event)
 {
-    xfwm_device_fill_meta (XFWM_EVENT_BUTTON, xevent->xany.window, None);
+    eswm_device_fill_meta (ESWM_EVENT_BUTTON, xevent->xany.window, None);
 
     event->button.root = xevent->xbutton.root;
     event->button.subwindow = xevent->xbutton.subwindow;
@@ -128,20 +128,20 @@ xfwm_device_translate_event_button_core (XEvent *xevent, XfwmEvent *event)
     event->button.y_root = xevent->xbutton.y_root;
     event->button.time = xevent->xbutton.time;
 
-    return (XfwmEvent *)event;
+    return (EswmEvent *)event;
 }
 
 #ifdef HAVE_XI2
-static XfwmEvent *
-xfwm_device_translate_event_button_xi2 (XEvent *xevent, XIDeviceEvent *xievent, XfwmEvent *event)
+static EswmEvent *
+eswm_device_translate_event_button_xi2 (XEvent *xevent, XIDeviceEvent *xievent, EswmEvent *event)
 {
-    xfwm_device_fill_meta (XFWM_EVENT_BUTTON, xievent->event, xievent->deviceid);
+    eswm_device_fill_meta (ESWM_EVENT_BUTTON, xievent->event, xievent->deviceid);
 
     event->button.root = xievent->root;
     event->button.subwindow = xievent->child;
     event->button.pressed = xievent->evtype == XI_ButtonPress;
     event->button.button = xievent->detail;
-    event->button.state = xfwm_device_obtain_state_xi2 (&xievent->buttons,
+    event->button.state = eswm_device_obtain_state_xi2 (&xievent->buttons,
                                                         &xievent->mods,
                                                         &xievent->group);
     event->button.x = xievent->event_x;
@@ -150,14 +150,14 @@ xfwm_device_translate_event_button_xi2 (XEvent *xevent, XIDeviceEvent *xievent, 
     event->button.y_root = xievent->root_y;
     event->button.time = xievent->time;
 
-    return (XfwmEvent *)event;
+    return (EswmEvent *)event;
 }
 #endif
 
-static XfwmEvent *
-xfwm_device_translate_event_motion_core (XEvent *xevent, XfwmEvent *event)
+static EswmEvent *
+eswm_device_translate_event_motion_core (XEvent *xevent, EswmEvent *event)
 {
-    xfwm_device_fill_meta (XFWM_EVENT_MOTION, xevent->xany.window, None);
+    eswm_device_fill_meta (ESWM_EVENT_MOTION, xevent->xany.window, None);
 
     event->motion.x = xevent->xbutton.x;
     event->motion.y = xevent->xbutton.y;
@@ -165,14 +165,14 @@ xfwm_device_translate_event_motion_core (XEvent *xevent, XfwmEvent *event)
     event->motion.y_root = xevent->xbutton.y_root;
     event->motion.time = xevent->xbutton.time;
 
-    return (XfwmEvent *)event;
+    return (EswmEvent *)event;
 }
 
 #ifdef HAVE_XI2
-static XfwmEvent *
-xfwm_device_translate_event_motion_xi2 (XEvent *xevent, XIDeviceEvent *xievent, XfwmEvent *event)
+static EswmEvent *
+eswm_device_translate_event_motion_xi2 (XEvent *xevent, XIDeviceEvent *xievent, EswmEvent *event)
 {
-    xfwm_device_fill_meta (XFWM_EVENT_MOTION, xievent->event, xievent->deviceid);
+    eswm_device_fill_meta (ESWM_EVENT_MOTION, xievent->event, xievent->deviceid);
 
     event->motion.x = xievent->event_x;
     event->motion.y = xievent->event_y;
@@ -180,14 +180,14 @@ xfwm_device_translate_event_motion_xi2 (XEvent *xevent, XIDeviceEvent *xievent, 
     event->motion.y_root = xievent->root_y;
     event->motion.time = xievent->time;
 
-    return (XfwmEvent *)event;
+    return (EswmEvent *)event;
 }
 #endif
 
-static XfwmEvent *
-xfwm_device_translate_event_crossing_core (XEvent *xevent, XfwmEvent *event)
+static EswmEvent *
+eswm_device_translate_event_crossing_core (XEvent *xevent, EswmEvent *event)
 {
-    xfwm_device_fill_meta (XFWM_EVENT_CROSSING, xevent->xany.window, None);
+    eswm_device_fill_meta (ESWM_EVENT_CROSSING, xevent->xany.window, None);
 
     event->crossing.root = xevent->xcrossing.root;
     event->crossing.enter = xevent->type == EnterNotify;
@@ -197,14 +197,14 @@ xfwm_device_translate_event_crossing_core (XEvent *xevent, XfwmEvent *event)
     event->crossing.y_root = xevent->xcrossing.y_root;
     event->crossing.time = xevent->xcrossing.time;
 
-    return (XfwmEvent *)event;
+    return (EswmEvent *)event;
 }
 
 #ifdef HAVE_XI2
-static XfwmEvent *
-xfwm_device_translate_event_crossing_xi2 (XEvent *xevent, XIEnterEvent *xievent, XfwmEvent *event)
+static EswmEvent *
+eswm_device_translate_event_crossing_xi2 (XEvent *xevent, XIEnterEvent *xievent, EswmEvent *event)
 {
-    xfwm_device_fill_meta (XFWM_EVENT_CROSSING, xievent->event, xievent->deviceid);
+    eswm_device_fill_meta (ESWM_EVENT_CROSSING, xievent->event, xievent->deviceid);
 
     event->crossing.root = xievent->root;
     event->crossing.enter = xievent->evtype == XI_Enter;
@@ -214,34 +214,34 @@ xfwm_device_translate_event_crossing_xi2 (XEvent *xevent, XIEnterEvent *xievent,
     event->crossing.y_root = xievent->root_y;
     event->crossing.time = xievent->time;
 
-    return (XfwmEvent *)event;
+    return (EswmEvent *)event;
 }
 #endif
 
-static XfwmEvent *
-xfwm_device_translate_event_common (XEvent *xevent, XfwmEvent *event)
+static EswmEvent *
+eswm_device_translate_event_common (XEvent *xevent, EswmEvent *event)
 {
-    xfwm_device_fill_meta (XFWM_EVENT_XEVENT, xevent->xany.window, None);
+    eswm_device_fill_meta (ESWM_EVENT_XEVENT, xevent->xany.window, None);
 
     return event;
 }
 
-XfwmEvent *
-xfwm_device_translate_event (XfwmDevices *devices, XEvent *xevent, XfwmEvent *event)
+EswmEvent *
+eswm_device_translate_event (EswmDevices *devices, XEvent *xevent, EswmEvent *event)
 {
     switch (xevent->type)
     {
         case KeyPress:
         case KeyRelease:
-            return xfwm_device_translate_event_key_core (xevent, event);
+            return eswm_device_translate_event_key_core (xevent, event);
         case ButtonPress:
         case ButtonRelease:
-            return xfwm_device_translate_event_button_core (xevent, event);
+            return eswm_device_translate_event_button_core (xevent, event);
         case MotionNotify:
-            return xfwm_device_translate_event_motion_core (xevent, event);
+            return eswm_device_translate_event_motion_core (xevent, event);
         case EnterNotify:
         case LeaveNotify:
-            return xfwm_device_translate_event_crossing_core (xevent, event);
+            return eswm_device_translate_event_crossing_core (xevent, event);
 #ifdef HAVE_XI2
         case GenericEvent:
             if (devices->xi2_available &&
@@ -254,32 +254,32 @@ xfwm_device_translate_event (XfwmDevices *devices, XEvent *xevent, XfwmEvent *ev
                 {
                     case XI_KeyPress:
                     case XI_KeyRelease:
-                        return xfwm_device_translate_event_key_xi2 (xevent, (XIDeviceEvent *)xievent, event);
+                        return eswm_device_translate_event_key_xi2 (xevent, (XIDeviceEvent *)xievent, event);
                     case XI_ButtonPress:
                     case XI_ButtonRelease:
-                        return xfwm_device_translate_event_button_xi2 (xevent, (XIDeviceEvent *)xievent, event);
+                        return eswm_device_translate_event_button_xi2 (xevent, (XIDeviceEvent *)xievent, event);
                     case XI_Motion:
-                        return xfwm_device_translate_event_motion_xi2 (xevent, (XIDeviceEvent *)xievent, event);
+                        return eswm_device_translate_event_motion_xi2 (xevent, (XIDeviceEvent *)xievent, event);
                     case XI_Enter:
                     case XI_Leave:
-                        return xfwm_device_translate_event_crossing_xi2 (xevent, (XIEnterEvent *)xievent, event);
+                        return eswm_device_translate_event_crossing_xi2 (xevent, (XIEnterEvent *)xievent, event);
                 }
             }
             break;
 #endif
     }
 
-    return xfwm_device_translate_event_common (xevent, event);
+    return eswm_device_translate_event_common (xevent, event);
 }
 
 void
-xfwm_device_free_event (XfwmEvent *event)
+eswm_device_free_event (EswmEvent *event)
 {
     g_free (event);
 }
 
 void
-xfwm_device_button_update_window (XfwmEventButton *event, Window window)
+eswm_device_button_update_window (EswmEventButton *event, Window window)
 {
 	event->meta.window = window;
 #ifdef HAVE_XI2
@@ -296,7 +296,7 @@ xfwm_device_button_update_window (XfwmEventButton *event, Window window)
 
 #ifdef HAVE_XI2
 static void
-xfwm_device_fill_xi2_event_mask (XIEventMask *xievent_mask, gulong core_mask)
+eswm_device_fill_xi2_event_mask (XIEventMask *xievent_mask, gulong core_mask)
 {
     gint len = XIMaskLen (XI_LASTEVENT);
     guchar *mask = g_new0 (guchar, len);
@@ -320,13 +320,13 @@ xfwm_device_fill_xi2_event_mask (XIEventMask *xievent_mask, gulong core_mask)
 
 #ifdef HAVE_XI2
 void
-xfwm_device_configure_xi2_event_mask (XfwmDevices *devices, Display *dpy,
+eswm_device_configure_xi2_event_mask (EswmDevices *devices, Display *dpy,
                                       Window window, gulong core_mask)
 {
     if (devices->xi2_available)
     {
         XIEventMask xievent_mask;
-        xfwm_device_fill_xi2_event_mask (&xievent_mask, core_mask);
+        eswm_device_fill_xi2_event_mask (&xievent_mask, core_mask);
         XISelectEvents (dpy, window, &xievent_mask, 1);
         g_free (xievent_mask.mask);
     }
@@ -341,7 +341,7 @@ xfwm_device_configure_xi2_event_mask (XfwmDevices *devices, Display *dpy,
 #endif
 
 gboolean
-xfwm_device_grab (XfwmDevices *devices, XfwmDevice *device, Display *display,
+eswm_device_grab (EswmDevices *devices, EswmDevice *device, Display *display,
                   Window grab_window, gboolean owner_events, guint event_mask,
                   gint grab_mode, Window confine_to, Cursor cursor, Time time)
 {
@@ -354,7 +354,7 @@ xfwm_device_grab (XfwmDevices *devices, XfwmDevice *device, Display *display,
 #ifdef HAVE_XI2
     if (device->xi2_device != None)
     {
-        xfwm_device_fill_xi2_event_mask (&xievent_mask, event_mask);
+        eswm_device_fill_xi2_event_mask (&xievent_mask, event_mask);
         status = XIGrabDevice (display, device->xi2_device, grab_window, time, cursor,
                                grab_mode, grab_mode, owner_events, &xievent_mask);
         g_free (xievent_mask.mask);
@@ -378,7 +378,7 @@ xfwm_device_grab (XfwmDevices *devices, XfwmDevice *device, Display *display,
 }
 
 void
-xfwm_device_ungrab (XfwmDevices *devices, XfwmDevice *device, Display *display, Time time)
+eswm_device_ungrab (EswmDevices *devices, EswmDevice *device, Display *display, Time time)
 {
 #ifdef HAVE_XI2
     if (device->xi2_device != None)
@@ -398,7 +398,7 @@ xfwm_device_ungrab (XfwmDevices *devices, XfwmDevice *device, Display *display, 
 }
 
 gboolean
-xfwm_device_grab_button (XfwmDevices *devices, Display *display,
+eswm_device_grab_button (EswmDevices *devices, Display *display,
                          guint button, guint modifiers, Window grab_window,
                          gboolean owner_events, guint event_mask,
                          gint grab_mode, gint paired_device_mode,
@@ -428,7 +428,7 @@ xfwm_device_grab_button (XfwmDevices *devices, Display *display,
         xi2_modifiers.modifiers = xi2_modifier_mask (modifiers);
         xi2_modifiers.status = 0;
 
-        xfwm_device_fill_xi2_event_mask (&xievent_mask, event_mask);
+        eswm_device_fill_xi2_event_mask (&xievent_mask, event_mask);
         myDisplayErrorTrapPush (display_info);
         status = XIGrabButton (display, devices->pointer.xi2_device, button, grab_window,
                                cursor, grab_mode, paired_device_mode, owner_events,
@@ -445,7 +445,7 @@ xfwm_device_grab_button (XfwmDevices *devices, Display *display,
 }
 
 void
-xfwm_device_ungrab_button (XfwmDevices *devices, Display *display,
+eswm_device_ungrab_button (EswmDevices *devices, Display *display,
                            guint button, guint modifiers, Window grab_window)
 {
     DisplayInfo *display_info;
@@ -473,7 +473,7 @@ xfwm_device_ungrab_button (XfwmDevices *devices, Display *display,
 }
 
 gboolean
-xfwm_device_grab_keycode (XfwmDevices *devices, Display *display,
+eswm_device_grab_keycode (EswmDevices *devices, Display *display,
                           gint keycode, guint modifiers, Window grab_window,
                           gboolean owner_events, guint event_mask,
                           gint grab_mode, gint paired_device_mode)
@@ -501,7 +501,7 @@ xfwm_device_grab_keycode (XfwmDevices *devices, Display *display,
         xi2_modifiers.modifiers = xi2_modifier_mask (modifiers);
         xi2_modifiers.status = 0;
 
-        xfwm_device_fill_xi2_event_mask (&xievent_mask, event_mask);
+        eswm_device_fill_xi2_event_mask (&xievent_mask, event_mask);
         myDisplayErrorTrapPush (display_info);
         status = XIGrabKeycode (display, devices->keyboard.xi2_device, keycode, grab_window,
                                 grab_mode, paired_device_mode, owner_events,
@@ -518,7 +518,7 @@ xfwm_device_grab_keycode (XfwmDevices *devices, Display *display,
 }
 
 void
-xfwm_device_ungrab_keycode (XfwmDevices *devices, Display *display,
+eswm_device_ungrab_keycode (EswmDevices *devices, Display *display,
                             gint keycode, guint modifiers, Window grab_window)
 {
     DisplayInfo *display_info;
@@ -548,13 +548,13 @@ xfwm_device_ungrab_keycode (XfwmDevices *devices, Display *display,
 #ifdef HAVE_XI2
 typedef struct
 {
-    XfwmDevices *devices;
-    XfwmEvent *event;
+    EswmDevices *devices;
+    EswmEvent *event;
     XIEventMask xievent_mask;
 } XI2CheckMaskContext;
 
 static gboolean
-xfwm_device_check_mask_event_xi2_predicate (Display *display, XEvent *xevent, XPointer user_data)
+eswm_device_check_mask_event_xi2_predicate (Display *display, XEvent *xevent, XPointer user_data)
 {
     XI2CheckMaskContext *context = (void *)user_data;
 
@@ -572,8 +572,8 @@ xfwm_device_check_mask_event_xi2_predicate (Display *display, XEvent *xevent, XP
 #endif
 
 gboolean
-xfwm_device_check_mask_event (XfwmDevices *devices, Display *display,
-                              guint event_mask, XfwmEvent *event)
+eswm_device_check_mask_event (EswmDevices *devices, Display *display,
+                              guint event_mask, EswmEvent *event)
 {
     gboolean result;
 #ifdef HAVE_XI2
@@ -585,9 +585,9 @@ xfwm_device_check_mask_event (XfwmDevices *devices, Display *display,
     {
         context.devices = devices;
         context.event = event;
-        xfwm_device_fill_xi2_event_mask (&context.xievent_mask, event_mask);
+        eswm_device_fill_xi2_event_mask (&context.xievent_mask, event_mask);
         result = XCheckIfEvent (display, event->meta.xevent,
-                                xfwm_device_check_mask_event_xi2_predicate, (XPointer)&context);
+                                eswm_device_check_mask_event_xi2_predicate, (XPointer)&context);
         g_free (context.xievent_mask.mask);
 
         if (result)
@@ -604,16 +604,16 @@ xfwm_device_check_mask_event (XfwmDevices *devices, Display *display,
 
     if (result)
     {
-        xfwm_device_translate_event (devices, event->meta.xevent, event);
+        eswm_device_translate_event (devices, event->meta.xevent, event);
     }
 
     return result;
 }
 
-XfwmDevices *
-xfwm_devices_new (GdkDisplay *display)
+EswmDevices *
+eswm_devices_new (GdkDisplay *display)
 {
-    XfwmDevices *devices;
+    EswmDevices *devices;
 #ifdef HAVE_XI2
     GdkSeat *seat;
     GdkDevice *pointer_device;
@@ -621,7 +621,7 @@ xfwm_devices_new (GdkDisplay *display)
     gint firstevent, firsterror;
 #endif
 
-    devices = g_new0 (XfwmDevices, 1);
+    devices = g_new0 (EswmDevices, 1);
     devices->xi2_available = FALSE;
     devices->xi2_opcode = 0;
 

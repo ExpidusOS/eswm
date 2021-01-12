@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -182,7 +182,7 @@ clientIsTopMost (Client *c)
         while (l2)
         {
             c2 = (Client *) l2->data;
-            if (FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE) && (c2->win_layer == c->win_layer))
+            if (FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE) && (c2->win_layer == c->win_layer))
             {
                 return FALSE;
             }
@@ -394,7 +394,7 @@ clientRaise (Client * c, Window wsibling)
 
     TRACE ("client \"%s\" (0x%lx) above (0x%lx)", c->name, c->window, wsibling);
 
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MANAGED))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MANAGED))
     {
         return;
     }
@@ -471,7 +471,7 @@ clientLower (Client * c, Window wsibling)
 
     TRACE ("client \"%s\" (0x%lx) below (0x%lx)", c->name, c->window, wsibling);
 
-    if (!FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MANAGED))
+    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MANAGED))
     {
         return;
     }
@@ -614,7 +614,7 @@ clientAddToList (Client * c)
 
     clientSetNetClientList (screen_info, display_info->atoms[NET_CLIENT_LIST], screen_info->windows);
 
-    FLAG_SET (c->xfwm_flags, XFWM_FLAG_MANAGED);
+    FLAG_SET (c->eswm_flags, ESWM_FLAG_MANAGED);
 }
 
 void
@@ -626,7 +626,7 @@ clientRemoveFromList (Client * c)
     g_return_if_fail (c != NULL);
     TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
 
-    FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_MANAGED);
+    FLAG_UNSET (c->eswm_flags, ESWM_FLAG_MANAGED);
 
     screen_info = c->screen_info;
     display_info = screen_info->display_info;
@@ -654,7 +654,7 @@ clientRemoveFromList (Client * c)
     clientSetNetClientList (screen_info, display_info->atoms[NET_CLIENT_LIST], screen_info->windows);
     clientSetNetClientList (screen_info, display_info->atoms[NET_CLIENT_LIST_STACKING], screen_info->windows_stack);
 
-    FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_MANAGED);
+    FLAG_UNSET (c->eswm_flags, ESWM_FLAG_MANAGED);
 }
 
 GList *

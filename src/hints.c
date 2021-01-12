@@ -18,7 +18,7 @@
 
         oroborus - (c) 2001 Ken Lynch
         Metacity - (c) 2001 Havoc Pennington
-        xfwm4    - (c) 2002-2020 Olivier Fourdan
+        eswm1    - (c) 2002-2020 Olivier Fourdan
 
  */
 
@@ -1312,8 +1312,8 @@ updateXserverTime (DisplayInfo *display_info)
     g_return_if_fail (display_info);
 
     XChangeProperty (display_info->dpy, display_info->timestamp_win,
-                     display_info->atoms[XFWM4_TIMESTAMP_PROP],
-                     display_info->atoms[XFWM4_TIMESTAMP_PROP],
+                     display_info->atoms[ESWM4_TIMESTAMP_PROP],
+                     display_info->atoms[ESWM4_TIMESTAMP_PROP],
                      8, PropModeReplace, (unsigned char *) &c, 1);
 }
 
@@ -1322,7 +1322,7 @@ getXServerTime (DisplayInfo *display_info)
 {
     ScreenInfo *screen_info;
     XEvent xevent;
-    XfwmEvent *event;
+    EswmEvent *event;
     guint32 timestamp;
 
     g_return_val_if_fail (display_info, CurrentTime);
@@ -1335,9 +1335,9 @@ getXServerTime (DisplayInfo *display_info)
         TRACE ("using X server roundtrip");
         updateXserverTime (display_info);
         XWindowEvent (display_info->dpy, display_info->timestamp_win, PropertyChangeMask, &xevent);
-        event = xfwm_device_translate_event (display_info->devices, &xevent, NULL);
+        event = eswm_device_translate_event (display_info->devices, &xevent, NULL);
         timestamp = myDisplayUpdateCurrentTime (display_info, event);
-        xfwm_device_free_event (event);
+        eswm_device_free_event (event);
     }
 
     TRACE ("timestamp=%u", (guint32) timestamp);

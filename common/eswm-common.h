@@ -23,28 +23,28 @@
 
 #include <gtk/gtk.h>
 
-void              xfwm_widget_reparent                  (GtkWidget    *widget,
+void              eswm_widget_reparent                  (GtkWidget    *widget,
                                                          GtkWidget    *new_parent);
 
-void              xfwm_get_screen_dimensions            (gint         *width,
+void              eswm_get_screen_dimensions            (gint         *width,
                                                          gint         *height);
 
-void              xfwm_get_monitor_geometry             (GdkScreen    *screen,
+void              eswm_get_monitor_geometry             (GdkScreen    *screen,
                                                          gint          monitor_num,
                                                          GdkRectangle *geometry,
                                                          gboolean      scaled);
 
-gboolean          xfwm_get_primary_monitor_geometry     (GdkScreen    *screen,
+gboolean          eswm_get_primary_monitor_geometry     (GdkScreen    *screen,
                                                          GdkRectangle *geometry,
                                                          gboolean      scaled);
 
-gint              xfwm_get_primary_refresh_rate         (GdkScreen    *screen);
+gint              eswm_get_primary_refresh_rate         (GdkScreen    *screen);
 
-gboolean          xfwm_monitor_is_primary               (GdkScreen *screen,
+gboolean          eswm_monitor_is_primary               (GdkScreen *screen,
                                                          gint      monitor_num);
 
-gint              xfwm_get_n_monitors                   (GdkScreen    *screen);
+gint              eswm_get_n_monitors                   (GdkScreen    *screen);
 
-gchar            *xfwm_make_display_name                (GdkScreen    *screen);
+gchar            *eswm_make_display_name                (GdkScreen    *screen);
 
 #endif /* !__COMMON_H__ */

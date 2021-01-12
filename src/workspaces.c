@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -35,7 +35,7 @@
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 
-#include <common/xfwm-common.h>
+#include <common/eswm-common.h>
 
 #include "display.h"
 #include "screen.h"
@@ -314,7 +314,7 @@ workspaceSwitch (ScreenInfo *screen_info, gint new_ws, Client * c2, gboolean upd
         }
         else if (new_ws == (gint) c->win_workspace)
         {
-            if (!FLAG_TEST (c->flags, CLIENT_FLAG_ICONIFIED) && !FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
+            if (!FLAG_TEST (c->flags, CLIENT_FLAG_ICONIFIED) && !FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE))
             {
                 if (!clientIsTransientOrModal (c) || !clientTransientOrModalHasAncestor (c, new_ws))
                 {
@@ -333,10 +333,10 @@ workspaceSwitch (ScreenInfo *screen_info, gint new_ws, Client * c2, gboolean upd
         {
             if (c == previous)
             {
-                FLAG_SET (previous->xfwm_flags, XFWM_FLAG_FOCUS);
+                FLAG_SET (previous->eswm_flags, ESWM_FLAG_FOCUS);
                 clientSetFocus (screen_info, NULL, timestamp, FOCUS_IGNORE_MODAL);
             }
-            if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE) && !FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
+            if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_VISIBLE) && !FLAG_TEST (c->flags, CLIENT_FLAG_STICKY))
             {
                 if (!clientIsTransientOrModal (c) || !clientTransientOrModalHasAncestor (c, new_ws))
                 {
@@ -357,15 +357,15 @@ workspaceSwitch (ScreenInfo *screen_info, gint new_ws, Client * c2, gboolean upd
             {
                 new_focus = c;
             }
-            FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_FOCUS);
+            FLAG_UNSET (c->eswm_flags, ESWM_FLAG_FOCUS);
         }
         else if (new_ws == (gint) c->win_workspace)
         {
-            if ((!new_focus) && FLAG_TEST (c->xfwm_flags, XFWM_FLAG_FOCUS))
+            if ((!new_focus) && FLAG_TEST (c->eswm_flags, ESWM_FLAG_FOCUS))
             {
                 new_focus = c;
             }
-            FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_FOCUS);
+            FLAG_UNSET (c->eswm_flags, ESWM_FLAG_FOCUS);
         }
     }
 
@@ -543,7 +543,7 @@ workspaceUpdateArea (ScreenInfo *screen_info)
     prev_right = screen_info->margins[STRUTS_RIGHT];
     prev_bottom = screen_info->margins[STRUTS_BOTTOM];
 
-    if (!xfwm_get_primary_monitor_geometry (screen_info->gscr, &workarea, TRUE))
+    if (!eswm_get_primary_monitor_geometry (screen_info->gscr, &workarea, TRUE))
     {
         TRACE ("No monitor attached");
         return;

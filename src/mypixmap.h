@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -43,9 +43,9 @@ typedef struct
     gchar *name;
     const gchar *value;
 }
-xfwmColorSymbol;
+eswmColorSymbol;
 
-struct _xfwmPixmap
+struct _eswmPixmap
 {
     ScreenInfo *screen_info;
     Pixmap pixmap, mask;
@@ -56,29 +56,29 @@ struct _xfwmPixmap
     gint width, height;
 };
 
-gboolean                 xfwmPixmapRenderGdkPixbuf              (xfwmPixmap *,
+gboolean                 eswmPixmapRenderGdkPixbuf              (eswmPixmap *,
                                                                  GdkPixbuf *);
-gboolean                 xfwmPixmapLoad                         (ScreenInfo *,
-                                                                 xfwmPixmap *,
+gboolean                 eswmPixmapLoad                         (ScreenInfo *,
+                                                                 eswmPixmap *,
                                                                  const gchar *,
                                                                  const gchar *,
-                                                                 xfwmColorSymbol *);
-void                     xfwmPixmapCreate                       (ScreenInfo *,
-                                                                 xfwmPixmap *,
+                                                                 eswmColorSymbol *);
+void                     eswmPixmapCreate                       (ScreenInfo *,
+                                                                 eswmPixmap *,
                                                                  gint,
                                                                  gint);
-void                     xfwmPixmapInit                         (ScreenInfo *,
-                                                                 xfwmPixmap *);
-void                     xfwmPixmapFree                         (xfwmPixmap *);
-gboolean                 xfwmPixmapNone                         (xfwmPixmap *);
-void                     xfwmPixmapFill                         (xfwmPixmap *,
-                                                                 xfwmPixmap *,
+void                     eswmPixmapInit                         (ScreenInfo *,
+                                                                 eswmPixmap *);
+void                     eswmPixmapFree                         (eswmPixmap *);
+gboolean                 eswmPixmapNone                         (eswmPixmap *);
+void                     eswmPixmapFill                         (eswmPixmap *,
+                                                                 eswmPixmap *,
                                                                  gint,
                                                                  gint,
                                                                  gint,
                                                                  gint);
-void                     xfwmPixmapDuplicate                    (xfwmPixmap *,
-                                                                 xfwmPixmap *);
-cairo_surface_t         *xfwmPixmapCreateSurface                (xfwmPixmap *,
+void                     eswmPixmapDuplicate                    (eswmPixmap *,
+                                                                 eswmPixmap *);
+cairo_surface_t         *eswmPixmapCreateSurface                (eswmPixmap *,
                                                                  gboolean);
 #endif /* INC_MYPIXMAP_H */

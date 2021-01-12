@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2015 Olivier Fourdan
+        eswm1    - (c) 2002-2015 Olivier Fourdan
 
  */
 
@@ -172,11 +172,11 @@ struct _Settings
     gboolean required;
 };
 
-struct _XfwmParams
+struct _EswmParams
 {
     MyKey keys[KEY_COUNT];
     gchar button_layout[BUTTON_STRING_COUNT + 1];
-    int xfwm_margins[4];
+    int eswm_margins[4];
     int activate_action;
     int button_offset;
     int button_spacing;

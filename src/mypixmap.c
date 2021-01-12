@@ -28,7 +28,7 @@
         XPM color substitution used by the themes to apply gtk+ colors.
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
 
  */
 
@@ -323,9 +323,9 @@ out:
 }
 
 static const gchar *
-search_color_symbol (gchar *symbol, xfwmColorSymbol *color_sym)
+search_color_symbol (gchar *symbol, eswmColorSymbol *color_sym)
 {
-    xfwmColorSymbol *i;
+    eswmColorSymbol *i;
 
     i = color_sym;
     while (i && i->name)
@@ -349,7 +349,7 @@ safe_strncpy (char *dst, const char *src, size_t size)
 }
 
 static gchar *
-xpm_extract_color (const gchar *buffer, xfwmColorSymbol *color_sym)
+xpm_extract_color (const gchar *buffer, eswmColorSymbol *color_sym)
 {
     const gchar *p;
     gchar word[129], color[129], current_color[129];
@@ -526,7 +526,7 @@ file_buffer (enum buf_op op, gpointer handle)
 
 /* This function does all the work. */
 static GdkPixbuf *
-pixbuf_create_from_xpm (gpointer handle, xfwmColorSymbol *color_sym)
+pixbuf_create_from_xpm (gpointer handle, eswmColorSymbol *color_sym)
 {
     gchar pixel_str[32];
     const gchar *buffer;
@@ -687,7 +687,7 @@ pixbuf_create_from_xpm (gpointer handle, xfwmColorSymbol *color_sym)
 
 
 static GdkPixbuf *
-xpm_image_load (const char *filename, xfwmColorSymbol *color_sym)
+xpm_image_load (const char *filename, eswmColorSymbol *color_sym)
 {
     guchar buffer[1024];
     GdkPixbuf *pixbuf;
@@ -722,7 +722,7 @@ xpm_image_load (const char *filename, xfwmColorSymbol *color_sym)
 
 #ifdef HAVE_RENDER
 static void
-xfwmPixmapRefreshPict (xfwmPixmap * pm)
+eswmPixmapRefreshPict (eswmPixmap * pm)
 {
     ScreenInfo * screen_info;
     DisplayInfo *display_info;
@@ -756,7 +756,7 @@ xfwmPixmapRefreshPict (xfwmPixmap * pm)
 #endif
 
 static GdkPixbuf *
-xfwmPixmapCompose (GdkPixbuf *pixbuf, const gchar * dir, const gchar * file)
+eswmPixmapCompose (GdkPixbuf *pixbuf, const gchar * dir, const gchar * file)
 {
     GdkPixbuf *alpha;
     gchar *filepng;
@@ -815,7 +815,7 @@ xfwmPixmapCompose (GdkPixbuf *pixbuf, const gchar * dir, const gchar * file)
 }
 
 static gboolean
-xfwmPixmapDrawFromGdkPixbuf (xfwmPixmap * pm, GdkPixbuf *pixbuf)
+eswmPixmapDrawFromGdkPixbuf (eswmPixmap * pm, GdkPixbuf *pixbuf)
 {
     cairo_surface_t *dest_pixmap;
     cairo_surface_t *dest_bitmap;
@@ -832,7 +832,7 @@ xfwmPixmapDrawFromGdkPixbuf (xfwmPixmap * pm, GdkPixbuf *pixbuf)
     g_return_val_if_fail (pm->mask != None, FALSE);
     TRACE ("pixmap %p", pm);
 
-    dest_pixmap = xfwmPixmapCreateSurface (pm, FALSE);
+    dest_pixmap = eswmPixmapCreateSurface (pm, FALSE);
 
     if (!dest_pixmap)
     {
@@ -840,7 +840,7 @@ xfwmPixmapDrawFromGdkPixbuf (xfwmPixmap * pm, GdkPixbuf *pixbuf)
         return FALSE;
     }
 
-    dest_bitmap = xfwmPixmapCreateSurface (pm, TRUE);
+    dest_bitmap = eswmPixmapCreateSurface (pm, TRUE);
 
     if (!dest_bitmap)
     {
@@ -916,7 +916,7 @@ xfwmPixmapDrawFromGdkPixbuf (xfwmPixmap * pm, GdkPixbuf *pixbuf)
 }
 
 gboolean
-xfwmPixmapRenderGdkPixbuf (xfwmPixmap * pm, GdkPixbuf *pixbuf)
+eswmPixmapRenderGdkPixbuf (eswmPixmap * pm, GdkPixbuf *pixbuf)
 {
     GdkPixbuf *src;
     cairo_surface_t *surface;
@@ -930,7 +930,7 @@ xfwmPixmapRenderGdkPixbuf (xfwmPixmap * pm, GdkPixbuf *pixbuf)
     g_return_val_if_fail (pixbuf != NULL, FALSE);
     TRACE ("pixmap %p", pm);
 
-    surface = xfwmPixmapCreateSurface (pm, FALSE);
+    surface = eswmPixmapCreateSurface (pm, FALSE);
 
     if (!surface)
     {
@@ -965,7 +965,7 @@ xfwmPixmapRenderGdkPixbuf (xfwmPixmap * pm, GdkPixbuf *pixbuf)
 }
 
 gboolean
-xfwmPixmapLoad (ScreenInfo * screen_info, xfwmPixmap * pm, const gchar * dir, const gchar * file, xfwmColorSymbol * cs)
+eswmPixmapLoad (ScreenInfo * screen_info, eswmPixmap * pm, const gchar * dir, const gchar * file, eswmColorSymbol * cs)
 {
     gchar *filename;
     gchar *filexpm;
@@ -976,7 +976,7 @@ xfwmPixmapLoad (ScreenInfo * screen_info, xfwmPixmap * pm, const gchar * dir, co
     g_return_val_if_fail (file != NULL, FALSE);
     TRACE ("pixmap %p, dir %s, file %s", pm, dir, file);
 
-    xfwmPixmapInit (screen_info, pm);
+    eswmPixmapInit (screen_info, pm);
     /*
      * Always try to load the XPM first, using our own routine
      * that supports XPM color symbol susbstitution (used to
@@ -989,7 +989,7 @@ xfwmPixmapLoad (ScreenInfo * screen_info, xfwmPixmap * pm, const gchar * dir, co
     g_free (filename);
 
     /* Compose with other image formats, if any available. */
-    pixbuf = xfwmPixmapCompose (pixbuf, dir, file);
+    pixbuf = eswmPixmapCompose (pixbuf, dir, file);
     if (!pixbuf)
     {
         /*
@@ -999,13 +999,13 @@ xfwmPixmapLoad (ScreenInfo * screen_info, xfwmPixmap * pm, const gchar * dir, co
          */
         return FALSE;
     }
-    xfwmPixmapCreate (screen_info, pm,
+    eswmPixmapCreate (screen_info, pm,
                       gdk_pixbuf_get_width (pixbuf),
                       gdk_pixbuf_get_height (pixbuf));
-    xfwmPixmapDrawFromGdkPixbuf (pm, pixbuf);
+    eswmPixmapDrawFromGdkPixbuf (pm, pixbuf);
 
 #ifdef HAVE_RENDER
-    xfwmPixmapRefreshPict (pm);
+    eswmPixmapRefreshPict (pm);
 #endif
     g_object_unref (pixbuf);
 
@@ -1013,7 +1013,7 @@ xfwmPixmapLoad (ScreenInfo * screen_info, xfwmPixmap * pm, const gchar * dir, co
 }
 
 void
-xfwmPixmapCreate (ScreenInfo * screen_info, xfwmPixmap * pm,
+eswmPixmapCreate (ScreenInfo * screen_info, eswmPixmap * pm,
                   gint width, gint height)
 {
     g_return_if_fail (screen_info != NULL);
@@ -1021,7 +1021,7 @@ xfwmPixmapCreate (ScreenInfo * screen_info, xfwmPixmap * pm,
 
     if ((width < 1) || (height < 1))
     {
-        xfwmPixmapInit (screen_info, pm);
+        eswmPixmapInit (screen_info, pm);
     }
     else
     {
@@ -1042,7 +1042,7 @@ xfwmPixmapCreate (ScreenInfo * screen_info, xfwmPixmap * pm,
 }
 
 void
-xfwmPixmapInit (ScreenInfo * screen_info, xfwmPixmap * pm)
+eswmPixmapInit (ScreenInfo * screen_info, eswmPixmap * pm)
 {
     TRACE ("pixmap %p", pm);
 
@@ -1059,7 +1059,7 @@ xfwmPixmapInit (ScreenInfo * screen_info, xfwmPixmap * pm)
 }
 
 void
-xfwmPixmapFree (xfwmPixmap * pm)
+eswmPixmapFree (eswmPixmap * pm)
 {
 
     TRACE ("pixmap %p", pm);
@@ -1086,7 +1086,7 @@ xfwmPixmapFree (xfwmPixmap * pm)
 }
 
 gboolean
-xfwmPixmapNone (xfwmPixmap * pm)
+eswmPixmapNone (eswmPixmap * pm)
 {
     TRACE ("pixmap %p", pm);
 
@@ -1095,7 +1095,7 @@ xfwmPixmapNone (xfwmPixmap * pm)
 }
 
 static void
-xfwmPixmapFillRectangle (Display *dpy, int screen, Pixmap pm, Drawable d,
+eswmPixmapFillRectangle (Display *dpy, int screen, Pixmap pm, Drawable d,
                          int x, int y, int width, int height)
 {
     XGCValues gv;
@@ -1127,7 +1127,7 @@ xfwmPixmapFillRectangle (Display *dpy, int screen, Pixmap pm, Drawable d,
 }
 
 void
-xfwmPixmapFill (xfwmPixmap * src, xfwmPixmap * dst,
+eswmPixmapFill (eswmPixmap * src, eswmPixmap * dst,
                 gint x, gint y, gint width, gint height)
 {
     TRACE ("src %p, dst %p, [%i×%i]", src, dst, width, height);
@@ -1137,29 +1137,29 @@ xfwmPixmapFill (xfwmPixmap * src, xfwmPixmap * dst,
         return;
     }
 
-    xfwmPixmapFillRectangle (myScreenGetXDisplay (src->screen_info),
+    eswmPixmapFillRectangle (myScreenGetXDisplay (src->screen_info),
                              src->screen_info->screen,
                              src->pixmap, dst->pixmap, x, y, width, height);
-    xfwmPixmapFillRectangle (myScreenGetXDisplay (src->screen_info),
+    eswmPixmapFillRectangle (myScreenGetXDisplay (src->screen_info),
                              src->screen_info->screen,
                              src->mask, dst->mask, x, y, width, height);
 #ifdef HAVE_RENDER
-    xfwmPixmapRefreshPict (dst);
+    eswmPixmapRefreshPict (dst);
 #endif
 }
 
 void
-xfwmPixmapDuplicate (xfwmPixmap * src, xfwmPixmap * dst)
+eswmPixmapDuplicate (eswmPixmap * src, eswmPixmap * dst)
 {
     g_return_if_fail (src != NULL);
     TRACE ("src %p, dst %p [%i×%i]", src, dst, src->width, src->height);
 
-    xfwmPixmapCreate (src->screen_info, dst, src->width, src->height);
-    xfwmPixmapFill (src, dst, 0, 0, src->width, src->height);
+    eswmPixmapCreate (src->screen_info, dst, src->width, src->height);
+    eswmPixmapFill (src, dst, 0, 0, src->width, src->height);
 }
 
 cairo_surface_t *
-xfwmPixmapCreateSurface (xfwmPixmap *pm, gboolean bitmap)
+eswmPixmapCreateSurface (eswmPixmap *pm, gboolean bitmap)
 {
     g_return_val_if_fail (pm != NULL, NULL);
 

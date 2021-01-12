@@ -1,4 +1,4 @@
-themedir = $(datadir)/themes/Default-hdpi/xfwm4
+themedir = $(datadir)/themes/Default-hdpi/eswm1
 
 PNG_FILES = 								\
 	bottom-active.png						\

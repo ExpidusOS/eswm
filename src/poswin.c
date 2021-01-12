@@ -16,7 +16,7 @@
         MA 02110-1301, USA.
 
 
-        xfwm4    - (c) 2002-2011 Olivier Fourdan
+        eswm1    - (c) 2002-2011 Olivier Fourdan
           based on a patch from Joshua Blanton <jblanton@irg.cs.ohiou.edu>
  */
 
@@ -57,7 +57,7 @@ poswin_widget_get_type (void)
             NULL,
         };
 
-        type = g_type_register_static (GTK_TYPE_WINDOW, "Xfwm4PoswinWidget", &info, 0);
+        type = g_type_register_static (GTK_TYPE_WINDOW, "Eswm4PoswinWidget", &info, 0);
     }
 
     return type;

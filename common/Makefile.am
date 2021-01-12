@@ -2,19 +2,19 @@ AM_CPPFLAGS = \
 	-I${top_srcdir}
 
 noinst_LTLIBRARIES = \
-	libxfwm-common.la
+	libeswm-common.la
 
-libxfwm_common_la_SOURCES = \
-	xfwm-common.c \
-	xfwm-common.h
+libeswm_common_la_SOURCES = \
+	eswm-common.c \
+	eswm-common.h
 
-libxfwm_common_la_CFLAGS = \
+libeswm_common_la_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(PLATFORM_CFLAGS)
 
-libxfwm_common_la_LIBADD = \
+libeswm_common_la_LIBADD = \
 	$(GTK_LIBS)
 
-libxfwm_common_la_LDFLAGS = \
+libeswm_common_la_LDFLAGS = \
 	-no-undefined \
 	$(PLATFORM_LDFLAGS)

@@ -17,7 +17,7 @@
 
 
         oroborus - (c) 2001 Ken Lynch
-        xfwm4    - (c) 2002-2020 Olivier Fourdan
+        eswm1    - (c) 2002-2020 Olivier Fourdan
 
  */
 
@@ -184,7 +184,7 @@ clientMovePointer (DisplayInfo *display_info, gint dx, gint dy, guint repeat)
 }
 
 static gboolean
-clientKeyPressIsModifier (XfwmEventKey *event)
+clientKeyPressIsModifier (EswmEventKey *event)
 {
     int keysym = XkbKeycodeToKeysym (event->meta.xevent->xany.display, event->keycode, 0, 0);
     return (gboolean) IsModifierKey(keysym);
@@ -347,7 +347,7 @@ clientDrawOutline (Client * c)
 
     XDrawRectangle (clientGetXDisplay (c), c->screen_info->xroot, c->screen_info->box_gc, frameExtentX (c), frameExtentY (c),
         frameExtentWidth (c) - 1, frameExtentHeight (c) - 1);
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_BORDER)
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_BORDER)
         &&!FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN | CLIENT_FLAG_SHADED))
     {
         XDrawRectangle (clientGetXDisplay (c), c->screen_info->xroot, c->screen_info->box_gc, c->x, c->y, c->width - 1,
@@ -387,11 +387,11 @@ clientFindClosestEdgeX (Client *c, int edge_pos)
 
     for (c2 = screen_info->clients, i = 0; i < screen_info->client_count; c2 = c2->next, i++)
     {
-        if (FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE)  && (c2 != c) &&
+        if (FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE)  && (c2 != c) &&
             (((screen_info->params->snap_to_windows) && (c2->win_layer == c->win_layer))
              || ((screen_info->params->snap_to_border)
                   && FLAG_TEST (c2->flags, CLIENT_FLAG_HAS_STRUT)
-                  && FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE))))
+                  && FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE))))
         {
 
             if (clientCheckOverlap (c->y - frameExtentTop (c) - 1, c->y + c->height + frameExtentBottom (c) + 1, c2->y - frameExtentTop (c) - 1, c2->y + c2->height + frameExtentBottom (c) + 1))
@@ -434,11 +434,11 @@ clientFindClosestEdgeY (Client *c, int edge_pos)
 
     for (c2 = screen_info->clients, i = 0; i < screen_info->client_count; c2 = c2->next, i++)
     {
-        if (FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE)  && (c2 != c) &&
+        if (FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE)  && (c2 != c) &&
             (((screen_info->params->snap_to_windows) && (c2->win_layer == c->win_layer))
              || ((screen_info->params->snap_to_border)
                   && FLAG_TEST (c2->flags, CLIENT_FLAG_HAS_STRUT)
-                  && FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE))))
+                  && FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE))))
         {
 
             if (clientCheckOverlap (c->x - frameExtentLeft (c) - 1, c->x + c->width + frameExtentRight (c) + 1, c2->x - frameExtentLeft (c) - 1, c2->x + c2->width + frameExtentRight (c) + 1))
@@ -547,11 +547,11 @@ clientSnapPosition (Client * c, int prev_x, int prev_y)
 
     for (c2 = screen_info->clients, i = 0; i < screen_info->client_count; c2 = c2->next, i++)
     {
-        if (FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE)  && (c2 != c) &&
+        if (FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE)  && (c2 != c) &&
             (((screen_info->params->snap_to_windows) && (c2->win_layer == c->win_layer))
              || ((screen_info->params->snap_to_border)
                   && FLAG_TEST (c2->flags, CLIENT_FLAG_HAS_STRUT)
-                  && FLAG_TEST (c2->xfwm_flags, XFWM_FLAG_VISIBLE))))
+                  && FLAG_TEST (c2->eswm_flags, ESWM_FLAG_VISIBLE))))
         {
             c_frame_x1 = frameExtentX (c2);
             c_frame_x2 = c_frame_x1 + frameExtentWidth (c2);
@@ -617,7 +617,7 @@ clientSnapPosition (Client * c, int prev_x, int prev_y)
 }
 
 static eventFilterStatus
-clientButtonReleaseFilter (XfwmEvent *event, gpointer data)
+clientButtonReleaseFilter (EswmEvent *event, gpointer data)
 {
     MoveResizeData *passdata = (MoveResizeData *) data;
     ScreenInfo *screen_info;
@@ -628,9 +628,9 @@ clientButtonReleaseFilter (XfwmEvent *event, gpointer data)
 
     TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
 
-    if ((event->meta.type == XFWM_EVENT_BUTTON && !event->button.pressed &&
+    if ((event->meta.type == ESWM_EVENT_BUTTON && !event->button.pressed &&
         (passdata->button == AnyButton || passdata->button == event->button.button)) ||
-        (event->meta.type == XFWM_EVENT_KEY && event->key.pressed &&
+        (event->meta.type == ESWM_EVENT_KEY && event->key.pressed &&
          event->key.keycode == screen_info->params->keys[KEY_CANCEL].keycode))
     {
         gtk_main_quit ();
@@ -782,7 +782,7 @@ clientMoveWarp (Client * c, ScreenInfo * screen_info, int * x_root, int * y_root
 }
 
 static gboolean
-clientMoveTile (Client *c, XfwmEventMotion *event)
+clientMoveTile (Client *c, EswmEventMotion *event)
 {
     ScreenInfo *screen_info;
     GdkRectangle rect;
@@ -866,7 +866,7 @@ clientMoveTile (Client *c, XfwmEventMotion *event)
 }
 
 static eventFilterStatus
-clientMoveEventFilter (XfwmEvent *event, gpointer data)
+clientMoveEventFilter (EswmEvent *event, gpointer data)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -889,18 +889,18 @@ clientMoveEventFilter (XfwmEvent *event, gpointer data)
 
     /*
      * Clients may choose to end the move operation,
-     * we use XFWM_FLAG_MOVING_RESIZING for that.
+     * we use ESWM_FLAG_MOVING_RESIZING for that.
      */
-    moving = FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING);
+    moving = FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING);
 
     /* Update the display time */
     myDisplayUpdateCurrentTime (display_info, event);
 
-    if (event->meta.type == XFWM_EVENT_KEY && event->key.pressed)
+    if (event->meta.type == ESWM_EVENT_KEY && event->key.pressed)
     {
         int key_move;
 
-        while (xfwm_device_check_mask_event (display_info->devices, display_info->dpy,
+        while (eswm_device_check_mask_event (display_info->devices, display_info->dpy,
                                              KeyPressMask, event))
         {
             /* Update the display time */
@@ -993,16 +993,16 @@ clientMoveEventFilter (XfwmEvent *event, gpointer data)
             moving = clientKeyPressIsModifier(&event->key);
         }
     }
-    else if (event->meta.type == XFWM_EVENT_BUTTON && !event->button.pressed)
+    else if (event->meta.type == ESWM_EVENT_BUTTON && !event->button.pressed)
     {
         moving = FALSE;
         passdata->released = (passdata->use_keys ||
                               passdata->button == AnyButton ||
                               passdata->button == event->button.button);
     }
-    else if (event->meta.type == XFWM_EVENT_MOTION)
+    else if (event->meta.type == ESWM_EVENT_MOTION)
     {
-        while (xfwm_device_check_mask_event (display_info->devices, display_info->dpy,
+        while (eswm_device_check_mask_event (display_info->devices, display_info->dpy,
                                              PointerMotionMask | ButtonMotionMask, event))
         {
             /* Update the display time */
@@ -1115,7 +1115,7 @@ clientMoveEventFilter (XfwmEvent *event, gpointer data)
             clientDrawOutline (c);
         }
     }
-    else if (event->meta.type == XFWM_EVENT_CROSSING && event->crossing.enter)
+    else if (event->meta.type == ESWM_EVENT_CROSSING && event->crossing.enter)
     {
         /* Ignore enter events */
     }
@@ -1137,7 +1137,7 @@ clientMoveEventFilter (XfwmEvent *event, gpointer data)
 }
 
 void
-clientMove (Client * c, XfwmEventButton *event)
+clientMove (Client * c, EswmEventButton *event)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -1149,8 +1149,8 @@ clientMove (Client * c, XfwmEventButton *event)
     g_return_if_fail (c != NULL);
     TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
 
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING) ||
-        !FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_MOVE))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING) ||
+        !FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_MOVE))
     {
         return;
     }
@@ -1230,7 +1230,7 @@ clientMove (Client * c, XfwmEventButton *event)
     /* Set window translucent while moving */
     if ((screen_info->params->move_opacity < 100) &&
         !(screen_info->params->box_move) &&
-        !FLAG_TEST (c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED))
+        !FLAG_TEST (c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED))
     {
         clientSetOpacity (c, c->opacity, OPACITY_MOVE, OPACITY_MOVE);
     }
@@ -1242,9 +1242,9 @@ clientMove (Client * c, XfwmEventButton *event)
     placeSidewalks(screen_info, FALSE);
 
     /* Clear any previously saved pos flag from screen resize */
-    FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_SAVED_POS);
+    FLAG_UNSET (c->eswm_flags, ESWM_FLAG_SAVED_POS);
 
-    FLAG_SET (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING);
+    FLAG_SET (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING);
     TRACE ("entering move loop");
     eventFilterPush (display_info->xfilter, clientMoveEventFilter, &passdata);
     gtk_main ();
@@ -1254,7 +1254,7 @@ clientMove (Client * c, XfwmEventButton *event)
     {
         goto move_cleanup;
     }
-    FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING);
+    FLAG_UNSET (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING);
 
     if (passdata.grab && screen_info->params->box_move)
     {
@@ -1312,7 +1312,7 @@ move_cleanup:
 }
 
 static gboolean
-clientChangeHandle (MoveResizeData *passdata, XfwmEvent *event, int handle)
+clientChangeHandle (MoveResizeData *passdata, EswmEvent *event, int handle)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -1370,7 +1370,7 @@ clientResizeConfigure (Client *c, int pw, int ph)
 }
 
 static eventFilterStatus
-clientResizeEventFilter (XfwmEvent *event, gpointer data)
+clientResizeEventFilter (EswmEvent *event, gpointer data)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -1395,9 +1395,9 @@ clientResizeEventFilter (XfwmEvent *event, gpointer data)
 
     /*
      * Clients may choose to end the resize operation,
-     * we use XFWM_FLAG_MOVING_RESIZING for that.
+     * we use ESWM_FLAG_MOVING_RESIZING for that.
      */
-    resizing = FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING);
+    resizing = FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING);
 
     cx = frameExtentX (c) + (frameExtentWidth (c) / 2);
     cy = frameExtentY (c) + (frameExtentHeight (c) / 2);
@@ -1428,11 +1428,11 @@ clientResizeEventFilter (XfwmEvent *event, gpointer data)
     /* Update the display time */
     myDisplayUpdateCurrentTime (display_info, event);
 
-    if (event->meta.type == XFWM_EVENT_KEY && event->key.pressed)
+    if (event->meta.type == ESWM_EVENT_KEY && event->key.pressed)
     {
         int key_width_inc, key_height_inc;
 
-        while (xfwm_device_check_mask_event (display_info->devices, display_info->dpy,
+        while (eswm_device_check_mask_event (display_info->devices, display_info->dpy,
                                              KeyPressMask, event))
         {
             /* Update the display time */
@@ -1535,9 +1535,9 @@ clientResizeEventFilter (XfwmEvent *event, gpointer data)
             resizing = clientKeyPressIsModifier(&event->key);
         }
     }
-    else if (event->meta.type == XFWM_EVENT_MOTION)
+    else if (event->meta.type == ESWM_EVENT_MOTION)
     {
-        while (xfwm_device_check_mask_event (display_info->devices, display_info->dpy,
+        while (eswm_device_check_mask_event (display_info->devices, display_info->dpy,
                                              ButtonMotionMask | PointerMotionMask, event))
         {
             /* Update the display time */
@@ -1642,7 +1642,7 @@ clientResizeEventFilter (XfwmEvent *event, gpointer data)
             clientResizeConfigure (c, prev_width, prev_height);
         }
     }
-    else if (event->meta.type == XFWM_EVENT_BUTTON && !event->button.pressed)
+    else if (event->meta.type == ESWM_EVENT_BUTTON && !event->button.pressed)
     {
         resizing = FALSE;
         passdata->released = (passdata->use_keys ||
@@ -1659,7 +1659,7 @@ clientResizeEventFilter (XfwmEvent *event, gpointer data)
             clientDrawOutline (c);
         }
     }
-    else if (event->meta.type == XFWM_EVENT_CROSSING && event->crossing.enter)
+    else if (event->meta.type == ESWM_EVENT_CROSSING && event->crossing.enter)
     {
         /* Ignore enter events */
     }
@@ -1680,7 +1680,7 @@ clientResizeEventFilter (XfwmEvent *event, gpointer data)
 }
 
 void
-clientResize (Client * c, int handle, XfwmEventButton *event)
+clientResize (Client * c, int handle, EswmEventButton *event)
 {
     ScreenInfo *screen_info;
     DisplayInfo *display_info;
@@ -1695,14 +1695,14 @@ clientResize (Client * c, int handle, XfwmEventButton *event)
     g_return_if_fail (c != NULL);
     TRACE ("client \"%s\" (0x%lx)", c->name, c->window);
 
-    if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING))
+    if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
     {
         return;
     }
 
-    if (!FLAG_TEST_ALL (c->xfwm_flags, XFWM_FLAG_HAS_RESIZE | XFWM_FLAG_IS_RESIZABLE))
+    if (!FLAG_TEST_ALL (c->eswm_flags, ESWM_FLAG_HAS_RESIZE | ESWM_FLAG_IS_RESIZABLE))
     {
-        if (FLAG_TEST (c->xfwm_flags, XFWM_FLAG_HAS_MOVE))
+        if (FLAG_TEST (c->eswm_flags, ESWM_FLAG_HAS_MOVE))
         {
             clientMove (c, event);
         }
@@ -1790,15 +1790,15 @@ clientResize (Client * c, int handle, XfwmEventButton *event)
     /* Set window translucent while resizing */
     if ((screen_info->params->resize_opacity < 100) &&
         !(screen_info->params->box_resize) &&
-        !FLAG_TEST (c->xfwm_flags, XFWM_FLAG_OPACITY_LOCKED))
+        !FLAG_TEST (c->eswm_flags, ESWM_FLAG_OPACITY_LOCKED))
     {
         clientSetOpacity (c, c->opacity, OPACITY_RESIZE, OPACITY_RESIZE);
     }
 
     /* Clear any previously saved pos flag from screen resize */
-    FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_SAVED_POS);
+    FLAG_UNSET (c->eswm_flags, ESWM_FLAG_SAVED_POS);
 
-    FLAG_SET (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING);
+    FLAG_SET (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING);
     TRACE ("entering resize loop");
     eventFilterPush (display_info->xfilter, clientResizeEventFilter, &passdata);
     gtk_main ();
@@ -1808,7 +1808,7 @@ clientResize (Client * c, int handle, XfwmEventButton *event)
     {
         goto resize_cleanup;
     }
-    FLAG_UNSET (c->xfwm_flags, XFWM_FLAG_MOVING_RESIZING);
+    FLAG_UNSET (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING);
 
     if (passdata.grab && screen_info->params->box_resize)
     {
