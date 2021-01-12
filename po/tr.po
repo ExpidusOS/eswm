@@ -404,7 +404,7 @@ msgstr "Kısayol"
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
 msgid "Failed to initialize esconf. Reason: %s"
-msgstr "Xfconf sıfırlanamadı. Nedeni: %s"
+msgstr "Esconf sıfırlanamadı. Nedeni: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

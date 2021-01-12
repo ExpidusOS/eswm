@@ -33,7 +33,7 @@
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 #include <esconf/esconf.h>
-#include <libxfce4kbd-private/xfce-shortcuts-provider.h>
+#include <libexpidus1kbd-private/xfce-shortcuts-provider.h>
 
 #include "screen.h"
 #include "hints.h"
@@ -73,7 +73,7 @@ static void              parseShortcut        (ScreenInfo *,
                                                GList *);
 static const gchar      *getShortcut          (const gchar *,
                                                GList *);
-static void              cb_eswm1_channel_property_changed (XfconfChannel *,
+static void              cb_eswm1_channel_property_changed (EsconfChannel *,
                                                            const gchar *,
                                                            const GValue *,
                                                            ScreenInfo *);
@@ -218,7 +218,7 @@ loadRcData (ScreenInfo *screen_info, Settings *rc)
 }
 
 static void
-loadXfconfData (ScreenInfo *screen_info, Settings *rc)
+loadEsconfData (ScreenInfo *screen_info, Settings *rc)
 {
     gint i;
     for (i = XPM_COLOR_SYMBOL_SIZE; rc[i].option; ++i)
@@ -753,7 +753,7 @@ loadSettings (ScreenInfo *screen_info)
     TRACE ("entering");
 
     loadRcData (screen_info, rc);
-    loadXfconfData (screen_info, rc);
+    loadEsconfData (screen_info, rc);
     loadTheme (screen_info, rc);
     update_grabs (screen_info);
 
@@ -1056,7 +1056,7 @@ initSettings (ScreenInfo *screen_info)
 
     if (!esconf_init (NULL))
     {
-        g_critical ("Xfconf could not be initialized");
+        g_critical ("Esconf could not be initialized");
         return FALSE;
     }
 
@@ -1113,7 +1113,7 @@ closeSettings (ScreenInfo *screen_info)
 }
 
 static void
-cb_eswm1_channel_property_changed(XfconfChannel *channel, const gchar *property_name, const GValue *value, ScreenInfo *screen_info)
+cb_eswm1_channel_property_changed(EsconfChannel *channel, const gchar *property_name, const GValue *value, ScreenInfo *screen_info)
 {
     if (g_str_has_prefix(property_name, "/general/") == TRUE)
     {

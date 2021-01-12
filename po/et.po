@@ -396,7 +396,7 @@ msgstr "Kiirklahv"
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
 msgid "Failed to initialize esconf. Reason: %s"
-msgstr "Xfconf'i initsialiseerimine ebaõnnestus. Põhjus: %s"
+msgstr "Esconf'i initsialiseerimine ebaõnnestus. Põhjus: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

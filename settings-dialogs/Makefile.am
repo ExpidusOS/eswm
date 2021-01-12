@@ -14,7 +14,7 @@ eswm1_workspace_settings_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
-	$(LIBXFCE4UI_CFLAGS) \
+	$(LIBEXPIDUS1UI_CFLAGS) \
 	$(LIBESCONF_CFLAGS) \
 	$(LIBWNCK_CFLAGS) \
 	-DDATADIR=\"$(datadir)\" \
@@ -28,7 +28,7 @@ eswm1_workspace_settings_LDADD = \
 	$(GLIB_LIBS) \
 	$(DBUS_GLIB_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
-	$(LIBXFCE4UI_LIBS) \
+	$(LIBEXPIDUS1UI_LIBS) \
 	$(LIBESCONF_LIBS) \
 	$(LIBWNCK_LIBS)
 
@@ -43,8 +43,8 @@ eswm1_settings_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
-	$(LIBXFCE4UI_CFLAGS) \
-	$(LIBXFCE4KBD_PRIVATE_CFLAGS) \
+	$(LIBEXPIDUS1UI_CFLAGS) \
+	$(LIBEXPIDUS1KBD_PRIVATE_CFLAGS) \
 	$(LIBESCONF_CFLAGS) \
 	-DDATADIR=\"$(datadir)\" \
 	-DSRCDIR=\"$(top_srcdir)\" \
@@ -55,8 +55,8 @@ eswm1_settings_LDADD = \
 	$(GTK_LIBS) \
 	$(GLIB_LIBS) \
 	$(DBUS_GLIB_LIBS) \
-	$(LIBXFCE4UI_LIBS) \
-	$(LIBXFCE4KBD_PRIVATE_LIBS) \
+	$(LIBEXPIDUS1UI_LIBS) \
+	$(LIBEXPIDUS1KBD_PRIVATE_LIBS) \
 	$(LIBESCONF_LIBS)
 
 eswm1_tweaks_settings_SOURCES = \
@@ -69,7 +69,7 @@ eswm1_tweaks_settings_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GLIB_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
-	$(LIBXFCE4UI_CFLAGS) \
+	$(LIBEXPIDUS1UI_CFLAGS) \
 	$(LIBESCONF_CFLAGS) \
 	-DDATADIR=\"$(datadir)\" \
 	-DSRCDIR=\"$(top_srcdir)\" \
@@ -80,7 +80,7 @@ eswm1_tweaks_settings_LDADD = \
 	$(GTK_LIBS) \
 	$(GLIB_LIBS) \
 	$(DBUS_GLIB_LIBS) \
-	$(LIBXFCE4UI_LIBS) \
+	$(LIBEXPIDUS1UI_LIBS) \
 	$(LIBESCONF_LIBS)
 
 AM_CPPFLAGS = \

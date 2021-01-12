@@ -548,14 +548,14 @@
   required for Xfce 4.8.
 - Properly implement session handling (bug #6330).
 - Make the settings dialog smaller so it fits on netbooks screens.
-- Depend on libxfce4ui 4.7.5 for crucial fix in the
+- Depend on libexpidus1ui 4.7.5 for crucial fix in the
   save-state-extended signal.
 - Translation updates (it, gl, pt, da, de, kk, hu, zh_CN).
 
 
 4.7.1
 =====
-- Fix break with latest API changes in libxfce4ui.
+- Fix break with latest API changes in libexpidus1ui.
 - Translation updates (zh_TW, ug, it, gl, ja, sv).
 
 
@@ -570,7 +570,7 @@
   same application.
 - Add new keyboard shortcut to switch between windows of different
   applications only.
-- Port to libxfce4ui + GtkBuilder and drop libxfcegui4 dependency.
+- Port to libexpidus1ui + GtkBuilder and drop libxfcegui4 dependency.
 - Display an app switcher window per physical monitor (bug #5229).
 - Fix opacity for newly mapped window not focused by default (bug #5706).
 - Add new option "cycle_apps_only" to switch between regular toplevels only

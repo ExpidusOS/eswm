@@ -40,11 +40,11 @@
 #include <gtk/gtkx.h>
 
 #include <libxfce4util/libxfce4util.h>
-#include <libxfce4ui/libxfce4ui.h>
+#include <libexpidus1ui/libexpidus1ui.h>
 #include <esconf/esconf.h>
-#include <libxfce4kbd-private/xfce-shortcut-dialog.h>
-#include <libxfce4kbd-private/xfce-shortcuts-provider.h>
-#include <libxfce4kbd-private/xfce-shortcuts-xfwm4.h>
+#include <libexpidus1kbd-private/xfce-shortcut-dialog.h>
+#include <libexpidus1kbd-private/xfce-shortcuts-provider.h>
+#include <libexpidus1kbd-private/xfce-shortcuts-xfwm4.h>
 
 #include <common/eswm-common.h>
 
@@ -148,19 +148,19 @@ static void       eswm_settings_double_click_action_changed          (GtkComboBo
 static void       eswm_settings_title_button_alignment_changed       (GtkComboBox           *combo,
                                                                       GtkWidget             *button);
 
-static void       eswm_settings_button_layout_property_changed       (XfconfChannel         *channel,
+static void       eswm_settings_button_layout_property_changed       (EsconfChannel         *channel,
                                                                       const gchar           *property,
                                                                       const GValue          *value,
                                                                       EswmSettings          *settings);
-static void       eswm_settings_title_alignment_property_changed     (XfconfChannel         *channel,
+static void       eswm_settings_title_alignment_property_changed     (EsconfChannel         *channel,
                                                                       const gchar           *property,
                                                                       const GValue          *value,
                                                                       EswmSettings          *settings);
-static void       eswm_settings_double_click_action_property_changed (XfconfChannel         *channel,
+static void       eswm_settings_double_click_action_property_changed (EsconfChannel         *channel,
                                                                       const gchar           *property,
                                                                       const GValue          *value,
                                                                       EswmSettings          *settings);
-static void       eswm_settings_click_to_focus_property_changed      (XfconfChannel         *channel,
+static void       eswm_settings_click_to_focus_property_changed      (EsconfChannel         *channel,
                                                                       const gchar           *property,
                                                                       const GValue          *value,
                                                                       EswmSettings          *settings);
@@ -193,7 +193,7 @@ struct _EswmSettingsPrivate
 {
   GtkBuilder            *builder;
   XfceShortcutsProvider *provider;
-  XfconfChannel         *wm_channel;
+  EsconfChannel         *wm_channel;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (EswmSettings, eswm_settings, G_TYPE_OBJECT)
@@ -1333,7 +1333,7 @@ eswm_settings_create_icon_from_widget (GtkWidget *widget)
 
 
 static void
-eswm_settings_button_layout_property_changed (XfconfChannel *channel,
+eswm_settings_button_layout_property_changed (EsconfChannel *channel,
                                               const gchar   *property,
                                               const GValue  *value,
                                               EswmSettings  *settings)
@@ -1402,7 +1402,7 @@ eswm_settings_button_layout_property_changed (XfconfChannel *channel,
 
 
 static void
-eswm_settings_title_alignment_property_changed (XfconfChannel *channel,
+eswm_settings_title_alignment_property_changed (EsconfChannel *channel,
                                                 const gchar   *property,
                                                 const GValue  *value,
                                                 EswmSettings  *settings)
@@ -1534,7 +1534,7 @@ eswm_settings_title_button_alignment_changed (GtkComboBox *combo,
 
 
 static void
-eswm_settings_double_click_action_property_changed (XfconfChannel *channel,
+eswm_settings_double_click_action_property_changed (EsconfChannel *channel,
                                                     const gchar   *property,
                                                     const GValue  *value,
                                                     EswmSettings  *settings)
@@ -1577,7 +1577,7 @@ eswm_settings_double_click_action_property_changed (XfconfChannel *channel,
 
 
 static void
-eswm_settings_click_to_focus_property_changed (XfconfChannel *channel,
+eswm_settings_click_to_focus_property_changed (EsconfChannel *channel,
                                                const gchar   *property,
                                                const GValue  *value,
                                                EswmSettings  *settings)

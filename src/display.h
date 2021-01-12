@@ -63,7 +63,7 @@
 
 #include <gtk/gtk.h>
 #include <glib.h>
-#include <libxfce4ui/libxfce4ui.h>
+#include <libexpidus1ui/libexpidus1ui.h>
 
 #include "event_filter.h"
 

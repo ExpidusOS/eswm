@@ -41,7 +41,7 @@
 #include <X11/extensions/Xrandr.h>
 #endif
 #include <libxfce4util/libxfce4util.h>
-#include <libxfce4ui/libxfce4ui.h>
+#include <libexpidus1ui/libexpidus1ui.h>
 
 #include <common/eswm-common.h>
 

@@ -40,7 +40,7 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
 
-#include <libxfce4ui/libxfce4ui.h>
+#include <libexpidus1ui/libexpidus1ui.h>
 #include <esconf/esconf.h>
 
 #include <common/eswm-common.h>
@@ -68,7 +68,7 @@ static const gchar *const modifier_list[] = {
 };
 
 static void
-cb_easy_click_combo_box_changed (GtkComboBox *combo, XfconfChannel *channel)
+cb_easy_click_combo_box_changed (GtkComboBox *combo, EsconfChannel *channel)
 {
     gint n;
 
@@ -96,7 +96,7 @@ cb_prevent_focus_stealing_check_button_toggled (GtkToggleButton *toggle, GtkWidg
 }
 #endif
 static void
-cb_activate_action_bring_radio_toggled (GtkToggleButton *toggle, XfconfChannel *channel)
+cb_activate_action_bring_radio_toggled (GtkToggleButton *toggle, EsconfChannel *channel)
 {
     if (gtk_toggle_button_get_active (toggle))
     {
@@ -105,7 +105,7 @@ cb_activate_action_bring_radio_toggled (GtkToggleButton *toggle, XfconfChannel *
 }
 
 static void
-cb_activate_action_switch_radio_toggled (GtkToggleButton *toggle, XfconfChannel *channel)
+cb_activate_action_switch_radio_toggled (GtkToggleButton *toggle, EsconfChannel *channel)
 {
     if (gtk_toggle_button_get_active (toggle))
     {
@@ -114,7 +114,7 @@ cb_activate_action_switch_radio_toggled (GtkToggleButton *toggle, XfconfChannel 
 }
 
 static void
-cb_activate_action_none_radio_toggled (GtkToggleButton *toggle, XfconfChannel *channel)
+cb_activate_action_none_radio_toggled (GtkToggleButton *toggle, EsconfChannel *channel)
 {
     if (gtk_toggle_button_get_active (toggle))
     {
@@ -123,7 +123,7 @@ cb_activate_action_none_radio_toggled (GtkToggleButton *toggle, XfconfChannel *c
 }
 
 static void
-cb_activate_placement_center_radio_toggled (GtkToggleButton *toggle, XfconfChannel *channel)
+cb_activate_placement_center_radio_toggled (GtkToggleButton *toggle, EsconfChannel *channel)
 {
     if (gtk_toggle_button_get_active (toggle))
     {
@@ -132,7 +132,7 @@ cb_activate_placement_center_radio_toggled (GtkToggleButton *toggle, XfconfChann
 }
 
 static void
-cb_activate_placement_mouse_radio_toggled (GtkToggleButton *toggle, XfconfChannel *channel)
+cb_activate_placement_mouse_radio_toggled (GtkToggleButton *toggle, EsconfChannel *channel)
 {
     if (gtk_toggle_button_get_active (toggle))
     {
@@ -161,7 +161,7 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
     GtkTreeIter iter;
     GtkListStore *list_store;
     GtkCellRenderer *renderer;
-    XfconfChannel *eswm1_channel = esconf_channel_new ("eswm1");
+    EsconfChannel *eswm1_channel = esconf_channel_new ("eswm1");
     gchar *easy_click = NULL;
     gchar *activate_action = NULL;
     gchar *default_placement = NULL;

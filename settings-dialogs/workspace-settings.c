@@ -36,7 +36,7 @@
 #include <libwnck/libwnck.h>
 
 #include <libxfce4util/libxfce4util.h>
-#include <libxfce4ui/libxfce4ui.h>
+#include <libexpidus1ui/libexpidus1ui.h>
 #include <esconf/esconf.h>
 
 #include <common/eswm-common.h>
@@ -64,7 +64,7 @@ workspace_names_update_esconf(gint workspace,
                               const gchar *new_name)
 {
     WnckScreen *screen = wnck_screen_get_default();
-    XfconfChannel *channel;
+    EsconfChannel *channel;
     gchar **names;
     gboolean do_update_esconf = TRUE;
 
@@ -211,7 +211,7 @@ esconf_workspace_names_update(GPtrArray *names,
 
 
 static void
-esconf_workspace_names_changed(XfconfChannel *channel,
+esconf_workspace_names_changed(EsconfChannel *channel,
                                const gchar *property,
                                const GValue *value,
                                gpointer user_data)
@@ -243,7 +243,7 @@ static void
 workspace_dialog_count_changed(GtkTreeView *treeview)
 {
     GPtrArray *names;
-    XfconfChannel *channel;
+    EsconfChannel *channel;
 
     channel = esconf_channel_get(WORKSPACES_CHANNEL);
 
@@ -258,7 +258,7 @@ workspace_dialog_count_changed(GtkTreeView *treeview)
 
 static void
 workspace_dialog_setup_names_treeview(GtkBuilder *builder,
-                                      XfconfChannel *channel)
+                                      EsconfChannel *channel)
 {
     GtkWidget *treeview;
     GtkListStore *ls;
@@ -311,7 +311,7 @@ workspace_dialog_setup_names_treeview(GtkBuilder *builder,
 
 static void
 workspace_dialog_configure_widgets (GtkBuilder *builder,
-                                    XfconfChannel *channel)
+                                    EsconfChannel *channel)
 {
     GtkWidget *vbox;
 
@@ -408,7 +408,7 @@ main(int argc, gchar **argv)
     GtkWidget *dialog;
     GtkWidget *plug;
     GtkWidget *plug_child;
-    XfconfChannel *channel;
+    EsconfChannel *channel;
     GError *cli_error = NULL;
 
     xfce_textdomain (GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
