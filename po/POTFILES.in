@@ -3,9 +3,9 @@
 helper-dialog/helper-dialog.c
 settings-dialogs/tweaks-settings.c
 settings-dialogs/workspace-settings.c
-settings-dialogs/xfce-wm-settings.desktop.in
-settings-dialogs/xfce-wmtweaks-settings.desktop.in
-settings-dialogs/xfce-workspaces-settings.desktop.in
+settings-dialogs/expidus-wm-settings.desktop.in
+settings-dialogs/expidus-wmtweaks-settings.desktop.in
+settings-dialogs/expidus-workspaces-settings.desktop.in
 settings-dialogs/eswm1-dialog.glade
 settings-dialogs/eswm1-settings.c
 settings-dialogs/eswm1-tweaks-dialog.glade

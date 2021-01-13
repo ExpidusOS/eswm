@@ -88,17 +88,17 @@ msgstr "Nombre del área de trabajo"
 msgid "Settings manager socket"
 msgstr "Socket del gestor de configuración"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "Gestor de ventanas"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 msgid "Configure window behavior and shortcuts"
 msgstr "Configure el comportamiento de las ventanas y los atajos"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:3
 msgid ""
 "windows;management;settings;preferences;themes;styles;decorations;title "
 "bar;font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard "
@@ -106,34 +106,34 @@ msgid ""
 "content;move;resize;moving;resizing;double click;"
 msgstr "ventanas;administración;configuraciones;preferencias;temas;estilos;decoraciones;barra de título;fuente;botones;menú;minimizar;maximizar;sombrear;enrollar;diseño;atajos de teclado;enfoque;ajuste;pantalla;espacios de trabajo;bordes;esquina;ocultar contenido;mover;cambiar el tamaño;mover;cambiar el tamaño;doble clic;"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "Ajustes del gestor de ventanas"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 msgid "Fine-tune window behaviour and effects"
 msgstr "Ajuste con precisión el comportamiento y los efectos de las ventanas"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:3
 msgid ""
 "windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;accessibility;key;dragging;move;moving;hide;frame;title"
 " bar;maximized;tile;screen;edge;hot corner;snapping;mouse wheel;roll "
 "up;workspaces;placement;compositor;compositing;enable;disable;shadows;decorations;opacity;resize;inactive;preview;compiz;transitions;"
 msgstr "ventanas;comportamiento;Ajustes;preferencias;ciclismo;ciclo;cambio;enfoque;aumentos;accesibilidad;tecla;arrastrar;mover; movimiento;ocultar;marco;barra de título;maximizado;mosaico;pantalla;borde;esquina caliente;chasquido;rueda del mouse;enrollar;espacios de trabajo;colocación;compositor;composición;habilitar;deshabilitar;sombras;decoraciones;opacidad;redimensionar;inactivo;vista previa;compiz;transiciones;"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "Áreas de trabajo"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr "Configure la distribución, los nombres y los márgenes"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:3
 msgid ""
 "workspaces;settings;preferences;virtual "
 "desktops;number;windows;screen;margins;"
@@ -404,7 +404,7 @@ msgstr "Atajo"
 #: ../settings-dialogs/eswm1-settings.c:900
 #, c-format
 msgid "Failed to initialize esconf. Reason: %s"
-msgstr "No se pudo inicializar el servicio de configuración de Xfce. Motivo: %s"
+msgstr "No se pudo inicializar el servicio de configuración de Expidus. Motivo: %s"
 
 #: ../settings-dialogs/eswm1-settings.c:911
 msgid "Could not create the settings dialog."

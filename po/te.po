@@ -1,4 +1,4 @@
-# Xfce Telugu Translation.
+# Expidus Telugu Translation.
 # Copyright (C) 2011 Telugu Linux Development Team.
 # This file is distributed under the same license as the sfwm4 package.
 # Praveen Illa <mail2ipn@gmail.com>, 2011.
@@ -77,32 +77,32 @@ msgstr "కార్యక్షేత్రము పేరు"
 msgid "Settings manager socket"
 msgstr "అమరికల నిర్వాహకము సాకెట్"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "విండో నిర్వాహకం"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 msgid "Configure window behavior and shortcuts"
 msgstr ""
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr ""
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 msgid "Fine-tune window behaviour and effects"
 msgstr ""
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "కార్యక్షేత్రాలు"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr ""

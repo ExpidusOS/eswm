@@ -1,6 +1,6 @@
 # translation of pa.po to Punjabi
 # Punjabi translations for eswm1 package.
-# Copyright (C) 2002-2006 The Xfce development team.
+# Copyright (C) 2002-2006 The Expidus development team.
 # This file is distributed under the same license as the eswm1 package.
 #
 # Amanpreet Singh Alam <aalam@redhat.com>, 2004.
@@ -84,34 +84,34 @@ msgstr "ਵਰਕਸਪੇਸ ਨਾਂ"
 msgid "Settings manager socket"
 msgstr ""
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "ਵਿੰਡੋ ਪ੍ਰਬੰਧਕ"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 #, fuzzy
 msgid "Configure window behavior and shortcuts"
 msgstr "ਵਿੰਡੋ ਐਕਸ਼ਨ ਰੱਦ ਕਰੋ"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "ਵਿੰਡੋ ਮੈਨੇਜਰ ਟਵੀਕ"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 #, fuzzy
 msgid "Fine-tune window behaviour and effects"
 msgstr "ਵਿੰਡੋ ਐਕਸ਼ਨ ਰੱਦ ਕਰੋ"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "ਵਰਕਸਪੇਸ"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr ""
@@ -191,7 +191,7 @@ msgstr "ਸ਼ੈਲੀ"
 #: ../settings-dialogs/eswm1-dialog.glade.h:19
 #, fuzzy
 msgid "Define shortcuts to perform _window manager actions:"
-msgstr "Xfce 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਸੈਟਿੰਗ"
+msgstr "Expidus 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਸੈਟਿੰਗ"
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:20
 msgid "_Reset to Defaults"
@@ -712,7 +712,7 @@ msgstr ""
 #: ../src/main.c:707
 #, fuzzy
 msgid "Replace the existing window manager"
-msgstr "Xfce 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਸੈਟਿੰਗ"
+msgstr "Expidus 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਸੈਟਿੰਗ"
 
 #: ../src/main.c:708
 msgid "Print version information and exit"
@@ -1356,20 +1356,20 @@ msgstr ""
 #~ msgid "Window Manager Settings"
 #~ msgstr "ਵਿੰਡੋ ਮੈਨੇਜਰ ਸੈਟਿੰਗ"
 
-#~ msgid "Xfce 4 Window Manager Settings"
-#~ msgstr "Xfce 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਸੈਟਿੰਗ"
+#~ msgid "Expidus 4 Window Manager Settings"
+#~ msgstr "Expidus 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਸੈਟਿੰਗ"
 
 #~ msgid "Advanced Configuration"
 #~ msgstr "ਤਕਨੀਕੀ ਕੰਨਫੀਗਰੇਸ਼ਨ"
 
-#~ msgid "Xfce 4 Window Manager Tweaks"
-#~ msgstr "Xfce 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਟਵੀਕ"
+#~ msgid "Expidus 4 Window Manager Tweaks"
+#~ msgstr "Expidus 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਟਵੀਕ"
 
 #~ msgid "Workspaces Settings"
 #~ msgstr "ਵਰਕਸਪੇਸ ਸੈਟਿੰਗ"
 
-#~ msgid "Xfce 4 Workspaces Settings"
-#~ msgstr "Xfce 4 ਵਰਕਸਪੇਸ ਸੈਟਿੰਗ"
+#~ msgid "Expidus 4 Workspaces Settings"
+#~ msgstr "Expidus 4 ਵਰਕਸਪੇਸ ਸੈਟਿੰਗ"
 
 #, fuzzy
 #~ msgid "Click and drag buttons to change the layout"
@@ -1587,7 +1587,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Advanced window manager settings"
-#~ msgstr "Xfce 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਸੈਟਿੰਗ"
+#~ msgstr "Expidus 4 ਵਿੰਡੋ ਮੈਨੇਜਰ ਸੈਟਿੰਗ"
 
 #, fuzzy
 #~ msgid ""

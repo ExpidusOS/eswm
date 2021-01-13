@@ -80,17 +80,17 @@ msgstr "Tööruumi nimi"
 msgid "Settings manager socket"
 msgstr "Seadistuste halduri sokkel"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "Aknahaldur"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 msgid "Configure window behavior and shortcuts"
 msgstr "Seadista akende käitumist ja kiirklahve"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:3
 msgid ""
 "windows;management;settings;preferences;themes;styles;decorations;title "
 "bar;font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard "
@@ -98,34 +98,34 @@ msgid ""
 "content;move;resize;moving;resizing;double click;"
 msgstr "windows;management;settings;preferences;themes;styles;decorations;title bar;font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard shortcuts;focus;snapping;screen;workspaces;edges;corner;hide content;move;resize;moving;resizing;double click;aknad;haldus;aknahaldus;seadistused;eelistused;teemad;stiilid;kujundused;tiitliriba;font;nupud;menüü;vähenda;suurenda;rulli kokku;klaviatuur;klaviatuuri paigutus;kiirklahvid;fookus;napsamine;ekraan;tööalad;ääred;nurgad;peida sisu;liiguta;tõsta;muuda suurust;liigutamine;topeltklõps;"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "Aknahalduri ülehäälestamine"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 msgid "Fine-tune window behaviour and effects"
 msgstr "Peenhäälesta akende käitumist ja efekte"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:3
 msgid ""
 "windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;accessibility;key;dragging;move;moving;hide;frame;title"
 " bar;maximized;tile;screen;edge;hot corner;snapping;mouse wheel;roll "
 "up;workspaces;placement;compositor;compositing;enable;disable;shadows;decorations;opacity;resize;inactive;preview;compiz;transitions;"
 msgstr "windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;accessibility;key;dragging;move;moving;hide;frame;title bar;maximized;tile;screen;edge;hot corner;snapping;mouse wheel;roll up;workspaces;placement;compositor;compositing;enable;disable;shadows;decorations;opacity;resize;inactive;preview;compiz;transitions;aknad;aken;käitumine;eelistused;lappama;lappamine;fookus;ligipääsetavus;tõstmine;liigutamine;ekraan;äär;napsamine;hiire rullik;ekraan;paan;tööala;tööalad;varjud;kujundused;läbipaistvus;läbipaistvatud;eelvaade;üleminek;"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "Tööruumid"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr "Seadista paigutust, nimesid ja veeriseid"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:3
 msgid ""
 "workspaces;settings;preferences;virtual "
 "desktops;number;windows;screen;margins;"

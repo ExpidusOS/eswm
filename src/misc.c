@@ -36,7 +36,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 
 #include "display.h"
 #include "screen.h"

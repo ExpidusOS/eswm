@@ -81,17 +81,17 @@ msgstr "Idazmahai Izena"
 msgid "Settings manager socket"
 msgstr "Ezarpena kudeatzaile socketa"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "Leiho kudeatzailea"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 msgid "Configure window behavior and shortcuts"
 msgstr "Leiho portaera eta lastre-teklak konfiguratu"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:3
 msgid ""
 "windows;management;settings;preferences;themes;styles;decorations;title "
 "bar;font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard "
@@ -99,34 +99,34 @@ msgid ""
 "content;move;resize;moving;resizing;double click;"
 msgstr "leihoen;kudeaketa;ezarpenak;hobespenak;itxurak;estiloak;apainketak;izenburu barra;letra;botoiak;menua;minimizatu;maximizatu;itzala;bildu;diseinua;teklatuaren laster-markak;fokua;snapping;pantaila;idazmahaiak;ertzak;izkina;edukia ezkutatu;mugitu;tamaina aldatu;mugitzen;tamaina mugitzen;klik bikoitza;"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "Leiho kudeatzaile ezarpenak"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 msgid "Fine-tune window behaviour and effects"
 msgstr "Leiho portaera eta efektuak doitu"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:3
 msgid ""
 "windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;accessibility;key;dragging;move;moving;hide;frame;title"
 " bar;maximized;tile;screen;edge;hot corner;snapping;mouse wheel;roll "
 "up;workspaces;placement;compositor;compositing;enable;disable;shadows;decorations;opacity;resize;inactive;preview;compiz;transitions;"
 msgstr "leihoen;portaera;ezarpenak;hobespenak;ziklatzen;ziklo;aldatzen;fokua;igo;irisgarritasuna;teklak;arrastatu;mugitu;mugitzen;ezkutatu;markoa;izenburu-barra;maximizatuta;lauza;pantaila;ertza;izkina beroa;snapping;sagu gurpila;bildu;lan eremuak;kokapena;konpositore;konposatzen;gaitu;ezgaitu;itzalak;apaingarriak;opakutasun;tamaina aldatu;ez aktibo;aurrebista;compiz;iragateak;"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "Idazmahaiak"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr "Konfiguratu diseinua, izenak eta ertzak"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:3
 msgid ""
 "workspaces;settings;preferences;virtual "
 "desktops;number;windows;screen;margins;"

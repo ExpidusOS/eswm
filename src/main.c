@@ -31,7 +31,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 #include <libexpidus1ui/libexpidus1ui.h>
 
 #include <sys/stat.h>
@@ -229,7 +229,7 @@ ensure_basedir_spec (void)
 
     /* test if new directory is there */
 
-    new = xfce_resource_save_location (XFCE_RESOURCE_CONFIG,
+    new = expidus_resource_save_location (EXPIDUS_RESOURCE_CONFIG,
                                        "xfce4" G_DIR_SEPARATOR_S "eswm1",
                                        FALSE);
 
@@ -240,7 +240,7 @@ ensure_basedir_spec (void)
     }
 
     error = NULL;
-    if (!xfce_mkdirhier(new, 0700, &error))
+    if (!expidus_mkdirhier(new, 0700, &error))
     {
         g_warning("Unable to create config dir %s: %s", new, error->message);
         g_error_free (error);
@@ -252,14 +252,14 @@ ensure_basedir_spec (void)
 
     /* copy eswm1rc */
 
-    old = xfce_get_userfile ("eswm1rc", NULL);
+    old = expidus_get_userfile ("eswm1rc", NULL);
 
     if (g_file_test (old, G_FILE_TEST_EXISTS))
     {
         FILE *r, *w;
 
         g_strlcpy (path, "expidus-shell1/eswm1/eswm1rc", PATH_MAX);
-        new = xfce_resource_save_location (XFCE_RESOURCE_CONFIG, path, FALSE);
+        new = expidus_resource_save_location (EXPIDUS_RESOURCE_CONFIG, path, FALSE);
 
         r = fopen (old, "r");
         w = fopen (new, "w");
@@ -291,8 +291,8 @@ ensure_basedir_spec (void)
 
     /* copy saved session data */
 
-    new = xfce_resource_save_location (XFCE_RESOURCE_CACHE, "sessions", FALSE);
-    if (!xfce_mkdirhier(new, 0700, &error))
+    new = expidus_resource_save_location (EXPIDUS_RESOURCE_CACHE, "sessions", FALSE);
+    if (!expidus_mkdirhier(new, 0700, &error))
     {
         g_warning("Unable to create session dir %s: %s", new, error->message);
         g_error_free (error);
@@ -300,7 +300,7 @@ ensure_basedir_spec (void)
         return;
     }
 
-    old = xfce_get_userfile ("sessions", NULL);
+    old = expidus_get_userfile ("sessions", NULL);
     gdir = g_dir_open (old, 0, NULL);
 
     if (gdir)
@@ -339,8 +339,8 @@ ensure_basedir_spec (void)
 static void
 print_version (void)
 {
-    g_print ("\tThis is %s version %s (revision %s) for Xfce %s\n",
-                    PACKAGE, VERSION, REVISION, xfce_version_string());
+    g_print ("\tThis is %s version %s (revision %s) for Expidus %s\n",
+                    PACKAGE, VERSION, REVISION, expidus_version_string());
     g_print ("\tReleased under the terms of the GNU General Public License.\n");
     g_print ("\tCompiled against GTK+-%d.%d.%d, ",
                     GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
@@ -707,7 +707,7 @@ main (int argc, char **argv)
     g_setenv("__GL_MaxFramesAllowed", "1", TRUE);
 #endif /* HAVE_EPOXY */
 
-    xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
+    expidus_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
     /* eswm1 is an X11 window manager, no point in trying to connect to
      * any other display server (like when running nested within a
@@ -723,7 +723,7 @@ main (int argc, char **argv)
     context = g_option_context_new (_("[ARGUMENTS...]"));
     g_option_context_add_main_entries (context, option_entries, GETTEXT_PACKAGE);
     g_option_context_add_group (context, gtk_get_option_group (FALSE));
-    g_option_context_add_group (context, xfce_sm_client_get_option_group (argc, argv));
+    g_option_context_add_group (context, expidus_sm_client_get_option_group (argc, argv));
     if (!g_option_context_parse (context, &argc, &argv, &error))
     {
           g_print ("%s: %s.\n", PACKAGE_NAME, error->message);

@@ -80,17 +80,17 @@ msgstr "ワークスペース名"
 msgid "Settings manager socket"
 msgstr "マネージャーソケットの設定"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "ウィンドウマネージャー"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 msgid "Configure window behavior and shortcuts"
 msgstr "ウィンドウの振る舞いとショートカットキーを設定します"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:3
 msgid ""
 "windows;management;settings;preferences;themes;styles;decorations;title "
 "bar;font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard "
@@ -98,34 +98,34 @@ msgid ""
 "content;move;resize;moving;resizing;double click;"
 msgstr "ウィンドウ;管理;設定;環境設定;テーマ;スタイル;装飾;タイトルバー;フォント;ボタン;メニュー;最小化;最大化;シェード;ロールアップ;レイアウト;キーボードショートカット;フォーカス;スナップ;画面;ワークスペース;エッジ;コーナー;非表示 コンテンツ;移動;サイズ変更;移動;サイズ変更;ダブルクリック;"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "ウィンドウマネージャー (詳細)"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 msgid "Fine-tune window behaviour and effects"
 msgstr "ウィンドウの振る舞いと効果を微調整します"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:3
 msgid ""
 "windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;accessibility;key;dragging;move;moving;hide;frame;title"
 " bar;maximized;tile;screen;edge;hot corner;snapping;mouse wheel;roll "
 "up;workspaces;placement;compositor;compositing;enable;disable;shadows;decorations;opacity;resize;inactive;preview;compiz;transitions;"
 msgstr "ウィンドウ;動作;設定;環境設定;サイクリング;サイクル;切り替え;フォーカス;レイズ;アクセシビリティ;キー;ドラッグ;移動;移動;非表示;フレーム;タイトルバー;最大化;タイル;画面;エッジ;ホットコーナー;スナップ;マウスホイール ;ロールアップ;ワークスペース;配置;コンポジター;合成;有効化;無効化;影;装飾;不透明度;サイズ変更;非アクティブ;プレビュー;圧縮;トランジション;"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "ワークスペース"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr "レイアウト、名前、および余白を設定します"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:3
 msgid ""
 "workspaces;settings;preferences;virtual "
 "desktops;number;windows;screen;margins;"

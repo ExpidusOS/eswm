@@ -80,17 +80,17 @@ msgstr "Nome do espazo de traballo"
 msgid "Settings manager socket"
 msgstr "Toma do xestor de configuración"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "Xestor de xanelas"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 msgid "Configure window behavior and shortcuts"
 msgstr "Configurar o comportamento e os atallos das xanelas"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:3
 msgid ""
 "windows;management;settings;preferences;themes;styles;decorations;title "
 "bar;font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard "
@@ -98,34 +98,34 @@ msgid ""
 "content;move;resize;moving;resizing;double click;"
 msgstr "xanelas;xestión;configuración;preferencias;temas;estilos;decoracións;barra de título; letra;fonte;botóns;menú;minimizar;maximizar;sombra;arrolar;disposición;atallos de teclado;enfoque;recorte;pantalla;espazos de traballo;bordos;esquina;agochar contido;mover;redimensionar;movemento;cambiar de tamaño;facer un clic dobre;"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "Axustes do xestor de xanelas"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 msgid "Fine-tune window behaviour and effects"
 msgstr "Afinar o comportamento e os efectos das xanelas"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:3
 msgid ""
 "windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;accessibility;key;dragging;move;moving;hide;frame;title"
 " bar;maximized;tile;screen;edge;hot corner;snapping;mouse wheel;roll "
 "up;workspaces;placement;compositor;compositing;enable;disable;shadows;decorations;opacity;resize;inactive;preview;compiz;transitions;"
 msgstr "xanelas;comportamento;configuración;preferencias;cíclico;ciclo;conmutación;enfoque;aumentar;accesibilidade;tecla;arrastrar;mover;moverse;agochar;cadro;barra de título;maximizado;tesela;pantalla;bordo;esquina activa;recorte;roda do rato;arrolar;espazos de traballo;colocación;compositor;compoñer;activar;desactivar;sombras;decoracións; opacidade;redimensionar;inactivo;vista previa;compiz;transicións;"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "Espazos de traballo"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr "Configurar a disposición, os nomes e as marxes"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:3
 msgid ""
 "workspaces;settings;preferences;virtual "
 "desktops;number;windows;screen;margins;"

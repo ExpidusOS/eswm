@@ -32,7 +32,7 @@
 #include <gtk/gtk.h>
 #include <unistd.h>
 #include <string.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 
 #include <common/eswm-common.h>
 

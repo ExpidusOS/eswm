@@ -30,7 +30,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <glib.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 
 #include "settings.h"
 #include "parserc.h"
@@ -246,10 +246,10 @@ getThemeDir (const gchar * theme, const gchar * file)
 
         path = g_build_filename (theme, "eswm1", file, NULL);
 
-        xfce_resource_push_path (XFCE_RESOURCE_THEMES,
+        expidus_resource_push_path (EXPIDUS_RESOURCE_THEMES,
                                  DATADIR G_DIR_SEPARATOR_S "themes");
-        test_file = xfce_resource_lookup (XFCE_RESOURCE_THEMES, path);
-        xfce_resource_pop_path (XFCE_RESOURCE_THEMES);
+        test_file = expidus_resource_lookup (EXPIDUS_RESOURCE_THEMES, path);
+        expidus_resource_pop_path (EXPIDUS_RESOURCE_THEMES);
 
         g_free (path);
 

@@ -29,7 +29,7 @@
 #include <gdk/gdkx.h>
 #include <X11/Xlib.h>
 
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 #include "display.h"
 #include "event_filter.h"
 

@@ -40,7 +40,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 
 #include <common/eswm-common.h>
 
@@ -1935,7 +1935,7 @@ clientFrame (DisplayInfo *display_info, Window w, gboolean recapture)
      * There are many bug reports related to libreoffice using
      * StaticGravity, including:
      *
-     * http://www.linuxquestions.org/questions/linux-desktop-74/strange-libreoffice-problem-on-debian-with-xfce-4175469847/
+     * http://www.linuxquestions.org/questions/linux-desktop-74/strange-libreoffice-problem-on-debian-with-expidus-4175469847/
      * https://bugs.launchpad.net/ubuntu/+source/nvidia-graphics-drivers/+bug/889212
      * https://bbs.archlinux.org/viewtopic.php?id=133137
      * http://forums.debian.net/viewtopic.php?f=6&t=105757

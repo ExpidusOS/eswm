@@ -35,7 +35,7 @@
 #endif
 #include <libwnck/libwnck.h>
 
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 #include <libexpidus1ui/libexpidus1ui.h>
 #include <esconf/esconf.h>
 
@@ -383,7 +383,7 @@ workspace_dialog_response (GtkWidget *dialog,
 {
     if (response_id == GTK_RESPONSE_HELP)
     {
-        xfce_dialog_show_help (GTK_WINDOW (dialog), "eswm1",
+        expidus_dialog_show_help (GTK_WINDOW (dialog), "eswm1",
                                "workspaces", NULL);
     }
     else
@@ -411,7 +411,7 @@ main(int argc, gchar **argv)
     EsconfChannel *channel;
     GError *cli_error = NULL;
 
-    xfce_textdomain (GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
+    expidus_textdomain (GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
 
     if(!gtk_init_with_args(&argc, &argv, _("."), entries, PACKAGE, &cli_error))
     {
@@ -437,7 +437,7 @@ main(int argc, gchar **argv)
 
     channel = esconf_channel_get(WORKSPACES_CHANNEL);
 
-    if (xfce_titled_dialog_get_type () == 0)
+    if (expidus_titled_dialog_get_type () == 0)
       return 1;
 
     builder = gtk_builder_new();

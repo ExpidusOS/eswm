@@ -40,7 +40,7 @@
 #ifdef HAVE_RANDR
 #include <X11/extensions/Xrandr.h>
 #endif
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 #include <libexpidus1ui/libexpidus1ui.h>
 
 #include <common/eswm-common.h>
@@ -472,7 +472,7 @@ handleKeyPress (DisplayInfo *display_info, EswmEventKey *event)
                 status = EVENT_FILTER_REMOVE;
                 if (display_info->session)
                 {
-                    xfce_sm_client_request_shutdown(display_info->session, XFCE_SM_CLIENT_SHUTDOWN_HINT_LOGOUT);
+                    expidus_sm_client_request_shutdown(display_info->session, EXPIDUS_SM_CLIENT_SHUTDOWN_HINT_LOGOUT);
                 }
                 break;
             default:
@@ -2300,7 +2300,7 @@ handleEvent (DisplayInfo *display_info, EswmEvent *event)
              * Qutting on purpose, update session manager so
              * it does not restart the program immediately
              */
-            xfce_sm_client_set_restart_style(display_info->session, XFCE_SM_CLIENT_RESTART_NORMAL);
+            expidus_sm_client_set_restart_style(display_info->session, EXPIDUS_SM_CLIENT_RESTART_NORMAL);
             gtk_main_quit ();
         }
     }

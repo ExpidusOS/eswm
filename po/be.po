@@ -79,17 +79,17 @@ msgstr "Назва працоўнай прасторы"
 msgid "Settings manager socket"
 msgstr "Сокет кіраўніка налад"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "Кіраўнік акон"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 msgid "Configure window behavior and shortcuts"
 msgstr "Наладзіць паводзіны акна і значкоў"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:3
 msgid ""
 "windows;management;settings;preferences;themes;styles;decorations;title "
 "bar;font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard "
@@ -97,34 +97,34 @@ msgid ""
 "content;move;resize;moving;resizing;double click;"
 msgstr "вокны;кіраванне;налады;тэмы;стылі;аздабленне;загаловак;шрыфт;кнопкі;меню;згарнуць;разгарнуць;цень;згарнуць у загаловак;раскладкі;спалучэнні клавіш;фокус;мацаванне акон;экран;працоўныя прасторы;вуглы;межы;схаваць змесціва;перамясціць;змяніць памер;перамяшчэнне;змена памеру;падвойная пстрычка;"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "Налады кіраўніка акон"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 msgid "Fine-tune window behaviour and effects"
 msgstr "Падрабязныя налады паводзін акна і эфектаў"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:3
 msgid ""
 "windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;accessibility;key;dragging;move;moving;hide;frame;title"
 " bar;maximized;tile;screen;edge;hot corner;snapping;mouse wheel;roll "
 "up;workspaces;placement;compositor;compositing;enable;disable;shadows;decorations;opacity;resize;inactive;preview;compiz;transitions;"
 msgstr "вокны;паводзіны;налады;цыклічнае пераключэнне;пераключэнне;фокус;уздыманне;адмысловыя магчымасці;ключ;перацягванне;перамясціць;перамяшчэнне;хаванне;рамкі;загаловак;разгарнуць;плітка;экран;вуглы;мацаванне акон;кола мышы;разгарнуць з загалоўка;працоўныя прасторы;размяшчэнні;адмалёўшчык;адмалёўка;уключыць;выключыць;цені;аздабленне;празрыстасць;змяніць памер;неактыўна;папярэдні прагляд;compiz;перадачы;"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "Працоўныя прасторы"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr "Наладзіць размяшчэнне, назвы і бакавыя межы"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:3
 msgid ""
 "workspaces;settings;preferences;virtual "
 "desktops;number;windows;screen;margins;"

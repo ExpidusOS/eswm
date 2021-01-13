@@ -545,7 +545,7 @@
 - Fix corrupted button layouts by obtaining the button IDs correctly
   (bug #6824).
 - Bump the GTK+ dependency to 2.14 which is the minimum version
-  required for Xfce 4.8.
+  required for Expidus 4.8.
 - Properly implement session handling (bug #6330).
 - Make the settings dialog smaller so it fits on netbooks screens.
 - Depend on libexpidus1ui 4.7.5 for crucial fix in the
@@ -659,7 +659,7 @@
 - Fix key "Super" remaining sticky when used as a modifier shortcut
   (Bug #4959).
 
-4.5.99.1 (Xfce 4.6rc1)
+4.5.99.1 (Expidus 4.6rc1)
 ======================
 
 - Fix a crash when removing a monitor with xrandr 1.2.
@@ -674,7 +674,7 @@
   theme selected.
 - Use gtk_selection_data_get_data() only if available (Bug #4855).
 
-4.5.93 (Xfce 4.6beta3)
+4.5.93 (Expidus 4.6beta3)
 ======================
 
 - Work around a problem affecting the use of the "Super" key as modifier for
@@ -688,11 +688,11 @@
 - Do not mark gtk+ stock labels as translatable (Bug #4722).
 - Change default shadow radius and position.
 - Fix some controls not being localized (Bug #4740).
-- Remove markup not supported by xfce_message_dialog() (Bug #4786).
+- Remove markup not supported by expidus_message_dialog() (Bug #4786).
 - Avoid placing unfocused windows on top of the current focused window when not
   focusing new windows (Bug #4795).
 
-4.5.92 (Xfce 4.6beta2)
+4.5.92 (Expidus 4.6beta2)
 ======================
 
 - Add support for restart style SmRestartImmediately.
@@ -710,7 +710,7 @@
   that do not show selected items.
 - Add key shortcut for reverse cycling (Bug #2778)
 
-4.5.91 (Xfce 4.6beta1)
+4.5.91 (Expidus 4.6beta1)
 ======================
 
 - Add support for NET_WM_PING protocol.
@@ -740,7 +740,7 @@
 - Update Korean translation
 - Update Slovene translation
 
-4.5.90 (Xfce 4.6alpha)
+4.5.90 (Expidus 4.6alpha)
 ======================
 
 - Add button prelight in window frames (Bug #3219).
@@ -949,4 +949,4 @@
 4.3.90.1 (beta1)
 ================
 
-- First public release for xfce-4.4
+- First public release for expidus-4.4

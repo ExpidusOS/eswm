@@ -8,7 +8,7 @@
 # Dmitry Nikitin <luckas_fb@mail.ru>, 2007
 # Dmytro Semenchenko <dimasc28@gmail.com>, 2019
 # Olexandr Nesterenko <nolexndr@gmail.com>, 2020
-# Xfce Bot <transifex@xfce.org>, 2020
+# Expidus Bot <transifex@xfce.org>, 2020
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2013-2016,2018-2019
 msgid ""
 msgstr ""
@@ -84,17 +84,17 @@ msgstr "Назва робочої області"
 msgid "Settings manager socket"
 msgstr "Сокет Менеджера властивостей"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "Менеджер вікон"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 msgid "Configure window behavior and shortcuts"
 msgstr "Налаштувати заголовок вікна і запускачів"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:3
 msgid ""
 "windows;management;settings;preferences;themes;styles;decorations;title "
 "bar;font;buttons;menu;minimize;maximize;shade;roll up;layout;keyboard "
@@ -102,34 +102,34 @@ msgid ""
 "content;move;resize;moving;resizing;double click;"
 msgstr "вікна;керування;налаштування;конфігурування;теми;стилі;оформлення;заголовок;шрифт;кнопки;меню;згорнути;розгорнути;приховати;згорнути вгору;розташування;скорочені комбінації;фокус;захват;екран;робочий простір;границі;кут вікна;приховати зміст;перемістити;змінити розмір;рух;зміна розміру;подвійний клік;"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "Налаштування менеджера вікон"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 msgid "Fine-tune window behaviour and effects"
 msgstr "Тонке налаштування заголовку вікна і ефектів"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:3
 msgid ""
 "windows;behavior;settings;preferences;cycling;cycle;switching;focus;raises;accessibility;key;dragging;move;moving;hide;frame;title"
 " bar;maximized;tile;screen;edge;hot corner;snapping;mouse wheel;roll "
 "up;workspaces;placement;compositor;compositing;enable;disable;shadows;decorations;opacity;resize;inactive;preview;compiz;transitions;"
 msgstr "вікна;оформлення;налаштування;конфігурування;перехід;по-колу;перемикання;фокус;піднімання;доступність;кнопка;перетягування;перемістити;переміщення;приховати;рамка;заголовок;розгорнути;заголовок;екран;межа;гарячі кути;захват;колесо миші;згорнути догори;робочий простір;розміщення;розміщувач;композиція;івімкнено;вимкнено;тінь;оформлення;непрозорість;зміна розміру;не активний;перегляд;публікація;переклади;"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "Робочі області"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr "Конфігурація розкладки, назв та полів"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:3
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:3
 msgid ""
 "workspaces;settings;preferences;virtual "
 "desktops;number;windows;screen;margins;"

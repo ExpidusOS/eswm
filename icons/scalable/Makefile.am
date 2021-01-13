@@ -7,14 +7,14 @@ appicons_DATA =								\
 
 actionsiconsdir = $(datadir)/icons/hicolor/scalable/actions
 actionsicons_DATA =							\
-	xfce-wm-close.svg						\
-	xfce-wm-maximize.svg						\
-	xfce-wm-menu.svg						\
-	xfce-wm-minimize.svg						\
-	xfce-wm-shade.svg						\
-	xfce-wm-stick.svg						\
-	xfce-wm-unmaximize.svg						\
-	xfce-wm-unshade.svg						\
-	xfce-wm-unstick.svg
+	expidus-wm-close.svg						\
+	expidus-wm-maximize.svg						\
+	expidus-wm-menu.svg						\
+	expidus-wm-minimize.svg						\
+	expidus-wm-shade.svg						\
+	expidus-wm-stick.svg						\
+	expidus-wm-unmaximize.svg						\
+	expidus-wm-unshade.svg						\
+	expidus-wm-unstick.svg
 
 EXTRA_DIST = $(appicons_DATA) $(actionsicons_DATA)

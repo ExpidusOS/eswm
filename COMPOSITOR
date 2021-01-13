@@ -55,7 +55,7 @@ that may arise when using the compositing manager in eswm1:
 - Xinerama and composite extension have problems too
 
 All this is not specifically related to the eswm1's compositing manager. It's
-not worth filling bugs in Xfce's bugzilla.
+not worth filling bugs in Expidus's bugzilla.
 
 If you still think you have found a bug in eswm1 compositing manager, here
 are a few hints that could help categorizing the problem:

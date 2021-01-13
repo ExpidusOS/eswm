@@ -1,14 +1,14 @@
 actionsiconsdir = $(datadir)/icons/hicolor/22x22/actions
 actionsicons_DATA =								\
-	xfce-wm-close.png						\
-	xfce-wm-maximize.png						\
-	xfce-wm-menu.png						\
-	xfce-wm-minimize.png						\
-	xfce-wm-shade.png						\
-	xfce-wm-stick.png						\
-	xfce-wm-unmaximize.png						\
-	xfce-wm-unshade.png						\
-	xfce-wm-unstick.png
+	expidus-wm-close.png						\
+	expidus-wm-maximize.png						\
+	expidus-wm-menu.png						\
+	expidus-wm-minimize.png						\
+	expidus-wm-shade.png						\
+	expidus-wm-stick.png						\
+	expidus-wm-unmaximize.png						\
+	expidus-wm-unshade.png						\
+	expidus-wm-unstick.png
 	
 
 EXTRA_DIST = $(actionsicons_DATA)

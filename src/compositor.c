@@ -34,7 +34,7 @@
 #include <glib.h>
 #include <math.h>
 #include <string.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 
 #ifdef HAVE_EPOXY
 #include <epoxy/gl.h>

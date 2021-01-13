@@ -30,7 +30,7 @@
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <esconf/esconf.h>
-#include <libexpidus1kbd-private/xfce-shortcuts-provider.h>
+#include <libexpidus1kbd-private/expidus-shortcuts-provider.h>
 
 #ifdef HAVE_LIBSTARTUP_NOTIFICATION
 #define SN_API_NOT_YET_FROZEN
@@ -157,7 +157,7 @@ struct _ScreenInfo
     EsconfChannel *eswm1_channel;
 
     /* Shortcuts */
-    XfceShortcutsProvider *shortcuts_provider;
+    ExpidusShortcutsProvider *shortcuts_provider;
 
     /* Per screen parameters */
     EswmParams *params;

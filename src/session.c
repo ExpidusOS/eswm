@@ -724,7 +724,7 @@ sessionLoad (DisplayInfo *display_info)
 {
     const gchar *filename;
 
-    filename = xfce_sm_client_get_state_file (display_info->session);
+    filename = expidus_sm_client_get_state_file (display_info->session);
     DBG ("Restoring session from \"%s\"", filename);
     if (filename)
     {
@@ -733,15 +733,15 @@ sessionLoad (DisplayInfo *display_info)
 }
 
 static void
-sessionSavePhase2 (XfceSMClient *session,
+sessionSavePhase2 (ExpidusSMClient *session,
                    DisplayInfo *display_info)
 {
     const gchar *filename;
 
-    g_return_if_fail (XFCE_IS_SM_CLIENT (session));
+    g_return_if_fail (EXPIDUS_IS_SM_CLIENT (session));
     g_return_if_fail (session == display_info->session);
 
-    filename = xfce_sm_client_get_state_file (display_info->session);
+    filename = expidus_sm_client_get_state_file (display_info->session);
     DBG ("Saving session to \"%s\"", filename);
     if (filename)
     {
@@ -750,10 +750,10 @@ sessionSavePhase2 (XfceSMClient *session,
 }
 
 static void
-sessionDie (XfceSMClient *session,
+sessionDie (ExpidusSMClient *session,
             DisplayInfo *display_info)
 {
-    g_return_if_fail (XFCE_IS_SM_CLIENT (session));
+    g_return_if_fail (EXPIDUS_IS_SM_CLIENT (session));
     g_return_if_fail (session == display_info->session);
 
     /*
@@ -768,19 +768,19 @@ sessionDie (XfceSMClient *session,
 int
 sessionStart (DisplayInfo *display_info)
 {
-    XfceSMClient *session;
+    ExpidusSMClient *session;
     GError *error = NULL;
 
     DBG ("Starting session client");
 
-    session = xfce_sm_client_get ();
-    xfce_sm_client_set_restart_style (session, XFCE_SM_CLIENT_RESTART_IMMEDIATELY);
-    xfce_sm_client_set_priority (session, XFCE_SM_CLIENT_PRIORITY_WM);
+    session = expidus_sm_client_get ();
+    expidus_sm_client_set_restart_style (session, EXPIDUS_SM_CLIENT_RESTART_IMMEDIATELY);
+    expidus_sm_client_set_priority (session, EXPIDUS_SM_CLIENT_PRIORITY_WM);
     display_info->session = session;
 
-    if (xfce_sm_client_connect(session, &error))
+    if (expidus_sm_client_connect(session, &error))
     {
-        if (xfce_sm_client_is_resumed (session))
+        if (expidus_sm_client_is_resumed (session))
             sessionLoad (display_info);
 
         /* save-state-extended is special for window managers to store

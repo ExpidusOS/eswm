@@ -42,7 +42,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 
 #include "display.h"
 #include "screen.h"
@@ -764,7 +764,7 @@ getTextProperty (DisplayInfo *display_info, Window w, Atom a)
         retval = textPropertyToUTF8 (display_info, &text);
         if (retval)
         {
-            xfce_utf8_remove_controls((gchar *) retval, MAX_STR_LENGTH, NULL);
+            expidus_utf8_remove_controls((gchar *) retval, MAX_STR_LENGTH, NULL);
         }
     }
     else
@@ -855,7 +855,7 @@ getUTF8String (DisplayInfo *display_info, Window w, int atom_id, gchar **str_p, 
 
     if (*str_p)
     {
-        xfce_utf8_remove_controls((gchar *) *str_p, -1, NULL);
+        expidus_utf8_remove_controls((gchar *) *str_p, -1, NULL);
     }
 
     return TRUE;
@@ -901,7 +901,7 @@ getUTF8StringList (DisplayInfo *display_info, Window w, int atom_id, gchar ***st
         if (g_utf8_validate (ptr, -1, NULL))
         {
             retval[i] = internal_utf8_strndup (ptr, MAX_STR_LENGTH);
-            xfce_utf8_remove_controls((gchar *) retval[i], -1, NULL);
+            expidus_utf8_remove_controls((gchar *) retval[i], -1, NULL);
         }
         else
         {
@@ -990,7 +990,7 @@ getWindowName (DisplayInfo *display_info, Window w, gchar **name)
     if (getUTF8StringData (display_info, w, NET_WM_NAME, &str, &len))
     {
         *name = internal_utf8_strndup (str, MAX_STR_LENGTH);
-        xfce_utf8_remove_controls(*name, -1, NULL);
+        expidus_utf8_remove_controls(*name, -1, NULL);
         XFree (str);
         return TRUE;
     }
@@ -1002,7 +1002,7 @@ getWindowName (DisplayInfo *display_info, Window w, gchar **name)
         return FALSE;
     }
 
-    xfce_utf8_remove_controls(*name, -1, NULL);
+    expidus_utf8_remove_controls(*name, -1, NULL);
 
     return TRUE;
 }

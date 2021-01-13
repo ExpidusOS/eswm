@@ -288,7 +288,7 @@ struct _DisplayInfo
     GdkDisplay *gdisplay;
     Display *dpy;
 
-    XfceSMClient *session;
+    ExpidusSMClient *session;
     gboolean quit;
     gboolean reload;
 

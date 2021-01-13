@@ -34,7 +34,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 #ifdef HAVE_RENDER
 #include <X11/extensions/Xrender.h>
 #endif

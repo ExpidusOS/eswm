@@ -39,12 +39,12 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
 
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 #include <libexpidus1ui/libexpidus1ui.h>
 #include <esconf/esconf.h>
-#include <libexpidus1kbd-private/xfce-shortcut-dialog.h>
-#include <libexpidus1kbd-private/xfce-shortcuts-provider.h>
-#include <libexpidus1kbd-private/xfce-shortcuts-xfwm4.h>
+#include <libexpidus1kbd-private/expidus-shortcut-dialog.h>
+#include <libexpidus1kbd-private/expidus-shortcuts-provider.h>
+#include <libexpidus1kbd-private/expidus-shortcuts-eswm1.h>
 
 #include <common/eswm-common.h>
 
@@ -166,10 +166,10 @@ static void       eswm_settings_click_to_focus_property_changed      (EsconfChan
                                                                       EswmSettings          *settings);
 static void       eswm_settings_initialize_shortcuts                 (EswmSettings          *settings);
 static void       eswm_settings_reload_shortcuts                     (EswmSettings          *settings);
-static void       eswm_settings_shortcut_added                       (XfceShortcutsProvider *provider,
+static void       eswm_settings_shortcut_added                       (ExpidusShortcutsProvider *provider,
                                                                       const gchar           *shortcut,
                                                                       EswmSettings          *settings);
-static void       eswm_settings_shortcut_removed                     (XfceShortcutsProvider *provider,
+static void       eswm_settings_shortcut_removed                     (ExpidusShortcutsProvider *provider,
                                                                       const gchar           *shortcut,
                                                                       EswmSettings          *settings);
 static gboolean   eswm_settings_update_treeview_on_conflict_replace  (GtkTreeModel          *model,
@@ -192,7 +192,7 @@ static void       eswm_settings_shortcut_row_activated               (GtkTreeVie
 struct _EswmSettingsPrivate
 {
   GtkBuilder            *builder;
-  XfceShortcutsProvider *provider;
+  ExpidusShortcutsProvider *provider;
   EsconfChannel         *wm_channel;
 };
 
@@ -272,7 +272,7 @@ eswm_settings_init (EswmSettings *settings)
   settings->priv = eswm_settings_get_instance_private (settings);
 
   settings->priv->builder = NULL;
-  settings->priv->provider = xfce_shortcuts_provider_new ("eswm1");
+  settings->priv->provider = expidus_shortcuts_provider_new ("eswm1");
   settings->priv->wm_channel = esconf_channel_new ("eswm1");
 }
 
@@ -752,9 +752,9 @@ eswm_settings_load_themes (EswmSettings *settings)
   view = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "theme_name_treeview"));
   model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
 
-  xfce_resource_push_path (XFCE_RESOURCE_THEMES, DATADIR G_DIR_SEPARATOR_S "themes");
-  theme_dirs = xfce_resource_dirs (XFCE_RESOURCE_THEMES);
-  xfce_resource_pop_path (XFCE_RESOURCE_THEMES);
+  expidus_resource_push_path (EXPIDUS_RESOURCE_THEMES, DATADIR G_DIR_SEPARATOR_S "themes");
+  theme_dirs = expidus_resource_dirs (EXPIDUS_RESOURCE_THEMES);
+  expidus_resource_pop_path (EXPIDUS_RESOURCE_THEMES);
 
   active_theme_name = esconf_channel_get_string (settings->priv->wm_channel, "/general/theme", DEFAULT_THEME);
 
@@ -843,7 +843,7 @@ eswm_settings_response (GtkWidget *dialog,
 {
     if (response_id == GTK_RESPONSE_HELP)
     {
-        xfce_dialog_show_help (GTK_WINDOW (dialog), "eswm1",
+        expidus_dialog_show_help (GTK_WINDOW (dialog), "eswm1",
                                "preferences", NULL);
     }
     else
@@ -865,7 +865,7 @@ main (int    argc,
   const gchar  *wm_name;
 
 #ifdef ENABLE_NLS
-  xfce_textdomain (GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
+  expidus_textdomain (GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
 #endif
 
   if (G_UNLIKELY (!gtk_init_with_args (&argc, &argv, _("."), opt_entries, PACKAGE, &error)))
@@ -956,7 +956,7 @@ eswm_settings_theme_selection_changed (GtkTreeSelection *selection,
   GtkTreeModel *model;
   GtkTreeIter   iter;
   gchar        *theme, *filename;
-  XfceRc       *rc;
+  ExpidusRc       *rc;
   GtkWidget    *widget;
   gboolean      button_layout = FALSE;
   gboolean      title_alignment = FALSE;
@@ -973,14 +973,14 @@ eswm_settings_theme_selection_changed (GtkTreeSelection *selection,
 
       /* check in the rc if the theme supports a custom button layout and/or
        * title alignement */
-      rc = xfce_rc_simple_open (filename, TRUE);
+      rc = expidus_rc_simple_open (filename, TRUE);
       g_free (filename);
 
       if (G_LIKELY (rc != NULL))
         {
-          button_layout = !xfce_rc_has_entry (rc, "button_layout");
-          title_alignment = !xfce_rc_has_entry (rc, "title_alignment");
-          xfce_rc_close (rc);
+          button_layout = !expidus_rc_has_entry (rc, "button_layout");
+          title_alignment = !expidus_rc_has_entry (rc, "title_alignment");
+          expidus_rc_close (rc);
         }
     }
 
@@ -1629,7 +1629,7 @@ eswm_settings_initialize_shortcuts (EswmSettings *settings)
 
   gtk_list_store_clear (GTK_LIST_STORE (model));
 
-  if ((feature_list = xfce_shortcuts_xfwm4_get_feature_list ()) != NULL)
+  if ((feature_list = expidus_shortcuts_eswm1_get_feature_list ()) != NULL)
     {
       GList *l;
 
@@ -1638,7 +1638,7 @@ eswm_settings_initialize_shortcuts (EswmSettings *settings)
           gtk_list_store_append (GTK_LIST_STORE (model), &iter);
           gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                               SHORTCUTS_NAME_COLUMN,
-                              xfce_shortcuts_xfwm4_get_feature_name (l->data),
+                              expidus_shortcuts_eswm1_get_feature_name (l->data),
                               SHORTCUTS_FEATURE_COLUMN, l->data,
                               -1);
         }
@@ -1676,7 +1676,7 @@ eswm_settings_clear_shortcuts_view (EswmSettings *settings)
 
 
 static void
-eswm_settings_reload_shortcut (XfceShortcut *shortcut,
+eswm_settings_reload_shortcut (ExpidusShortcut *shortcut,
                                GtkTreeModel *model)
 {
   GtkTreeIter iter;
@@ -1724,22 +1724,22 @@ eswm_settings_reload_shortcuts (EswmSettings *settings)
 
   g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (GTK_IS_BUILDER (settings->priv->builder));
-  g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
+  g_return_if_fail (EXPIDUS_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
   view = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "shortcuts_treeview"));
   model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
 
   eswm_settings_clear_shortcuts_view (settings);
 
-  shortcuts = xfce_shortcuts_provider_get_shortcuts (settings->priv->provider);
+  shortcuts = expidus_shortcuts_provider_get_shortcuts (settings->priv->provider);
   g_list_foreach (shortcuts, (GFunc) eswm_settings_reload_shortcut, model);
-  xfce_shortcuts_free (shortcuts);
+  expidus_shortcuts_free (shortcuts);
 }
 
 
 
 static void
-eswm_settings_shortcut_added (XfceShortcutsProvider *provider,
+eswm_settings_shortcut_added (ExpidusShortcutsProvider *provider,
                               const gchar           *shortcut,
                               EswmSettings          *settings)
 {
@@ -1753,7 +1753,7 @@ eswm_settings_shortcut_added (XfceShortcutsProvider *provider,
 
 
 static void
-eswm_settings_shortcut_removed (XfceShortcutsProvider *provider,
+eswm_settings_shortcut_removed (ExpidusShortcutsProvider *provider,
                                 const gchar           *shortcut,
                                 EswmSettings          *settings)
 {
@@ -1796,7 +1796,7 @@ eswm_settings_shortcut_edit_clicked (GtkButton    *button,
 
   g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (GTK_IS_BUILDER (settings->priv->builder));
-  g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
+  g_return_if_fail (EXPIDUS_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
   view = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "shortcuts_treeview"));
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
@@ -1847,7 +1847,7 @@ eswm_settings_shortcut_clear_clicked (GtkButton    *button,
 
   g_return_if_fail (ESWM_IS_SETTINGS (settings));
   g_return_if_fail (GTK_IS_BUILDER (settings->priv->builder));
-  g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
+  g_return_if_fail (EXPIDUS_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
   view = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "shortcuts_treeview"));
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
@@ -1874,7 +1874,7 @@ eswm_settings_shortcut_clear_clicked (GtkButton    *button,
               DBG ("clear shortcut %s", shortcut);
 
               /* Remove keyboard shortcut via esconf */
-              xfce_shortcuts_provider_reset_shortcut (settings->priv->provider, shortcut);
+              expidus_shortcuts_provider_reset_shortcut (settings->priv->provider, shortcut);
 
               gtk_list_store_set (GTK_LIST_STORE (model), &tree_iter,
                                   SHORTCUTS_SHORTCUT_COLUMN, NULL,
@@ -1906,15 +1906,15 @@ eswm_settings_shortcut_reset_clicked (GtkButton    *button,
   gint confirm;
 
   g_return_if_fail (ESWM_IS_SETTINGS (settings));
-  g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
+  g_return_if_fail (EXPIDUS_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
-  confirm = xfce_dialog_confirm (NULL, "gtk-yes", NULL,
+  confirm = expidus_dialog_confirm (NULL, "gtk-yes", NULL,
                                   _("This will reset all shortcuts to their default "
                                     "values. Do you really want to do this?"),
                                   _("Reset to Defaults"));
 
   if (confirm)
-    xfce_shortcuts_provider_reset_to_defaults (settings->priv->provider);
+    expidus_shortcuts_provider_reset_to_defaults (settings->priv->provider);
 }
 
 
@@ -1949,18 +1949,18 @@ eswm_settings_update_treeview_on_conflict_replace (GtkTreeModel *model,
 
 
 static gboolean
-eswm_settings_validate_shortcut (XfceShortcutDialog  *dialog,
+eswm_settings_validate_shortcut (ExpidusShortcutDialog  *dialog,
                                  const gchar         *shortcut,
                                  EswmSettings        *settings)
 {
-  XfceShortcutsProvider *other_provider = NULL;
-  XfceShortcut          *other_shortcut = NULL;
+  ExpidusShortcutsProvider *other_provider = NULL;
+  ExpidusShortcut          *other_shortcut = NULL;
   GList                 *providers;
   GList                 *iter;
   gboolean               accepted = TRUE;
   gint                   response;
 
-  g_return_val_if_fail (XFCE_IS_SHORTCUT_DIALOG (dialog), FALSE);
+  g_return_val_if_fail (EXPIDUS_IS_SHORTCUT_DIALOG (dialog), FALSE);
   g_return_val_if_fail (ESWM_IS_SETTINGS (settings), FALSE);
   g_return_val_if_fail (shortcut != NULL, FALSE);
 
@@ -1975,31 +1975,31 @@ eswm_settings_validate_shortcut (XfceShortcutDialog  *dialog,
       return FALSE;
     }
 
-  providers = xfce_shortcuts_provider_get_providers ();
+  providers = expidus_shortcuts_provider_get_providers ();
 
   if (G_UNLIKELY (providers == NULL))
     return TRUE;
 
   for (iter = providers; iter != NULL && other_shortcut == NULL; iter = g_list_next (iter))
     {
-      if (G_UNLIKELY (xfce_shortcuts_provider_has_shortcut (iter->data, shortcut)))
+      if (G_UNLIKELY (expidus_shortcuts_provider_has_shortcut (iter->data, shortcut)))
         {
           other_provider = g_object_ref (iter->data);
-          other_shortcut = xfce_shortcuts_provider_get_shortcut (iter->data, shortcut);
+          other_shortcut = expidus_shortcuts_provider_get_shortcut (iter->data, shortcut);
         }
     }
 
-  xfce_shortcuts_provider_free_providers (providers);
+  expidus_shortcuts_provider_free_providers (providers);
 
   if (G_UNLIKELY (other_shortcut != NULL))
     {
-      if (G_LIKELY (!g_str_equal (xfce_shortcut_dialog_get_action (dialog), other_shortcut->command)))
+      if (G_LIKELY (!g_str_equal (expidus_shortcut_dialog_get_action (dialog), other_shortcut->command)))
         {
-          response = xfce_shortcut_conflict_dialog (GTK_WINDOW (dialog),
-                                                    xfce_shortcuts_provider_get_name (settings->priv->provider),
-                                                    xfce_shortcuts_provider_get_name (other_provider),
+          response = expidus_shortcut_conflict_dialog (GTK_WINDOW (dialog),
+                                                    expidus_shortcuts_provider_get_name (settings->priv->provider),
+                                                    expidus_shortcuts_provider_get_name (other_provider),
                                                     shortcut,
-                                                    xfce_shortcut_dialog_get_action (dialog),
+                                                    expidus_shortcut_dialog_get_action (dialog),
                                                     other_shortcut->command,
                                                     FALSE);
 
@@ -2007,7 +2007,7 @@ eswm_settings_validate_shortcut (XfceShortcutDialog  *dialog,
             {
               GObject *view;
 
-              xfce_shortcuts_provider_reset_shortcut (other_provider, shortcut);
+              expidus_shortcuts_provider_reset_shortcut (other_provider, shortcut);
 
               /* We need to update the treeview to erase the shortcut value */
               view = gtk_builder_get_object (settings->priv->builder, "shortcuts_treeview");
@@ -2019,7 +2019,7 @@ eswm_settings_validate_shortcut (XfceShortcutDialog  *dialog,
             accepted = FALSE;
         }
 
-      xfce_shortcut_free (other_shortcut);
+      expidus_shortcut_free (other_shortcut);
       g_object_unref (other_provider);
     }
 
@@ -2044,7 +2044,7 @@ eswm_settings_shortcut_row_activated (GtkTreeView       *tree_view,
   gint          response;
 
   g_return_if_fail (ESWM_IS_SETTINGS (settings));
-  g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
+  g_return_if_fail (EXPIDUS_IS_SHORTCUTS_PROVIDER (settings->priv->provider));
 
   model = gtk_tree_view_get_model (tree_view);
 
@@ -2057,29 +2057,29 @@ eswm_settings_shortcut_row_activated (GtkTreeView       *tree_view,
                           SHORTCUTS_SHORTCUT_COLUMN, &shortcut, -1);
 
       /* Request a new shortcut from the user */
-      dialog = xfce_shortcut_dialog_new ("eswm1", name, feature);
+      dialog = expidus_shortcut_dialog_new ("eswm1", name, feature);
       g_signal_connect (dialog, "validate-shortcut",
                         G_CALLBACK (eswm_settings_validate_shortcut), settings);
-      response = xfce_shortcut_dialog_run (XFCE_SHORTCUT_DIALOG (dialog), gtk_widget_get_toplevel (GTK_WIDGET (tree_view)));
+      response = expidus_shortcut_dialog_run (EXPIDUS_SHORTCUT_DIALOG (dialog), gtk_widget_get_toplevel (GTK_WIDGET (tree_view)));
 
       if (G_LIKELY (response == GTK_RESPONSE_OK))
         {
           /* Remove old shortcut from the settings */
           if (G_LIKELY (shortcut != NULL))
-            xfce_shortcuts_provider_reset_shortcut (settings->priv->provider, shortcut);
+            expidus_shortcuts_provider_reset_shortcut (settings->priv->provider, shortcut);
 
           /* Get new shortcut entered by the user */
-          new_shortcut = xfce_shortcut_dialog_get_shortcut (XFCE_SHORTCUT_DIALOG (dialog));
+          new_shortcut = expidus_shortcut_dialog_get_shortcut (EXPIDUS_SHORTCUT_DIALOG (dialog));
 
           /* Save new shortcut */
-          xfce_shortcuts_provider_set_shortcut (settings->priv->provider, new_shortcut, feature, FALSE);
+          expidus_shortcuts_provider_set_shortcut (settings->priv->provider, new_shortcut, feature, FALSE);
         }
       else if (G_UNLIKELY (response == GTK_RESPONSE_REJECT))
         {
           /* Remove old shortcut from the settings */
           if (G_LIKELY (shortcut != NULL))
             {
-              xfce_shortcuts_provider_reset_shortcut (settings->priv->provider, shortcut);
+              expidus_shortcuts_provider_reset_shortcut (settings->priv->provider, shortcut);
               gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                   SHORTCUTS_SHORTCUT_COLUMN, NULL,
                                   SHORTCUTS_SHORTCUT_LABEL_COLUMN, NULL, -1);

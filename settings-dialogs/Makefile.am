@@ -115,9 +115,9 @@ endif
 
 desktopdir = $(datadir)/applications
 desktop_in_files = \
-	xfce-wm-settings.desktop.in \
-	xfce-wmtweaks-settings.desktop.in \
-	xfce-workspaces-settings.desktop.in
+	expidus-wm-settings.desktop.in \
+	expidus-wmtweaks-settings.desktop.in \
+	expidus-workspaces-settings.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 @INTLTOOL_DESKTOP_RULE@

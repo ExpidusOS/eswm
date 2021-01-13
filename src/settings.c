@@ -31,9 +31,9 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 #include <esconf/esconf.h>
-#include <libexpidus1kbd-private/xfce-shortcuts-provider.h>
+#include <libexpidus1kbd-private/expidus-shortcuts-provider.h>
 
 #include "screen.h"
 #include "hints.h"
@@ -79,10 +79,10 @@ static void              cb_eswm1_channel_property_changed (EsconfChannel *,
                                                            ScreenInfo *);
 static void              cb_keys_changed      (GdkKeymap *,
                                                ScreenInfo *);
-static void              cb_shortcut_added    (XfceShortcutsProvider *,
+static void              cb_shortcut_added    (ExpidusShortcutsProvider *,
                                                const gchar *,
                                                ScreenInfo *);
-static void              cb_shortcut_removed  (XfceShortcutsProvider *,
+static void              cb_shortcut_removed  (ExpidusShortcutsProvider *,
                                                const gchar *,
                                                ScreenInfo *);
 
@@ -210,7 +210,7 @@ loadRcData (ScreenInfo *screen_info, Settings *rc)
         g_warning ("Missing defaults file");
         exit (1);
     }
-    homedir = xfce_resource_save_location (XFCE_RESOURCE_CONFIG,
+    homedir = expidus_resource_save_location (EXPIDUS_RESOURCE_CONFIG,
                                            "xfce4" G_DIR_SEPARATOR_S "eswm1",
                                            FALSE);
     parseRc ("eswm1rc", homedir, rc);
@@ -561,7 +561,7 @@ loadKeyBindings (ScreenInfo *screen_info)
     gchar keyname[30];
     guint i;
 
-    shortcuts = xfce_shortcuts_provider_get_shortcuts (screen_info->shortcuts_provider);
+    shortcuts = expidus_shortcuts_provider_get_shortcuts (screen_info->shortcuts_provider);
 
     parseShortcut (screen_info, KEY_CANCEL, "cancel_key", shortcuts);
     parseShortcut (screen_info, KEY_DOWN, "down_key", shortcuts);
@@ -625,7 +625,7 @@ loadKeyBindings (ScreenInfo *screen_info)
         parseShortcut (screen_info, KEY_WORKSPACE_1 + i, keyname, shortcuts);
     }
 
-    xfce_shortcuts_free (shortcuts);
+    expidus_shortcuts_free (shortcuts);
 
     myScreenUngrabKeys (screen_info);
     myScreenGrabKeys (screen_info);
@@ -1073,7 +1073,7 @@ initSettings (ScreenInfo *screen_info)
     g_signal_connect (keymap, "keys-changed",
                       G_CALLBACK (cb_keys_changed), screen_info);
 
-    screen_info->shortcuts_provider = xfce_shortcuts_provider_new ("eswm1");
+    screen_info->shortcuts_provider = expidus_shortcuts_provider_new ("eswm1");
     g_signal_connect (screen_info->shortcuts_provider, "shortcut-added",
                       G_CALLBACK (cb_shortcut_added), screen_info);
     g_signal_connect (screen_info->shortcuts_provider, "shortcut-removed",
@@ -1497,18 +1497,18 @@ cb_keys_changed (GdkKeymap *keymap, ScreenInfo *screen_info)
 }
 
 static void
-cb_shortcut_added (XfceShortcutsProvider *provider, const gchar *shortcut,
+cb_shortcut_added (ExpidusShortcutsProvider *provider, const gchar *shortcut,
                    ScreenInfo *screen_info)
 {
-    XfceShortcut *sc;
+    ExpidusShortcut *sc;
     Display *dpy;
     int i;
 
-    g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (provider));
+    g_return_if_fail (EXPIDUS_IS_SHORTCUTS_PROVIDER (provider));
     g_return_if_fail (shortcut);
     g_return_if_fail (screen_info);
 
-    sc = xfce_shortcuts_provider_get_shortcut (provider, shortcut);
+    sc = expidus_shortcuts_provider_get_shortcut (provider, shortcut);
 
     if (sc == NULL)
     {
@@ -1529,18 +1529,18 @@ cb_shortcut_added (XfceShortcutsProvider *provider, const gchar *shortcut,
         }
     }
 
-    xfce_shortcut_free (sc);
+    expidus_shortcut_free (sc);
 }
 
 static void
-cb_shortcut_removed (XfceShortcutsProvider *provider, const gchar *shortcut,
+cb_shortcut_removed (ExpidusShortcutsProvider *provider, const gchar *shortcut,
                      ScreenInfo *screen_info)
 {
     MyKey key;
     Display *dpy;
     int i;
 
-    g_return_if_fail (XFCE_IS_SHORTCUTS_PROVIDER (provider));
+    g_return_if_fail (EXPIDUS_IS_SHORTCUTS_PROVIDER (provider));
     g_return_if_fail (screen_info);
     g_return_if_fail (shortcut);
 
@@ -1583,7 +1583,7 @@ parseShortcut (ScreenInfo *screen_info, int id, const gchar *name,
 static const gchar *
 getShortcut (const gchar *name, GList *shortcuts)
 {
-    XfceShortcut *shortcut;
+    ExpidusShortcut *shortcut;
     GList *iter;
     const gchar *result = NULL;
 

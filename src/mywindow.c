@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <glib.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 #include "mypixmap.h"
 #include "mywindow.h"
 #include "screen.h"

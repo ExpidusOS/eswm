@@ -1,6 +1,6 @@
 dnl configure.ac
 dnl
-dnl eswm1 - window manager for the Xfce4 desktop environment
+dnl eswm1 - window manager for the Expidus4 desktop environment
 dnl
 
 m4_define([eswm1_version_major], [1])
@@ -11,11 +11,11 @@ m4_define([eswm1_version_tag],   [git])
 m4_define([eswm1_version], [eswm1_version_major().eswm1_version_minor().eswm1_version_micro()ifelse(eswm1_version_tag(), [git], [eswm1_version_tag().eswm1_version_build()], [eswm1_version_tag()])])
 
 m4_define([gtk_minimum_version], [3.22.0])
-m4_define([xfce_minimum_version], [4.8.0])
+m4_define([expidus_minimum_version], [1.0.0])
 m4_define([libexpidus1ui_minimum_version], [1.0.0])
 m4_define([libexpidus1kbd_private_minimum_version], [1.0.0])
-m4_define([esconf_minimum_version], [4.13.0])
-m4_define([esconf_legacy_version], [4.12.0])
+m4_define([esconf_minimum_version], [1.0.0])
+m4_define([esconf_legacy_version], [1.0.0])
 m4_define([xcomposite_minimum_version], [0.2])
 m4_define([wnck_minimum_version], [3.14])
 m4_define([startup_notification_minimum_version], [0.5])
@@ -30,9 +30,9 @@ m4_define([eswm1_debug_default], [ifelse(eswm1_version_tag(), [git], [yes], [min
 
 dnl init autoconf
 AC_COPYRIGHT([Copyright (c) 2002-2020
-        The Xfce development team and Midstall Software. All rights reserved.
+        The Expidus development team and Midstall Software. All rights reserved.
 
-Written for Xfce by Olivier Fourdan <fourdan@xfce.org>.])
+Written for Expidus by Olivier Fourdan <fourdan@xfce.org>.])
 AC_INIT([eswm1], [eswm1_version], [xfce4-dev@xfce.org])
 AM_INIT_AUTOMAKE([1.8 dist-bzip2 tar-ustar no-dist-gzip foreign])
 
@@ -125,7 +125,7 @@ AC_CHECK_LIB([XRes], [XResQueryClients],
   ], [], [$LIBX11_CFLAGS $LIBX11_LDFLAGS $LIBX11_LIBS])
 
 XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [gtk_minimum_version])
-XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [xfce_minimum_version])
+XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libexpidus1util-1.0], [expidus_minimum_version])
 XDT_CHECK_PACKAGE([LIBEXPIDUS1UI], libexpidus1ui-2, [libexpidus1ui_minimum_version])
 XDT_CHECK_PACKAGE([LIBEXPIDUS1KBD_PRIVATE], libexpidus1kbd-private-3, [libexpidus1kbd_private_minimum_version])
 XDT_CHECK_PACKAGE([LIBESCONF], libesconf-0, [esconf_minimum_version],,

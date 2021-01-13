@@ -1,5 +1,5 @@
 # Esperanto translations for the eswm1 package.
-# Copyright (C) 2002-2006 The Xfce development team.
+# Copyright (C) 2002-2006 The Expidus development team.
 # This file is distributed under the same license as the eswm1 package.
 # Sylvain Vedrenne <gnu_sylvain@xfce.org>, 2005-2007.
 #
@@ -78,34 +78,34 @@ msgstr "Nomoj de la laborspacoj"
 msgid "Settings manager socket"
 msgstr ""
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "Administradilo de Fenestroj"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 #, fuzzy
 msgid "Configure window behavior and shortcuts"
 msgstr "Nuligu la agon de la fenestro"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "Rafina Agordo de la Administradilo de Fenestroj"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 #, fuzzy
 msgid "Fine-tune window behaviour and effects"
 msgstr "Nuligu la agon de la fenestro"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "Laborspacoj"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr ""
@@ -185,7 +185,7 @@ msgstr "Stilo"
 #: ../settings-dialogs/eswm1-dialog.glade.h:19
 #, fuzzy
 msgid "Define shortcuts to perform _window manager actions:"
-msgstr "Xfce 4 Administrilo de Fenestroj"
+msgstr "Expidus 4 Administrilo de Fenestroj"
 
 #: ../settings-dialogs/eswm1-dialog.glade.h:20
 msgid "_Reset to Defaults"
@@ -710,7 +710,7 @@ msgstr ""
 #: ../src/main.c:707
 #, fuzzy
 msgid "Replace the existing window manager"
-msgstr "Xfce 4 Administrilo de Fenestroj"
+msgstr "Expidus 4 Administrilo de Fenestroj"
 
 #: ../src/main.c:708
 msgid "Print version information and exit"
@@ -1338,20 +1338,20 @@ msgstr ""
 #~ msgid "Window Manager Settings"
 #~ msgstr "Parametroj de la Administrilo de Fenestroj"
 
-#~ msgid "Xfce 4 Window Manager Settings"
-#~ msgstr "Xfce 4 Administrilo de Fenestroj"
+#~ msgid "Expidus 4 Window Manager Settings"
+#~ msgstr "Expidus 4 Administrilo de Fenestroj"
 
 #~ msgid "Advanced Configuration"
 #~ msgstr "Evoluaj Parametroj de la Administrilo de Fenestroj"
 
-#~ msgid "Xfce 4 Window Manager Tweaks"
+#~ msgid "Expidus 4 Window Manager Tweaks"
 #~ msgstr "Rafina Agordo de la Administrilo de Fenestroj"
 
 #~ msgid "Workspaces Settings"
 #~ msgstr "Parametroj de la Laborspaco"
 
-#~ msgid "Xfce 4 Workspaces Settings"
-#~ msgstr "Xfce 4 Parametroj de la Laborspaco"
+#~ msgid "Expidus 4 Workspaces Settings"
+#~ msgstr "Expidus 4 Parametroj de la Laborspaco"
 
 #, fuzzy
 #~ msgid "Click and drag buttons to change the layout"
@@ -1573,7 +1573,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Advanced window manager settings"
-#~ msgstr "Xfce 4 Administrilo de Fenestroj"
+#~ msgstr "Expidus 4 Administrilo de Fenestroj"
 
 #, fuzzy
 #~ msgid ""

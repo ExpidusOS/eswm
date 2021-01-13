@@ -473,7 +473,7 @@ wm_tweaks_dialog_response (GtkWidget *dialog,
 {
     if (response_id == GTK_RESPONSE_HELP)
     {
-        xfce_dialog_show_help (GTK_WINDOW (dialog), "eswm1",
+        expidus_dialog_show_help (GTK_WINDOW (dialog), "eswm1",
                                "wmtweaks", NULL);
     }
     else
@@ -500,7 +500,7 @@ main (int argc, gchar **argv)
     const gchar  *wm_name;
 
 #ifdef ENABLE_NLS
-    xfce_textdomain (GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
+    expidus_textdomain (GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
 #endif
 
     if (!gtk_init_with_args (&argc, &argv, _ ("."), entries, PACKAGE, &cli_error))
@@ -530,7 +530,7 @@ main (int argc, gchar **argv)
 
     builder = gtk_builder_new ();
 
-    if (xfce_titled_dialog_get_type () == 0)
+    if (expidus_titled_dialog_get_type () == 0)
       return 1;
 
     gtk_builder_add_from_string (builder, tweaks_dialog_ui, tweaks_dialog_ui_length, NULL);

@@ -1,5 +1,5 @@
 # Amharic translation to eswm1.
-# Copyright (C) 2002-2007 The Xfce development team.
+# Copyright (C) 2002-2007 The Expidus development team.
 # This file is distributed under the same license as the eswm1 package.
 # Tegegne Tefera <tefera@mekuria.com>, 2007.
 #
@@ -78,34 +78,34 @@ msgstr "የስራ ቦታ ስሞች"
 msgid "Settings manager socket"
 msgstr ""
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-dialog.glade.h:1
 msgid "Window Manager"
 msgstr "ማስኮት አስተዳዳሪ"
 
-#: ../settings-dialogs/xfce-wm-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wm-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-dialog.glade.h:2
 #, fuzzy
 msgid "Configure window behavior and shortcuts"
 msgstr "የመስኮት ድርጊትን ሰርዝ"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:1
 msgid "Window Manager Tweaks"
 msgstr "የመስኮት አስተዳዳሪ ማሰማመር"
 
-#: ../settings-dialogs/xfce-wmtweaks-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-wmtweaks-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-tweaks-dialog.glade.h:2
 #, fuzzy
 msgid "Fine-tune window behaviour and effects"
 msgstr "የመስኮት ድርጊትን ሰርዝ"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:1
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:1
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:1
 msgid "Workspaces"
 msgstr "የስራ ገበታ"
 
-#: ../settings-dialogs/xfce-workspaces-settings.desktop.in.h:2
+#: ../settings-dialogs/expidus-workspaces-settings.desktop.in.h:2
 #: ../settings-dialogs/eswm1-workspace-dialog.glade.h:2
 msgid "Configure layout, names and margins"
 msgstr ""
@@ -1348,19 +1348,19 @@ msgstr ""
 #~ msgid "Window Manager Settings"
 #~ msgstr "መስኮት አስተዳዳሪ ስየማዎች"
 
-#~ msgid "Xfce 4 Window Manager Settings"
+#~ msgid "Expidus 4 Window Manager Settings"
 #~ msgstr "የሸፍሲ 4 የመስኮት አስተዳዳሪ ስየማዎች"
 
 #~ msgid "Advanced Configuration"
 #~ msgstr "ጥልቅ ስንድት"
 
-#~ msgid "Xfce 4 Window Manager Tweaks"
+#~ msgid "Expidus 4 Window Manager Tweaks"
 #~ msgstr "የሸፍሲ 4 የመስኮት አስተዳዳሪ ስየማዎች"
 
 #~ msgid "Workspaces Settings"
 #~ msgstr "የስራቦታ ስየማ"
 
-#~ msgid "Xfce 4 Workspaces Settings"
+#~ msgid "Expidus 4 Workspaces Settings"
 #~ msgstr "የሸፍሲ 4 የስራቦታ ስየማዎች"
 
 #, fuzzy

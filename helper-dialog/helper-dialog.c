@@ -30,7 +30,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <libxfce4util/libxfce4util.h>
+#include <libexpidus1util/libexpidus1util.h>
 #include <stdlib.h>
 
 static void
@@ -55,7 +55,7 @@ main (int argc, char **argv)
     gulong xid;
     gchar *title, *newstr;
 
-    xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
+    expidus_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
     gtk_init (&argc, &argv);
 
