@@ -514,7 +514,7 @@ main (int argc, gchar **argv)
     }
 
     wm_name = gdk_x11_screen_get_window_manager_name (gdk_screen_get_default ());
-    if (G_UNLIKELY (g_ascii_strcasecmp (wm_name, "Eswm4")))
+    if (G_UNLIKELY (g_ascii_strcasecmp (wm_name, "ExpidusOS Shell WM 1.0")))
     {
         g_print ("These settings cannot work with your current window manager (%s)\n", wm_name);
         return 1;
