@@ -211,7 +211,7 @@ loadRcData (ScreenInfo *screen_info, Settings *rc)
         exit (1);
     }
     homedir = expidus_resource_save_location (EXPIDUS_RESOURCE_CONFIG,
-                                           "xfce4" G_DIR_SEPARATOR_S "eswm1",
+                                           "expidus1" G_DIR_SEPARATOR_S "eswm1",
                                            FALSE);
     parseRc ("eswm1rc", homedir, rc);
     g_free (homedir);

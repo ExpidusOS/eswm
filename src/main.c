@@ -230,7 +230,7 @@ ensure_basedir_spec (void)
     /* test if new directory is there */
 
     new = expidus_resource_save_location (EXPIDUS_RESOURCE_CONFIG,
-                                       "xfce4" G_DIR_SEPARATOR_S "eswm1",
+                                       "expidus1" G_DIR_SEPARATOR_S "eswm1",
                                        FALSE);
 
     if (g_file_test (new, G_FILE_TEST_IS_DIR))

@@ -1,6 +1,6 @@
 /* vi:set sw=2 sts=2 ts=2 et ai: */
 /*-
- * Copyright (c) 2008 Jannis Pohlmann <jannis@xfce.org>.
+ * Copyright (c) 2008 Jannis Pohlmann <jannis@expidus.org>.
  *
  * This program is free software; you can redistribute it and/or modify 
  * it under the terms of the GNU General Public License as published by 

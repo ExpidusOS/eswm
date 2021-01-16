@@ -778,7 +778,7 @@ myScreenInvalidateMonitorCache (ScreenInfo *screen_info)
 
 /*
    gdk_screen_get_monitor_at_point () doesn't give accurate results
-   when the point is off screen, use my own implementation from xfce 3
+   when the point is off screen, use my own implementation from expidus 3
  */
 void
 myScreenFindMonitorAtPoint (ScreenInfo *screen_info, gint x, gint y, GdkRectangle *rect)

@@ -32,8 +32,8 @@ dnl init autoconf
 AC_COPYRIGHT([Copyright (c) 2002-2020
         The Expidus development team and Midstall Software. All rights reserved.
 
-Written for Expidus by Olivier Fourdan <fourdan@xfce.org>.])
-AC_INIT([eswm1], [eswm1_version], [xfce4-dev@xfce.org])
+Written for Expidus by Olivier Fourdan <fourdan@expidus.org>.])
+AC_INIT([eswm1], [eswm1_version], [expidus1-dev@expidus.org])
 AM_INIT_AUTOMAKE([1.8 dist-bzip2 tar-ustar no-dist-gzip foreign])
 
 AC_CONFIG_MACRO_DIRS([m4])
@@ -125,7 +125,7 @@ AC_CHECK_LIB([XRes], [XResQueryClients],
   ], [], [$LIBX11_CFLAGS $LIBX11_LDFLAGS $LIBX11_LIBS])
 
 XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [gtk_minimum_version])
-XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libexpidus1util-1.0], [expidus_minimum_version])
+XDT_CHECK_PACKAGE([LIBEXPIDUS1UTIL], [libexpidus1util-1.0], [expidus_minimum_version])
 XDT_CHECK_PACKAGE([LIBEXPIDUS1UI], libexpidus1ui-2, [libexpidus1ui_minimum_version])
 XDT_CHECK_PACKAGE([LIBEXPIDUS1KBD_PRIVATE], libexpidus1kbd-private-3, [libexpidus1kbd_private_minimum_version])
 XDT_CHECK_PACKAGE([LIBESCONF], libesconf-0, [esconf_minimum_version],,

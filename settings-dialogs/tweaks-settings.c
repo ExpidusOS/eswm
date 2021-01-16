@@ -1,7 +1,7 @@
 /*
- *  Copyright (c) 2008 Stephan Arts <stephan@xfce.org>
- *  Copyright (c) 2008 Jannis Pohlmann <jannis@xfce.org>
- *  Copyright (c) 2008 Olivier Fourdan <olivier@xfce.org>
+ *  Copyright (c) 2008 Stephan Arts <stephan@expidus.org>
+ *  Copyright (c) 2008 Jannis Pohlmann <jannis@expidus.org>
+ *  Copyright (c) 2008 Olivier Fourdan <olivier@expidus.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

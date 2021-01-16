@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Mișu Moldovan <dumol@xfce.org>, 2015
+# Mișu Moldovan <dumol@expidus.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Eswm4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-01 00:49+0100\n"
 "PO-Revision-Date: 2020-10-31 23:49+0000\n"
-"Last-Translator: Expidus Bot <transifex@xfce.org>\n"
-"Language-Team: Romanian (http://www.transifex.com/xfce/eswm1/language/ro/)\n"
+"Last-Translator: Expidus Bot <transifex@expidus.org>\n"
+"Language-Team: Romanian (http://www.transifex.com/expidus/eswm1/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

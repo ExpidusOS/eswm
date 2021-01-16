@@ -2,7 +2,7 @@
 
 AM_CPPFLAGS =								\
 	$(GTK_CFLAGS) 							\
-	$(LIBXFCE4UTIL_CFLAGS)						\
+	$(LIBEXPIDUS1UTIL_CFLAGS)						\
 	$(LIBX11_CFLAGS)						\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
 
@@ -15,12 +15,12 @@ helper_dialog_SOURCES =							\
 	helper-dialog.c
 
 helper_dialog_CFLAGS =							\
-	$(LIBXFCE4UTIL_CFLAGS)						\
+	$(LIBEXPIDUS1UTIL_CFLAGS)						\
 	$(LIBX11_CFLAGS)						\
 	$(GTK_CFLAGS)
 
 helper_dialog_LDADD =							\
-	$(LIBXFCE4UTIL_LIBS)						\
+	$(LIBEXPIDUS1UTIL_LIBS)						\
 	$(LIBX11_LIBS)							\
 	$(LIBX11_LDFLAGS)						\
 	$(GTK_LIBS)

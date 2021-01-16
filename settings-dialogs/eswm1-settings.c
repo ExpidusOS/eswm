@@ -1,7 +1,7 @@
 /* vi:set sw=2 sts=2 ts=2 et ai tw=100: */
 /*-
- * Copyright (c) 2008 Stephan Arts <stephan@xfce.org>
- * Copyright (c) 2008 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2008 Stephan Arts <stephan@expidus.org>
+ * Copyright (c) 2008 Jannis Pohlmann <jannis@expidus.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1176,7 +1176,7 @@ eswm_settings_hidden_frame_drag_data (GtkWidget        *widget,
 static gboolean
 eswm_settings_title_button_press_event (GtkWidget *widget)
 {
- /* FIXME! This crashes in cairo... xfce bug 14606 */
+ /* FIXME! This crashes in cairo... expidus bug 14606 */
 #if 0
   GdkPixbuf *pixbuf;
 
@@ -1313,7 +1313,7 @@ eswm_settings_signal_blocker (GtkWidget *widget)
 }
 
 
-/* FIXME! This crashes in cairo... xfce bug 14606 */
+/* FIXME! This crashes in cairo... expidus bug 14606 */
 #if 0
 static GdkPixbuf *
 eswm_settings_create_icon_from_widget (GtkWidget *widget)
