@@ -731,28 +731,49 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
     pwidth = c->width;
     pheight = c->height;
 
-    if (mask & CWX)
-    {
-        if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
-        {
-            c->x = wc->x;
-        }
-    }
-    if (mask & CWY)
-    {
-        if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
-        {
-            c->y = wc->y;
-        }
-    }
-    if (mask & CWWidth)
-    {
-        c->width = clientCheckWidth (c, wc->width, flags & CFG_REQUEST);
-    }
-    if (mask & CWHeight)
-    {
+		if (c->screen_info->width <= 960)
+		{
+	    if (mask & CWX)
+  	  {
+    	    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
+      	  {
+							if (wc->x + wc->width <= c->screen_info->width) c->x = wc->x;
+	        }
+	    }
+  	  if (mask & CWY)
+	    {
+	        if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
+	        {
+							if (wc->y + wc->height <= c->screen_info->height) c->y = wc->y;
+	        }
+	    }
+
+			c->width = c->screen_info->width;
+			c->height = c->screen_info->height;
+		} else {
+	    if (mask & CWX)
+  	  {
+    	    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
+      	  {
+	            c->x = wc->x;
+	        }
+	    }
+  	  if (mask & CWY)
+	    {
+	        if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
+	        {
+	            c->y = wc->y;
+	        }
+	    }
+	    if (mask & CWWidth)
+  	  {
+	        c->width = clientCheckWidth (c, wc->width, flags & CFG_REQUEST);
+	    }
+    	if (mask & CWHeight)
+    	{
         c->height = clientCheckHeight (c, wc->height, flags & CFG_REQUEST);
-    }
+    	}
+		}
     if (mask & CWBorderWidth)
     {
         c->border_width = wc->border_width;
