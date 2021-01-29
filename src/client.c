@@ -731,7 +731,7 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
     pwidth = c->width;
     pheight = c->height;
 
-		if (c->screen_info->width <= 960)
+		if (c->screen_info->width <= 960 && (c->type == WINDOW_NORMAL || c->type == WINDOW_DIALOG || c->type == WINDOW_MODAL_DIALOG))
 		{
 	    if (mask & CWX)
   	  {
