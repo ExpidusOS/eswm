@@ -506,5 +506,6 @@ gboolean                 clientGetGtkHideTitlebar               (Client *);
 #ifdef HAVE_LIBSTARTUP_NOTIFICATION
 char                    *clientGetStartupId                     (Client *);
 #endif /* HAVE_LIBSTARTUP_NOTIFICATION */
+gint										clientGetMonitorIndex										(Client*);
 
 #endif /* INC_CLIENT_H */

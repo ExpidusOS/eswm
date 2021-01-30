@@ -750,6 +750,7 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
 
 			c->width = c->screen_info->width;
 			c->height = c->screen_info->height;
+      if (!FLAG_TEST(c->flags, CLIENT_FLAG_MAXIMIZED)) clientToggleMaximized (c, CLIENT_FLAG_MAXIMIZED, TRUE);
 		} else {
 	    if (mask & CWX)
   	  {
@@ -4314,3 +4315,16 @@ clientGetStartupId (Client *c)
     return (c->startup_id);
 }
 #endif /* HAVE_LIBSTARTUP_NOTIFICATION */
+
+gint clientGetMonitorIndex(Client* client) {
+  gint num_monitors = eswm_get_n_monitors (client->screen_info->gscr);
+  GdkRectangle monitor;
+  GdkRectangle self = { .x = client->x, .y = client->y, .width = client->width, .height = client->height };
+  for (gint i = 0; i < num_monitors; i++) {
+    eswm_get_monitor_geometry (client->screen_info->gscr, i, &monitor, TRUE);
+    if (gdk_rectangle_intersect(&monitor, &self, NULL)) {
+      return i;
+    }
+  }
+  return 0;
+}
