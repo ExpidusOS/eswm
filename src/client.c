@@ -756,6 +756,7 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
 			c->width = rect.width;
 			c->height = rect.height;
 			c->flags |= CLIENT_FLAG_MAXIMIZED;
+			clientConstrainPos(c, FALSE);
 			is_mobile = 1;
 		} else {
 	    if (mask & CWX)
