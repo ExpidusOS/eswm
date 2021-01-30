@@ -733,24 +733,26 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
 
 		if (c->screen_info->width <= 960 && (c->type == WINDOW_NORMAL || c->type == WINDOW_DIALOG || c->type == WINDOW_MODAL_DIALOG || c->type == UNSET))
 		{
+			GdkRectangle rect;
+			myScreenFindMonitorAtPoint(c->screen_info, frameX(c) + (frameWidth(c) / 2), frameY(c) + (frameHeight(c) / 2), &rect);
+
 	    if (mask & CWX)
   	  {
     	    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
       	  {
-							c->x = 0;
+							c->x = rect.x;
 	        }
 	    }
   	  if (mask & CWY)
 	    {
 	        if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
 	        {
-							c->y = 0;
+							c->y = rect.y;
 	        }
 	    }
 
-			c->width = c->screen_info->width;
-			c->height = c->screen_info->height;
-      if (!FLAG_TEST(c->flags, CLIENT_FLAG_MAXIMIZED)) clientToggleMaximized (c, CLIENT_FLAG_MAXIMIZED, TRUE);
+			c->width = rect.width;
+			c->height = rect.height;
 		} else {
 	    if (mask & CWX)
   	  {
