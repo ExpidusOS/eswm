@@ -163,11 +163,12 @@ static void       eswm_settings_double_click_action_property_changed (EsconfChan
 static void       eswm_settings_click_to_focus_property_changed      (EsconfChannel         *channel,
                                                                       const gchar           *property,
                                                                       const GValue          *value,
+                                                                      EswmSettings          *settings);
 static void       cb_wrap_windows_toggled                            (GtkToggleButton       *toggle,
                                                                       EsconfChannel         *channel);
 static void       eswm_settings_initialize_shortcuts                 (EswmSettings          *settings);
 static void       eswm_settings_reload_shortcuts                     (EswmSettings          *settings);
-static void       eswm_settings_shortcut_added                       (ExpidushortcutsProvider *provider,
+static void       eswm_settings_shortcut_added                       (ExpidusShortcutsProvider *provider,
                                                                       const gchar           *shortcut,
                                                                       EswmSettings          *settings);
 static void       eswm_settings_shortcut_removed                     (ExpidusShortcutsProvider *provider,
@@ -197,7 +198,7 @@ struct _EswmSettingsPrivate
   EsconfChannel         *wm_channel;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (EswmSettings, eswm_settings, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (EswmSettings, eswm_settings, G_TYPE_OBJECT);
 
 struct _MenuTemplate
 {
@@ -1615,10 +1616,10 @@ eswm_settings_click_to_focus_property_changed (EsconfChannel *channel,
 
 
 static void
-cb_wrap_windows_toggled (GtkToggleButton *toggle, XfconfChannel *channel)
+cb_wrap_windows_toggled (GtkToggleButton *toggle, EsconfChannel *channel)
 {
   if (gtk_toggle_button_get_active (toggle))
-    xfconf_channel_set_bool (channel, "/general/tile_on_move", FALSE);
+    esconf_channel_set_bool (channel, "/general/tile_on_move", FALSE);
 }
 
 

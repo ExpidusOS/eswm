@@ -148,11 +148,11 @@ cb_urgent_blink_button_toggled (GtkToggleButton *toggle, GtkWidget *repeat_urgen
 }
 
 static void
-cb_tile_on_move_check_toggled (GtkToggleButton *toggle, XfconfChannel *channel)
+cb_tile_on_move_check_toggled (GtkToggleButton *toggle, EsconfChannel *channel)
 {
     if (gtk_toggle_button_get_active (toggle))
     {
-        xfconf_channel_set_bool (channel, "/general/wrap_windows", FALSE);
+        esconf_channel_set_bool (channel, "/general/wrap_windows", FALSE);
     }
 }
 
@@ -314,7 +314,7 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
     g_signal_connect (G_OBJECT (tile_on_move_check),
                       "toggled",
                       G_CALLBACK (cb_tile_on_move_check_toggled),
-                      xfwm4_channel);
+                      eswm1_channel);
 
     /* Bind easy properties */
     /* Cycling tab */
