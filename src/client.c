@@ -753,6 +753,7 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
 
 			c->width = rect.width;
 			c->height = rect.height;
+			c->flags |= CLIENT_FLAG_MAXIMIZED;
 		} else {
 	    if (mask & CWX)
   	  {

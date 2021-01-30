@@ -724,7 +724,7 @@ clientNetMoveResize (Client * c, XClientMessageEvent * ev)
             break;
     }
 
-    if (!FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN) || (c->screen_info->width > 960 && (c->type == WINDOW_NORMAL || c->type == WINDOW_DIALOG || c->type == WINDOW_MODAL_DIALOG || c->type == UNSET)))
+    if (!FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN))
     {
         if (resize && FLAG_TEST_ALL (c->eswm_flags, ESWM_FLAG_HAS_RESIZE | ESWM_FLAG_IS_RESIZABLE))
         {
