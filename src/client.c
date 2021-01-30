@@ -731,6 +731,8 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
     pwidth = c->width;
     pheight = c->height;
 
+		int is_mobile = 0;
+
 		if (c->screen_info->width <= 960 && (c->type == WINDOW_NORMAL || c->type == WINDOW_DIALOG || c->type == WINDOW_MODAL_DIALOG || c->type == UNSET))
 		{
 			GdkRectangle rect;
@@ -754,6 +756,7 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
 			c->width = rect.width;
 			c->height = rect.height;
 			c->flags |= CLIENT_FLAG_MAXIMIZED;
+			is_mobile = 1;
 		} else {
 	    if (mask & CWX)
   	  {
@@ -896,6 +899,15 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
     c->applied_geometry.y = c->y;
     c->applied_geometry.width = c->width;
     c->applied_geometry.height = c->height;
+
+		if (is_mobile) {	
+        setNetFrameExtents (c->screen_info->display_info,
+                            c->window,
+                            frameTop (c),
+                            frameLeft (c),
+                            frameRight (c),
+                            frameBottom (c));
+		}
 }
 
 void
