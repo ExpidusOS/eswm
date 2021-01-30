@@ -737,14 +737,14 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
   	  {
     	    if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
       	  {
-							if (wc->x + wc->width <= c->screen_info->width) c->x = wc->x;
+							c->x = 0;
 	        }
 	    }
   	  if (mask & CWY)
 	    {
 	        if (!FLAG_TEST (c->eswm_flags, ESWM_FLAG_MOVING_RESIZING))
 	        {
-							if (wc->y + wc->height <= c->screen_info->height) c->y = wc->y;
+							c->y = 0;
 	        }
 	    }
 
