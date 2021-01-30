@@ -733,7 +733,7 @@ clientConfigure (Client *c, XWindowChanges * wc, unsigned long mask, unsigned sh
 
 		int is_mobile = 0;
 
-		if (c->screen_info->width <= 960 && (c->type == WINDOW_NORMAL || c->type == WINDOW_DIALOG || c->type == WINDOW_MODAL_DIALOG || c->type == UNSET))
+		if (myScreenIsMobile(c->screen_info, clientGetMonitorIndex(c)) && (c->type == WINDOW_NORMAL || c->type == WINDOW_DIALOG || c->type == WINDOW_MODAL_DIALOG || c->type == UNSET))
 		{
 			GdkRectangle rect;
 			myScreenFindMonitorAtPoint(c->screen_info, frameX(c) + (frameWidth(c) / 2), frameY(c) + (frameHeight(c) / 2), &rect);

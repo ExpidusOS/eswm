@@ -310,4 +310,6 @@ void                     myScreenUpdateFontAttr                 (ScreenInfo *);
 void                     myScreenGetXineramaMonitorGeometry     (ScreenInfo *,
                                                                  gint,
                                                                  GdkRectangle *);
+gboolean myScreenIsMobile(ScreenInfo* screen_info, int i);
+
 #endif /* INC_SCREEN_H */

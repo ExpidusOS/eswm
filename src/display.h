@@ -33,6 +33,8 @@
 #include <X11/cursorfont.h>
 #include <X11/extensions/shape.h>
 
+#include <devident.h>
+
 #ifndef ShapeInput
 #define ShapeInput 2
 #endif
@@ -304,6 +306,7 @@ struct _DisplayInfo
     EswmDevices *devices;
     GSList *screens;
     GSList *clients;
+		devident_t* devident;
 
     gboolean have_shape;
     gboolean have_render;

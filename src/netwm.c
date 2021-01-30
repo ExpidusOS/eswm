@@ -1365,7 +1365,7 @@ clientWindowType (Client * c)
         c->initial_layer = c->win_layer;
     }
 
-		if (c->screen_info->width <= 960 && (c->type == WINDOW_NORMAL || c->type == WINDOW_DIALOG || c->type == WINDOW_MODAL_DIALOG || c->type == UNSET)) {	
+		if (myScreenIsMobile(c->screen_info, clientGetMonitorIndex(c)) && (c->type == WINDOW_NORMAL || c->type == WINDOW_DIALOG || c->type == WINDOW_MODAL_DIALOG || c->type == UNSET)) {	
       FLAG_UNSET (c->eswm_flags, ESWM_FLAG_HAS_MOVE | ESWM_FLAG_HAS_RESIZE | ESWM_FLAG_HAS_MAXIMIZE | ESWM_FLAG_IS_RESIZABLE | ESWM_FLAG_MOVING_RESIZING);
 		}
 

@@ -27,6 +27,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/extensions/shape.h>
+#include <X11/extensions/Xrandr.h>
 #include <X11/extensions/Xinerama.h>
 #include <glib.h>
 #include <gdk/gdk.h>
@@ -902,3 +903,24 @@ myScreenUpdateFontAttr (ScreenInfo *screen_info)
     pango_attr_list_insert (screen_info->pango_attr_list, attr);
 }
 
+gboolean myScreenIsMobile(ScreenInfo* screen_info, int i) {
+	XRRScreenResources* xrr_res;
+	XRROutputInfo* xrr_oinf;
+
+	xrr_res = XRRGetScreenResources(screen_info->display_info->dpy, screen_info->xroot);
+
+	for (int x = 0; x < xrr_res->noutput; x++) {
+		if (i == x) {
+			xrr_oinf = XRRGetOutputInfo(screen_info->display_info->dpy, xrr_res, xrr_res->outputs[x]);
+			if (!g_strcmp0(xrr_oinf->name, screen_info->display_info->devident->screen_name)) {
+				XRRFreeOutputInfo(xrr_oinf);
+				return screen_info->display_info->devident->type == DEVIDENT_TYPE_PHONE || screen_info->display_info->devident->type == DEVIDENT_TYPE_TABLET;
+			} else {
+				XRRFreeOutputInfo(xrr_oinf);
+			}
+		}
+	}
+
+	XRRFreeScreenResources(xrr_res);
+  return FALSE;
+}

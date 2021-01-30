@@ -226,7 +226,7 @@
                                          !FLAG_TEST(c->flags, CLIENT_FLAG_SKIP_TASKBAR))
 #define CLIENT_CAN_MAXIMIZE_WINDOW(c)   (FLAG_TEST_ALL(c->eswm_flags, ESWM_FLAG_HAS_MAXIMIZE | \
                                                                       ESWM_FLAG_IS_RESIZABLE) && \
-                                         !FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN) && c->screen_info->width > 960)
+                                         !FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN) && !myScreenIsMobile(c->screen_info, clientGetMonitorIndex(c)))
 #define CLIENT_CAN_FILL_WINDOW(c)       (FLAG_TEST(c->eswm_flags, ESWM_FLAG_HAS_RESIZE | \
                                                                   ESWM_FLAG_IS_RESIZABLE) && \
                                          !FLAG_TEST (c->flags, CLIENT_FLAG_FULLSCREEN | \

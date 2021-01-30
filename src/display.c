@@ -205,6 +205,12 @@ myDisplayInit (GdkDisplay *gdisplay)
     {
       default_display = display;
     }
+		GError* error = NULL;
+		if ((display->devident = devident_new(&error)) == NULL) {
+			g_error("Failed to identify the device: %s", error->message);
+			g_clear_error(&error);
+			exit(1);
+		}
 
     display->gdisplay = gdisplay;
     display->dpy = (Display *) gdk_x11_display_get_xdisplay (gdisplay);
@@ -384,6 +390,8 @@ myDisplayClose (DisplayInfo *display)
 
     g_free (display->devices);
     display->devices = NULL;
+
+		g_clear_pointer(&display->devident, devident_destroy);
 
     return display;
 }
